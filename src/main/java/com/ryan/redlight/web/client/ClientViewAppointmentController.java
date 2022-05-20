@@ -41,7 +41,7 @@ public class ClientViewAppointmentController {
         Client client = (Client) session.getAttribute("userInfo");
         // 创建预约
         MsgDeprecated msgDeprecated = viewAppointmentService.insertSelective(houseId,
-                client.getUserId(), viewTime);
+                client.getClientId(), viewTime);
         return "redirect:/houses/single?houseId=" + houseId;
     }
 }

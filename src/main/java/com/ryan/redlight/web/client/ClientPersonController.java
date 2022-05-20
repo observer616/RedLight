@@ -35,7 +35,7 @@ public class ClientPersonController {
     @LoginCheck
     @PostMapping(value = "/clients/update")
     public String update(@RequestParam("userInfo") Client client) {
-        MsgDeprecated msgDeprecated = clientService.updateByPrimaryKeySelective(client);
+//        MsgDeprecated msgDeprecated = clientService.updateByPrimaryKeySelective(client);
         return "redirect:/clients/get/single";
     }
 }

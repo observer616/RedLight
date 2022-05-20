@@ -34,14 +34,14 @@ public class AdminLoginController {
                              @RequestParam(value = "password") String password,
                              HttpSession session,
                              Model model) {
-        // 查找 user
+        // 查找 admin
         Admin getAdmin = adminService.selectByNickName(nickname);
         // 查找失败，附加错误信息
         if (getAdmin == null) {
             model.addAttribute("msg", new Msg("登陆失败", "用户不存在"));
             return "admin/login";
         } else if (!getAdmin.getPassword().equals(password)) {
-            model.addAttribute("msg", new Msg("登陆失败", "用户不存在"));
+            model.addAttribute("msg", new Msg("登陆失败", "密码错误"));
             return "admin/login";
         }
         // 查找成功，创建 session:

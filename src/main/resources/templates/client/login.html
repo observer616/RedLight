@@ -7,7 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!--page name-->
-    <title>管理员登陆</title>
+    <title>登陆</title>
     <!--base解决页面跳转后静态资源失效问题-->
     <base>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
@@ -46,11 +46,11 @@
 <body>
 <!--客户导航栏-->
 <div th:replace="client_kit::navbar_lr"></div>
-<!--管理员登陆-->
+<!--客户登陆-->
 <div class="page-header">
-    <h1 class="text-center">管理员登陆</h1>
+    <h1 class="text-center">登陆</h1>
 </div>
-<form id="loginForm" class="form-horizontal" method="post" th:action="@{/admin/session}"
+<form id="loginForm" class="form-horizontal" method="post" th:action="@{/client/session}"
       onsubmit="return check()">
     <div class="loginContent maincontainer container" style="width: 25%; margin: auto;">
         <div id="myTabContent" class="tab-content">
@@ -75,10 +75,10 @@
                     <strong th:text="${msg.head}">head</strong> <span
                         th:text="${msg.info}">message</span>
                 </div>
-                <!--跳转客户登陆-->
-                <a href="#" th:href="@{/login}">客户登陆</a>
                 <!--跳转客户注册-->
-                <a href="#" th:href="@{/register}">客户注册</a>
+                <a href="#" th:href="@{/register}">注册</a>
+                <!--跳转管理员登陆-->
+                <a href="#" th:href="@{/admin/login}">管理员登陆</a>
                 <!--提交-->
                 <div class="form-group">
                     <button type="submit" class="btn btn-success btn-lg btn-block">登录

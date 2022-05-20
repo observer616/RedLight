@@ -9,6 +9,10 @@ public class User {
     private String nickName;
 
     private String password;
+    private String username;
+    private String location;
+    private String email;
+    private String phone;
 
     @Override
     public String toString() {
@@ -22,14 +26,6 @@ public class User {
                 ", phone='" + phone + '\'' +
                 '}';
     }
-
-    private String username;
-
-    private String location;
-
-    private String email;
-
-    private String phone;
 
     public Integer getUserId() {
         return userId;

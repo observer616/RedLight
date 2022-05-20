@@ -16,12 +16,15 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"
           media="all"/>
     <!--Bootstrap-select CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/bootstrap-select/bootstrap-select.min.css"
+    <link rel="stylesheet" type="text/css"
+          href="../vendors/bootstrap-select/bootstrap-select.min.css"
           media="all"/>
     <!--Flexslider CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css"
+          media="all"/>
     <!--Owl_Carousel CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css"
+          media="all"/>
     <!--Linearicons Icons CSS-->
     <link rel="stylesheet" href="../vendors/linearicons/Linearicons.css">
     <!--Font-Awesome CSS-->
@@ -30,7 +33,8 @@
 
 
     <!--Theme Styles CSS-->
-    <link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{css/style.css}" media="all"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css"
+          th:href="@{css/style.css}" media="all"/>
 
 
     <script src="../js/jquery-1.12.0.min.js" th:src="@{js/jquery-1.12.0.min.js}"></script>
@@ -48,19 +52,17 @@
     <nav class="navbar navbar-default nav_custom row">
         <div class="container coustome-container">
             <div class="row collapse navbar-collapse" id="main_menu">
-                <!--右上角个人信息跳转-->
+                <!--右上角个人信息跳转、登陆注册跳转-->
                 <ul class="nav navbar-right nav_buttom">
-
                     <!--已登录 -->
-                    <!--todo 登陆后右上角消失-->
-                    <li th:if="${userInfo!=null}">
-                        <a href="#" th:text="${userInfo.userId}" th:href="@{/client/info}">用户名
+                    <li th:if="${session.clientInfo}">
+                        <a href="#" th:text="${session.clientInfo.username}"
+                           th:href="@{/client/info}">用户名
                             <i class="lnr lnr-arrow-right"></i></a>
                     </li>
-
                     <!--未登录-->
-                    <li th:if="${userInfo==null}">
-                        <a href="#" th:href="@{/login_register}">登录/注册
+                    <li th:unless="${session.clientInfo}">
+                        <a href="#" th:href="@{/login}">登录/注册
                             <i class="lnr lnr-arrow-right"></i></a>
                     </li>
                 </ul>

@@ -2,13 +2,12 @@ package com.ryan.redlight.service;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.MsgDeprecated;
 
 /**
  * @author Ryan
  */
 public interface ClientService {
-    Client selectByNickName(String nickName);
+    Client selectByNickName(String nickname);
 
     PageInfo<Client> selectAll(Integer pageNum);
 
@@ -16,10 +15,26 @@ public interface ClientService {
 
     PageInfo<Client> selectList(Integer pageNum, String condition);
 
-    MsgDeprecated insertSelective(Client record);
+    /**
+     * record.clientId==null,
+     * record.nickName!=null,
+     * record.password!=null,
+     *
+     * @param record client
+     * @return clientId
+     */
+    Integer insertSelective(Client record);
 
-    MsgDeprecated updateByPrimaryKeySelective(Client record);
+    /**
+     * @param record client
+     * @return row affected
+     */
+    Boolean updateByPrimaryKeySelective(Client record);
 
-    MsgDeprecated deleteByPrimaryKey(Integer clientId);
+    /**
+     * @param clientId clientId
+     * @return row affected
+     */
+    Boolean deleteByPrimaryKey(Integer clientId);
 
 }

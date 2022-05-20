@@ -19,7 +19,7 @@ import java.util.List;
  */
 @Controller
 @RequestMapping(value = "/admin/clients")
-public class AdminUserController {
+public class AdminClientController {
     @Autowired
     ClientService clientService;
 
@@ -43,7 +43,7 @@ public class AdminUserController {
     @PostMapping(value = "/create")
     public String create(@RequestParam(value = "client") Client client,
                          Model model) {
-        MsgDeprecated msgDeprecated = clientService.insertSelective(client);
+        clientService.insertSelective(client);
         // TODO: 2022/5/15 msgDeprecated model.addAttribute("msgDeprecated", msgDeprecated);
         return "redirect:/admin/clients/get/list";
     }
@@ -52,7 +52,7 @@ public class AdminUserController {
     @PostMapping(value = "/delete")
     public String delete(@RequestParam(value = "clientId") Integer clientId,
                          Model model) {
-        MsgDeprecated msgDeprecated = clientService.deleteByPrimaryKey(clientId);
+        clientService.deleteByPrimaryKey(clientId);
         // TODO: 2022/5/15 msgDeprecated model.addAttribute("msgDeprecated", msgDeprecated);
         return "redirect:/admin/clients/get/list";
     }
@@ -69,8 +69,9 @@ public class AdminUserController {
     @PostMapping(value = "/admin/clients/update")
     public String update(@RequestParam(value = "client") Client client,
                          Model model) {
-        MsgDeprecated msgDeprecated = clientService.updateByPrimaryKeySelective(client);
-        model.addAttribute("msg", msgDeprecated);
+//        todo
+        clientService.updateByPrimaryKeySelective(client);
+//        model.addAttribute("msg", msgDeprecated);
         model.addAttribute("client", client);
         return "admin/client_detail";
     }

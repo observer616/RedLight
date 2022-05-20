@@ -4,10 +4,8 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.mapper.ClientMapper;
 import com.ryan.redlight.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,12 +15,25 @@ import java.util.List;
  */
 @Service
 public class ClientServiceImpl implements ClientService {
-    @Autowired
+    final
     ClientMapper clientMapper;
 
+    public ClientServiceImpl(ClientMapper clientMapper) {
+        this.clientMapper = clientMapper;
+    }
+
     @Override
-    public Client selectByNickName(String nickName) {
-        return clientMapper.selectByNickName(nickName);
+    public Client selectByNickName(String nickname) {
+        return clientMapper.selectByNickname(nickname);
+    }
+
+    @Override
+    public PageInfo<Client> selectList(Integer pageNum, String condition) {
+        if (condition == null) {
+            return selectAll(pageNum);
+        } else {
+            return selectLike(pageNum, condition);
+        }
     }
 
     @Override
@@ -37,7 +48,7 @@ public class ClientServiceImpl implements ClientService {
     public PageInfo<Client> selectLike(Integer pageNum, String condition) {
         //设置待查字段
         Client record = new Client();
-        record.setNickName("");
+        record.setNickname("");
 
         PageHelper.startPage(pageNum, PageConfig.PAGE_SIZE);
         List<Client> list = clientMapper.selectLike(record, condition);
@@ -45,33 +56,24 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public MsgDeprecated insertSelective(Client record) {
-        Client duplicate = clientMapper.selectByNickName(record.getNickName());
+    public Integer insertSelective(Client record) {
+        Client duplicate = clientMapper.selectByNickname(record.getNickname());
         if (duplicate != null) {
-            return new MsgDeprecated(MsgDeprecated.STATE_FAILURE, "用户名已存在");
+            return null;
         }
-        clientMapper.insertSelective(record);
-        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS, "注册成功");
+        return clientMapper.insertSelective(record);
     }
 
     @Override
-    public MsgDeprecated updateByPrimaryKeySelective(Client record) {
-        clientMapper.updateByPrimaryKeySelective(record);
-        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
+    public Boolean updateByPrimaryKeySelective(Client record) {
+        int affectRow = clientMapper.updateByPrimaryKeySelective(record);
+        return affectRow != 0;
     }
 
     @Override
-    public MsgDeprecated deleteByPrimaryKey(Integer clientId) {
-        clientMapper.deleteByPrimaryKey(clientId);
-        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
+    public Boolean deleteByPrimaryKey(Integer clientId) {
+        int affectRow = clientMapper.deleteByPrimaryKey(clientId);
+        return affectRow != 0;
     }
 
-    @Override
-    public PageInfo<Client> selectList(Integer pageNum, String condition) {
-        if (condition == null) {
-            return selectAll(pageNum);
-        } else {
-            return selectLike(pageNum, condition);
-        }
-    }
 }

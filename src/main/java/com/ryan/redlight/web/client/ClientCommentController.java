@@ -40,7 +40,7 @@ public class ClientCommentController {
         // 组装对象
         Comment comment = new Comment();
         Client client = (Client) session.getAttribute("userInfo");
-        comment.setCreatorId(client.getUserId());
+        comment.setCreatorId(client.getClientId());
         comment.setInfo(info);
         MsgDeprecated msgDeprecated = commentService.insertSelective(comment);
 
@@ -54,7 +54,7 @@ public class ClientCommentController {
                                   Model model) {
         Client client = (Client) session.getAttribute("userInfo");
 
-        List<Comment> comments = (List<Comment>) commentService.selectAllByCreatorId(0, client.getUserId());
+        List<Comment> comments = (List<Comment>) commentService.selectAllByCreatorId(0, client.getClientId());
         // TODO: 2022/5/13 分页处理
         return "";
     }

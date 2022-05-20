@@ -7,7 +7,7 @@ public class Msg {
     private String head;
     private String info;
 
-    public Msg(){
+    public Msg() {
 
     }
 

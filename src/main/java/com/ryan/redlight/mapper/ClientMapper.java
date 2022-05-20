@@ -15,7 +15,7 @@ public interface ClientMapper {
 
     Client selectByPrimaryKey(Integer clientId);
 
-    Client selectByNickName(String nickName);
+    Client selectByNickname(String nickname);
 
     List<Client> selectAll();
 
