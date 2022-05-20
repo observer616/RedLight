@@ -31,8 +31,6 @@ public class AdminLoginController {
                              @RequestParam(value = "password") String password,
                              HttpSession session,
                              Model model) {
-        // TODO: 2022/5/19 test
-        System.out.println(nickname + " " + password);
         // 查找 user
         Admin getAdmin = adminService.selectByNickName(nickname);
         if (getAdmin == null
@@ -43,12 +41,9 @@ public class AdminLoginController {
         }
         model.addAttribute("msg", new Msg(Msg.STATE_SUCCESS, "登录成功"));
         // 查找成功，创建 session:
-        //      isLogin: true/false 已登陆
-        //      isAdmin: true/false
-        //      info:   Client/Admin
-        session.setAttribute("isLogin", true);
-        session.setAttribute("isAdmin", true);
-        session.setAttribute("userInfo", getAdmin);
+        //      adminInfo:   Admin
+        //      clientInfo:  Client
+        session.setAttribute("adminInfo", getAdmin);
         return "redirect:/admin/houses/get/list";
     }
 }
