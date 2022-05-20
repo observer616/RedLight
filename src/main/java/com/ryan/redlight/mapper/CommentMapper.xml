@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryan.redlight.mapper.CommentMapper">
+    <sql id="Base_Column_List">
+        comment_id as commentId, creator_id, create_time, info, is_replied, reply_id, reply_time, reply_info
+    </sql>
+    <select id="selectByPrimaryKey" resultType="com.ryan.redlight.entity.Comment" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from rl_comment
+        where comment_id = #{commentId,jdbcType=INTEGER}
+    </select>
+    <select id="selectAllByCreatorId" resultType="com.ryan.redlight.entity.Comment">
+        select
+        <include refid="Base_Column_List"/>
+        from rl_comment where creator_id = #{creatorId}
+    </select>
+    <select id="selectALL" resultType="com.ryan.redlight.entity.Comment">
+        select
+        <include refid="Base_Column_List"/>
+        from rl_comment
+        order by is_replied, create_time
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from rl_comment
+        where comment_id = #{commentId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.ryan.redlight.entity.Comment">
+        insert into rl_comment (comment_id, creator_id, create_time,
+                                info, is_replied, reply_id,
+                                reply_time, reply_info)
+        values (#{commentId,jdbcType=INTEGER}, #{creatorId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
+                #{info,jdbcType=VARCHAR}, #{isReplied,jdbcType=TINYINT}, #{replyId,jdbcType=INTEGER},
+                #{replyTime,jdbcType=TIMESTAMP}, #{replyInfo,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ryan.redlight.entity.Comment">
+        insert into rl_comment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="commentId != null">
+                comment_id,
+            </if>
+            <if test="creatorId != null">
+                creator_id,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="info != null">
+                info,
+            </if>
+            <if test="isReplied != null">
+                is_replied,
+            </if>
+            <if test="replyId != null">
+                reply_id,
+            </if>
+            <if test="replyTime != null">
+                reply_time,
+            </if>
+            <if test="replyInfo != null">
+                reply_info,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="commentId != null">
+                #{commentId,jdbcType=INTEGER},
+            </if>
+            <if test="creatorId != null">
+                #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="info != null">
+                #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="isReplied != null">
+                #{isReplied,jdbcType=TINYINT},
+            </if>
+            <if test="replyId != null">
+                #{replyId,jdbcType=INTEGER},
+            </if>
+            <if test="replyTime != null">
+                #{replyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="replyInfo != null">
+                #{replyInfo,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ryan.redlight.entity.Comment">
+        update rl_comment
+        <set>
+            <if test="creatorId != null">
+                creator_id = #{creatorId,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="info != null">
+                info = #{info,jdbcType=VARCHAR},
+            </if>
+            <if test="isReplied != null">
+                is_replied = #{isReplied,jdbcType=TINYINT},
+            </if>
+            <if test="replyId != null">
+                reply_id = #{replyId,jdbcType=INTEGER},
+            </if>
+            <if test="replyTime != null">
+                reply_time = #{replyTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="replyInfo != null">
+                reply_info = #{replyInfo,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where comment_id = #{commentId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ryan.redlight.entity.Comment">
+        update rl_comment
+        set creator_id  = #{creatorId,jdbcType=INTEGER},
+            create_time = #{createTime,jdbcType=TIMESTAMP},
+            info        = #{info,jdbcType=VARCHAR},
+            is_replied  = #{isReplied,jdbcType=TINYINT},
+            reply_id    = #{replyId,jdbcType=INTEGER},
+            reply_time  = #{replyTime,jdbcType=TIMESTAMP},
+            reply_info  = #{replyInfo,jdbcType=VARCHAR}
+        where comment_id = #{commentId,jdbcType=INTEGER}
+    </update>
+</mapper>

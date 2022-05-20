@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryan.redlight.mapper.HouseMapper">
+    <sql id="Base_Column_List">
+        house_id as houseId, is_sold, click, name, address, size, division, price, type, description, picture
+    </sql>
+    <select id="selectByPrimaryKey" resultType="com.ryan.redlight.entity.House" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from rl_house
+        where house_id = #{houseId,jdbcType=INTEGER}
+    </select>
+    <select id="selectLike" resultType="com.ryan.redlight.entity.House">
+        select
+        <include refid="Base_Column_List"/>
+        from rl_house
+        <where>
+            <if test="record.name != null">
+                or name like concat('%', #{condition}, '%')
+            </if>
+            <if test="record.address != null">
+                or address like concat('%', #{condition}, '%')
+            </if>
+            <if test="record.division != null">
+                or division like concat('%', #{condition}, '%')
+            </if>
+            <if test="record.type != null">
+                or type like concat('%', #{condition}, '%')
+            </if>
+        </where>
+    </select>
+    <select id="selectAll" resultType="com.ryan.redlight.entity.House">
+        select
+        <include refid="Base_Column_List"/>
+        from rl_house
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from rl_house
+        where house_id = #{houseId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.ryan.redlight.entity.House">
+        insert into rl_house (house_id, is_sold, click,
+                              name, address, size,
+                              division, price, type,
+                              description, picture)
+        values (#{houseId,jdbcType=INTEGER}, #{isSold,jdbcType=TINYINT}, #{click,jdbcType=INTEGER},
+                #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER},
+                #{division,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR},
+                #{description,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ryan.redlight.entity.House">
+        insert into rl_house
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="houseId != null">
+                house_id,
+            </if>
+            <if test="isSold != null">
+                is_sold,
+            </if>
+            <if test="click != null">
+                click,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="size != null">
+                size,
+            </if>
+            <if test="division != null">
+                division,
+            </if>
+            <if test="price != null">
+                price,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="picture != null">
+                picture,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="houseId != null">
+                #{houseId,jdbcType=INTEGER},
+            </if>
+            <if test="isSold != null">
+                #{isSold,jdbcType=TINYINT},
+            </if>
+            <if test="click != null">
+                #{click,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                #{size,jdbcType=INTEGER},
+            </if>
+            <if test="division != null">
+                #{division,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                #{price,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                #{picture,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ryan.redlight.entity.House">
+        update rl_house
+        <set>
+            <if test="isSold != null">
+                is_sold = #{isSold,jdbcType=TINYINT},
+            </if>
+            <if test="click != null">
+                click = #{click,jdbcType=INTEGER},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                address = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="size != null">
+                size = #{size,jdbcType=INTEGER},
+            </if>
+            <if test="division != null">
+                division = #{division,jdbcType=VARCHAR},
+            </if>
+            <if test="price != null">
+                price = #{price,jdbcType=INTEGER},
+            </if>
+            <if test="type != null">
+                type = #{type,jdbcType=VARCHAR},
+            </if>
+            <if test="description != null">
+                description = #{description,jdbcType=VARCHAR},
+            </if>
+            <if test="picture != null">
+                picture = #{picture,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where house_id = #{houseId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ryan.redlight.entity.House">
+        update rl_house
+        set is_sold     = #{isSold,jdbcType=TINYINT},
+            click       = #{click,jdbcType=INTEGER},
+            name        = #{name,jdbcType=VARCHAR},
+            address     = #{address,jdbcType=VARCHAR},
+            size        = #{size,jdbcType=INTEGER},
+            division    = #{division,jdbcType=VARCHAR},
+            price       = #{price,jdbcType=INTEGER},
+            type        = #{type,jdbcType=VARCHAR},
+            description = #{description,jdbcType=VARCHAR},
+            picture     = #{picture,jdbcType=VARCHAR}
+        where house_id = #{houseId,jdbcType=INTEGER}
+    </update>
+</mapper>

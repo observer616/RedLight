@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ryan.redlight.mapper.ClientMapper">
+    <sql id="Base_Column_List">
+        client_id as userId, nick_name, username, password, location, email, phone
+    </sql>
+    <select id="selectByPrimaryKey" resultType="com.ryan.redlight.entity.Client" parameterType="java.lang.Integer">
+        select
+        <include refid="Base_Column_List"/>
+        from rl_client
+        where client_id = #{clientId,jdbcType=INTEGER}
+    </select>
+    <select id="selectLike" resultType="com.ryan.redlight.entity.Client">
+        select
+        <include refid="Base_Column_List"/>
+        from rl_client
+        <where>
+            <if test="client.nickName != null">
+                or nick_name like concat('%', #{condition}, '%')
+            </if>
+        </where>
+    </select>
+    <select id="selectAll" resultType="com.ryan.redlight.entity.Client">
+        select client_id as userId,
+               nick_name,
+               username,
+               password,
+               location,
+               email,
+               phone
+        from rl_client
+    </select>
+    <select id="selectByNickName" resultType="com.ryan.redlight.entity.Client">
+        select client_id as userId,
+               nick_name,
+               username,
+               password,
+               location,
+               email,
+               phone
+        from rl_client
+        where nick_name = #{nickName}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from rl_client
+        where client_id = #{clientId,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="com.ryan.redlight.entity.Client">
+        insert into rl_client (client_id, nick_name, username,
+                               password, location, email,
+                               phone)
+        values (#{clientId,jdbcType=INTEGER}, #{nickName,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR},
+                #{password,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+                #{phone,jdbcType=VARCHAR})
+    </insert>
+    <insert id="insertSelective" parameterType="com.ryan.redlight.entity.Client">
+        insert into rl_client
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="clientId != null">
+                client_id,
+            </if>
+            <if test="nickName != null">
+                nick_name,
+            </if>
+            <if test="username != null">
+                username,
+            </if>
+            <if test="password != null">
+                password,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="phone != null">
+                phone,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="clientId != null">
+                #{clientId,jdbcType=INTEGER},
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                #{phone,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ryan.redlight.entity.Client">
+        update rl_client
+        <set>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="username != null">
+                username = #{username,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null">
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="location != null">
+                location = #{location,jdbcType=VARCHAR},
+            </if>
+            <if test="email != null">
+                email = #{email,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                phone = #{phone,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where client_id = #{clientId,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ryan.redlight.entity.Client">
+        update rl_client
+        set nick_name = #{nickName,jdbcType=VARCHAR},
+            username  = #{username,jdbcType=VARCHAR},
+            password  = #{password,jdbcType=VARCHAR},
+            location  = #{location,jdbcType=VARCHAR},
+            email     = #{email,jdbcType=VARCHAR},
+            phone     = #{phone,jdbcType=VARCHAR}
+        where client_id = #{clientId,jdbcType=INTEGER}
+    </update>
+</mapper>

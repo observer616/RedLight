@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head(title)">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!--page name-->
+    <title th:text="${title}">title</title>
+    <!--base解决页面跳转后静态资源失效问题-->
+    <base th:href="@{/}">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+    <!--Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"
+          media="all"/>
+    <!--Bootstrap-select CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/bootstrap-select/bootstrap-select.min.css"
+          media="all"/>
+    <!--Flexslider CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css" media="all"/>
+    <!--Owl_Carousel CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css" media="all"/>
+    <!--Linearicons Icons CSS-->
+    <link rel="stylesheet" href="../vendors/linearicons/Linearicons.css">
+    <!--Font-Awesome CSS-->
+    <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.min.css">
+    <!-- Fonts -->
+
+
+    <!--Theme Styles CSS-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css" th:href="@{css/style.css}" media="all"/>
+
+
+    <script src="../js/jquery-1.12.0.min.js" th:src="@{js/jquery-1.12.0.min.js}"></script>
+    <script src="../js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="static/js/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="static/js/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<div th:fragment="navbar">
+    <nav class="navbar navbar-default nav_custom row">
+        <div class="container coustome-container">
+            <div class="row collapse navbar-collapse" id="main_menu">
+                <!--右上角个人信息跳转-->
+                <ul class="nav navbar-right nav_buttom">
+
+                    <!--已登录 -->
+                    <!--todo 登陆后右上角消失-->
+                    <li th:if="${userInfo!=null}">
+                        <a href="#" th:text="${userInfo.userId}" th:href="@{/client/info}">用户名
+                            <i class="lnr lnr-arrow-right"></i></a>
+                    </li>
+
+                    <!--未登录-->
+                    <li th:if="${userInfo==null}">
+                        <a href="#" th:href="@{/login_register}">登录/注册
+                            <i class="lnr lnr-arrow-right"></i></a>
+                    </li>
+                </ul>
+
+                <!--页面导航-->
+                <!--todo 页面导航链接-->
+                <ul class="nav navbar-nav navbar-menu">
+                    <li><a href="../tourist/home.html" th:href="@{/home}">首页</a></li>
+                    <li><a href="../tourist/" th:href="@{/houses}">房屋</a></li>
+                    <li><a href="property_single.html">留言</a></li>
+                </ul>
+            </div><!-- End navbar-collapse -->
+        </div>
+    </nav>
+</div>
+<!--todo 面包屑导航-->
+<!--&lt;!&ndash; Banner area &ndash;&gt;-->
+<!--<section class="banner-area row">-->
+<!--    <h2>注册</h2>-->
+<!--    <div class="bottom-menu-area">-->
+<!--        <a href="index.html"></a>-->
+<!--        <i class="lnr lnr-chevron-right"></i>-->
+<!--        <a href="#">Property</a>-->
+<!--        <i class="lnr lnr-chevron-right"></i>-->
+<!--        <a href="property_list.html">Property list</a>-->
+<!--    </div>-->
+<!--</section>-->
+
+
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="client_kit::head(title='红光社区住宅销售系统')">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--导航栏-->
+<div th:replace="client_kit::navbar"></div>
+<!--信息展示-->
+<div>
+    <div class="Building-University">
+        <div class="Building">
+            <img src="../img/property_listing/1.jpg" th:src="@{${house.picture}}" alt="">
+        </div>
+        <div class="Building-content">
+            <div class="right-area">
+                <!--标题-->
+                <h3 th:text="${house.name}">Building Rent For University</h3>
+                <!--信息-->
+                <ul class="info">
+                    <li>
+                        <i class="lnr lnr-tag"></i> 面积: <var th:text="${house.size}">未知</var>
+                    </li>
+                    <li>
+                        <i class="lnr lnr-tag"></i> 地址: <var th:text="${house.address}">未知</var>
+                    </li>
+                    <li>
+                        <i class="lnr lnr-tag"></i> 价格: <var th:text="${house.price}">未知</var>
+                    </li>
+                    <li>
+                        <i class="lnr lnr-tag"></i> 区域: <var th:text="${house.division}">未知</var>
+                    </li>
+                    <li>
+                        <i class="lnr lnr-tag"></i> 点击数: <var th:text="${house.click}">未知</var>
+                    </li>
+                    <li>
+                        <i class="lnr lnr-tag"></i> 类型: <var th:text="${house.type}">未知</var>
+                    </li>
+                    <li>
+                        <i class="lnr lnr-tag"></i> 描述: <var th:text="${house.description}">未知</var>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div th:text="${house.description}">details</div>
+</div>
+
+<!--todo 看房预约-->
+<form class="navbar-form navbar-right" th:action="@{'/client/view_appointment/create?houseId='+${house.houseId}}"
+      method="post">
+    <div class="form-group">
+        <input type="date" class="form-control form-custom" th:name="date">
+        <input type="time" class="form-control form-custom" th:name="time">
+    </div>
+    <button type="submit" class="btn btn-submit">预约看房</button>
+</form>
+
+</body>
+</html>

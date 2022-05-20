@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!--page name-->
+    <title>title</title>
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+    <!--Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"
+          media="all"/>
+    <!--Bootstrap-select CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/bootstrap-select/bootstrap-select.min.css"
+          media="all"/>
+    <!--Flexslider CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css" media="all"/>
+    <!--Owl_Carousel CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css" media="all"/>
+    <!--Linearicons Icons CSS-->
+    <link rel="stylesheet" href="../vendors/linearicons/Linearicons.css">
+    <!--Font-Awesome CSS-->
+    <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.min.css">
+    <!-- Fonts -->
+
+
+    <!--Theme Styles CSS-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="all"/>
+
+
+    <script src="../js/jquery-1.12.0.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/echarts.min.js"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="static/js/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="static/js/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+<body>
+<!--todo 无内容？-->
+<!--导航栏-->
+
+<!--可视化-->
+<div id="sales_count" style="width: 600px;height:400px;"></div>
+<script type="text/javascript">
+    var myChart = echarts.init(document.getElementById('sales_count'));
+    var option = {
+        xAxis: {
+            type: 'category',
+            name: '房屋类型',
+            data: ['一居', '二居', '三居', '四居', '五居']
+        },
+        yAxis: {
+            type: 'value',
+            name: '销量'
+        },
+        series: [
+            {
+                data: [120, 200, 150, 80, 70],
+                type: 'bar'
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+</script>
+
+</body>
+</html>
