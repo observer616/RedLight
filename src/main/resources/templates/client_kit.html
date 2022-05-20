@@ -43,6 +43,7 @@
     <![endif]-->
 </head>
 <body>
+<!--kit: navbar-->
 <div th:fragment="navbar">
     <nav class="navbar navbar-default nav_custom row">
         <div class="container coustome-container">
@@ -74,6 +75,23 @@
             </div><!-- End navbar-collapse -->
         </div>
     </nav>
+</div>
+<!--kit: navbar for login/register-->
+<div th:fragment="navbar_lr">
+    <nav class="navbar navbar-default nav_custom row">
+        <div class="container coustome-container">
+            <div class="row collapse navbar-collapse" id="main_menu_lr">
+                <!--页面导航-->
+                <!--todo 页面导航链接-->
+                <ul class="nav navbar-nav navbar-menu">
+                    <li><a href="../tourist/home.html" th:href="@{/home}">首页</a></li>
+                    <li><a href="../tourist/" th:href="@{/houses}">房屋</a></li>
+                    <li><a href="property_single.html">留言</a></li>
+                </ul>
+            </div><!-- End navbar-collapse -->
+        </div>
+    </nav>
+
 </div>
 <!--todo 面包屑导航-->
 <!--&lt;!&ndash; Banner area &ndash;&gt;-->

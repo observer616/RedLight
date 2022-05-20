@@ -1,7 +1,7 @@
 package com.ryan.redlight.web.client;
 
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.interceptor.LoginCheck;
 import com.ryan.redlight.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class ClientPersonController {
     @LoginCheck
     @PostMapping(value = "/clients/update")
     public String update(@RequestParam("userInfo") Client client) {
-        Msg msg = clientService.updateByPrimaryKeySelective(client);
+        MsgDeprecated msgDeprecated = clientService.updateByPrimaryKeySelective(client);
         return "redirect:/clients/get/single";
     }
 }

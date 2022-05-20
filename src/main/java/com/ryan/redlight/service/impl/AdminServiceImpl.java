@@ -1,7 +1,7 @@
 package com.ryan.redlight.service.impl;
 
 import com.ryan.redlight.entity.Admin;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.mapper.AdminMapper;
 import com.ryan.redlight.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,8 +21,8 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public Msg insertSelective(Admin record) {
+    public MsgDeprecated insertSelective(Admin record) {
         adminMapper.insertSelective(record);
-        return new Msg(Msg.STATE_SUCCESS);
+        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
     }
 }

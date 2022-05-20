@@ -7,15 +7,15 @@
 <body>
 <!--todo 消息弹出-->
 <div>
-    <div class="alert alert-success alert-dismissible" role="alert" th:if="${msg.state} eq 'success'"
-         th:text="${msg.getMsg()}">
+    <div class="alert alert-success alert-dismissible" role="alert" th:if="${msgDeprecated.state} eq 'success'"
+         th:text="${msgDeprecated.getMsg()}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                 aria-hidden="true">&times;</span>
         </button>
         success
     </div>
-    <div class="alert alert-warning alert-dismissible" role="alert" th:if="${msg.state} eq 'failure'"
-         th:text="${msg.getMsg()}">
+    <div class="alert alert-warning alert-dismissible" role="alert" th:if="${msgDeprecated.state} eq 'failure'"
+         th:text="${msgDeprecated.getMsg()}">
         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                 aria-hidden="true">&times;</span>
         </button>

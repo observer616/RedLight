@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.mapper.ClientMapper;
 import com.ryan.redlight.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,25 +45,25 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Msg insertSelective(Client record) {
+    public MsgDeprecated insertSelective(Client record) {
         Client duplicate = clientMapper.selectByNickName(record.getNickName());
         if (duplicate != null) {
-            return new Msg(Msg.STATE_FAILURE, "用户名已存在");
+            return new MsgDeprecated(MsgDeprecated.STATE_FAILURE, "用户名已存在");
         }
         clientMapper.insertSelective(record);
-        return new Msg(Msg.STATE_SUCCESS, "注册成功");
+        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS, "注册成功");
     }
 
     @Override
-    public Msg updateByPrimaryKeySelective(Client record) {
+    public MsgDeprecated updateByPrimaryKeySelective(Client record) {
         clientMapper.updateByPrimaryKeySelective(record);
-        return new Msg(Msg.STATE_SUCCESS);
+        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
     }
 
     @Override
-    public Msg deleteByPrimaryKey(Integer clientId) {
+    public MsgDeprecated deleteByPrimaryKey(Integer clientId) {
         clientMapper.deleteByPrimaryKey(clientId);
-        return new Msg(Msg.STATE_SUCCESS);
+        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
     }
 
     @Override

@@ -1,7 +1,7 @@
 package com.ryan.redlight.web.client;
 
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.service.HouseService;
 import com.ryan.redlight.service.ViewAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class ClientViewAppointmentController {
 
         Client client = (Client) session.getAttribute("userInfo");
         // 创建预约
-        Msg msg = viewAppointmentService.insertSelective(houseId,
+        MsgDeprecated msgDeprecated = viewAppointmentService.insertSelective(houseId,
                 client.getUserId(), viewTime);
         return "redirect:/houses/single?houseId=" + houseId;
     }

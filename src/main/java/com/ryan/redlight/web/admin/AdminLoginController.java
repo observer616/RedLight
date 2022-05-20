@@ -3,7 +3,6 @@ package com.ryan.redlight.web.admin;
 import com.ryan.redlight.entity.Admin;
 import com.ryan.redlight.entity.Msg;
 import com.ryan.redlight.service.AdminService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,8 +16,12 @@ import javax.servlet.http.HttpSession;
  */
 @Controller
 public class AdminLoginController {
-    @Autowired
+    final
     AdminService adminService;
+
+    public AdminLoginController(AdminService adminService) {
+        this.adminService = adminService;
+    }
 
     @GetMapping(value = "/admin/login")
     public String loginPage() {
@@ -33,13 +36,14 @@ public class AdminLoginController {
                              Model model) {
         // 查找 user
         Admin getAdmin = adminService.selectByNickName(nickname);
-        if (getAdmin == null
-                || !getAdmin.getPassword().equals(password)) {
-            // 查找失败，附加错误信息
-            model.addAttribute("msg", new Msg(Msg.STATE_FAILURE, "用户名或密码错误"));
+        // 查找失败，附加错误信息
+        if (getAdmin == null) {
+            model.addAttribute("msg", new Msg("登陆失败", "用户不存在"));
+            return "admin/login";
+        } else if (!getAdmin.getPassword().equals(password)) {
+            model.addAttribute("msg", new Msg("登陆失败", "用户不存在"));
             return "admin/login";
         }
-        model.addAttribute("msg", new Msg(Msg.STATE_SUCCESS, "登录成功"));
         // 查找成功，创建 session:
         //      adminInfo:   Admin
         //      clientInfo:  Client

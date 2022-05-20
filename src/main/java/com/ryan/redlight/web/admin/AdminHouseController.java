@@ -2,7 +2,7 @@ package com.ryan.redlight.web.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.House;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.interceptor.AdminCheck;
 import com.ryan.redlight.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,8 +28,8 @@ public class AdminHouseController {
     @PostMapping(value = "/create")
     public String create(@ModelAttribute(value = "house") House house,
                          Model model) {
-        Msg msg = houseService.insertSelective(house);
-        // TODO: 2022/5/15 msg model.addAttribute("msg", msg);
+        MsgDeprecated msgDeprecated = houseService.insertSelective(house);
+        // TODO: 2022/5/15 msgDeprecated model.addAttribute("msgDeprecated", msgDeprecated);
         return "redirect:/admin/houses/get/list";
     }
 
@@ -61,8 +61,8 @@ public class AdminHouseController {
     @PostMapping(value = "/delete")
     public String delete(@RequestParam(value = "houseId") Integer houseId,
                          Model model) {
-        Msg msg = houseService.deleteByPrimaryKey(houseId);
-        // TODO: 2022/5/15 msg model.addAttribute("msg", msg);
+        MsgDeprecated msgDeprecated = houseService.deleteByPrimaryKey(houseId);
+        // TODO: 2022/5/15 msgDeprecated model.addAttribute("msgDeprecated", msgDeprecated);
         return "redirect:/admin/houses/get/list";
     }
 
@@ -79,8 +79,8 @@ public class AdminHouseController {
     @PostMapping(value = "/update")
     public String update(@ModelAttribute(value = "house") House house,
                          Model model) {
-        Msg msg = houseService.updateByPrimaryKeySelective(house);
-        model.addAttribute("msg", msg);
+        MsgDeprecated msgDeprecated = houseService.updateByPrimaryKeySelective(house);
+        model.addAttribute("msg", msgDeprecated);
         model.addAttribute("house", house);
         return "admin/house_detail";
     }

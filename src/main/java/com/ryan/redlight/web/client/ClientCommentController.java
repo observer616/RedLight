@@ -2,7 +2,7 @@ package com.ryan.redlight.web.client;
 
 import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.Comment;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.interceptor.LoginCheck;
 import com.ryan.redlight.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,9 +42,9 @@ public class ClientCommentController {
         Client client = (Client) session.getAttribute("userInfo");
         comment.setCreatorId(client.getUserId());
         comment.setInfo(info);
-        Msg msg = commentService.insertSelective(comment);
+        MsgDeprecated msgDeprecated = commentService.insertSelective(comment);
 
-        model.addAttribute("Msg", msg);
+        model.addAttribute("Msg", msgDeprecated);
         return "redirect:comments/get/list";
     }
 

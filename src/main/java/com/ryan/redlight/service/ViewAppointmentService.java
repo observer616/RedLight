@@ -1,7 +1,7 @@
 package com.ryan.redlight.service;
 
 import com.github.pagehelper.PageInfo;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.entity.ViewAppointment;
 
 import java.util.Date;
@@ -14,9 +14,9 @@ public interface ViewAppointmentService {
 
     PageInfo<ViewAppointment> selectAllByCreatorId(Integer pageNum, Integer creatorId);
 
-    Msg insertSelective(ViewAppointment record);
+    MsgDeprecated insertSelective(ViewAppointment record);
 
-    Msg updateByPrimaryKeySelective(ViewAppointment record);
+    MsgDeprecated updateByPrimaryKeySelective(ViewAppointment record);
 
-    Msg insertSelective(Integer houseId, Integer clientId, Date viewTime);
+    MsgDeprecated insertSelective(Integer houseId, Integer clientId, Date viewTime);
 }

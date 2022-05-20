@@ -44,31 +44,61 @@
 <!--客户导航栏-->
 <div th:replace="client_kit::navbar"></div>
 <!--管理员登陆-->
-<!--todo 非空检查、格式检查-->
-<form id="loginClientForm" class="form-horizontal" method="post" th:action="@{/admin/session}">
-    <div class="modal-body">
-        <div class="form-group">
-            <label class="control-label col-lg-3">用户昵称：</label>
-            <div class="col-lg-9">
-                <input type="text" value="" name="nickname" placeholder="nickname" class="form-control"
-                       th:name="nickname"></br>
+<div class="page-header">
+    <h1 class="text-center">管理员登陆</h1>
+</div>
+<form id="loginClientForm" class="form-horizontal" method="post" th:action="@{/admin/session}"  onsubmit="return check()">
+    <div class="loginContent maincontainer container" style="width: 25%; margin: auto;">
+        <div id="myTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="userLogin">
+                <div class="form-group">
+                    <label for="nickname">用户昵称</label>
+                    <input type="text" class="form-control" id="nickname" placeholder="nickname"
+                           th:name="nickname">
+                </div>
+                <div class="form-group">
+                    <label for="password">密码</label>
+                    <input type="password" class="form-control" id="password" placeholder="password"
+                           th:name="password">
+                </div>
+                <!--消息提示-->
+                <div class="alert alert-warning" role="alert" th:if="${msg}">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <strong th:text="${msg.head}">head</strong> <span th:text="${msg.info}">message</span>
+                </div>
+                <!--跳转客户登陆-->
+                <!--todo update url-->
+                <a href="#" th:href="@{/login_register}">客户登陆</a>
+                <!--跳转客户注册-->
+                <!--todo update url-->
+                <a href="#" th:href="@{/login_register}">客户注册</a>
+                <!--提交-->
+                <div class="form-group">
+                    <button type="submit" class="btn btn-success btn-lg btn-block">登录</button>
+                </div>
             </div>
         </div>
-        <div class="form-group">
-            <label class="control-label col-lg-3">密码：</label>
-            <div class="col-lg-9">
-                <input type="text" placeholder="password" value="" name="password" class="form-control"
-                       th:name="password">
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <!--<button class="btn btn-default" type="button" data-dismiss="modal">关闭</button>-->
-        <button class="btn btn-success" type="button" onclick="form.submit();">提交</button>
     </div>
 </form>
-<!--跳转客户登陆-->
-<!--todo update url-->
-<a href="#" th:href="@{/login_register}">客户登陆</a>
+<script type="text/javascript">
+    // 可以用 form.required 替代
+    function check() {
+        // 用户名检查
+        const nickname = document.getElementById("nickname").value;
+        if (nickname == null || nickname === '') {
+            alert("用户名不能为空");
+            return false;
+        }
+        // 密码检查
+        const password = document.getElementById("password").value;
+        if (password == null || password === '') {
+            alert("密码不能为空");
+            return false;
+        }
+        return true;
+    }
+</script>
+
 </body>
 </html>

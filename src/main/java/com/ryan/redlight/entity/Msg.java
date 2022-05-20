@@ -4,47 +4,32 @@ package com.ryan.redlight.entity;
  * @author Ryan
  */
 public class Msg {
-    public final static String STATE_SUCCESS = "success";
-    public final static String STATE_FAILURE = "failure";
-    private String state;
-    private String msg;
-    private Integer code;
+    private String head;
+    private String info;
 
-    public Msg() {
+    public Msg(){
+
     }
 
-    public Msg(String state) {
-        setState(state);
+    public Msg(String head, String info) {
+        this();
+        this.head = head;
+        this.info = info;
     }
 
-    public Msg(String state, String msg) {
-        setState(state);
-        setMsg(msg);
+    public String getHead() {
+        return head;
     }
 
-    public Integer getCode() {
-        return code;
+    public void setHead(String head) {
+        this.head = head;
     }
 
-    public void setCode(Integer code) {
-        this.code = code;
+    public String getInfo() {
+        return info;
     }
 
-    public String getMsg() {
-        return msg;
+    public void setInfo(String info) {
+        this.info = info;
     }
-
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    ;
 }

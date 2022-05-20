@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.Comment;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.mapper.CommentMapper;
 import com.ryan.redlight.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,12 +29,12 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public Msg insertSelective(Comment record) {
+    public MsgDeprecated insertSelective(Comment record) {
         return null;
     }
 
     @Override
-    public Msg updateByPrimaryKeySelective(Comment record) {
+    public MsgDeprecated updateByPrimaryKeySelective(Comment record) {
         return null;
     }
 

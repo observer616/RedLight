@@ -2,7 +2,7 @@ package com.ryan.redlight.service;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.House;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 
 /**
  * @author Ryan
@@ -16,9 +16,9 @@ public interface HouseService {
 
     House selectByPrimaryKey(Integer houseId);
 
-    Msg insertSelective(House record);
+    MsgDeprecated insertSelective(House record);
 
-    Msg updateByPrimaryKeySelective(House record);
+    MsgDeprecated updateByPrimaryKeySelective(House record);
 
-    Msg deleteByPrimaryKey(Integer clientId);
+    MsgDeprecated deleteByPrimaryKey(Integer clientId);
 }

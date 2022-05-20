@@ -2,7 +2,7 @@ package com.ryan.redlight.web.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.interceptor.AdminCheck;
 import com.ryan.redlight.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,8 +43,8 @@ public class AdminUserController {
     @PostMapping(value = "/create")
     public String create(@RequestParam(value = "client") Client client,
                          Model model) {
-        Msg msg = clientService.insertSelective(client);
-        // TODO: 2022/5/15 msg model.addAttribute("msg", msg);
+        MsgDeprecated msgDeprecated = clientService.insertSelective(client);
+        // TODO: 2022/5/15 msgDeprecated model.addAttribute("msgDeprecated", msgDeprecated);
         return "redirect:/admin/clients/get/list";
     }
 
@@ -52,8 +52,8 @@ public class AdminUserController {
     @PostMapping(value = "/delete")
     public String delete(@RequestParam(value = "clientId") Integer clientId,
                          Model model) {
-        Msg msg = clientService.deleteByPrimaryKey(clientId);
-        // TODO: 2022/5/15 msg model.addAttribute("msg", msg);
+        MsgDeprecated msgDeprecated = clientService.deleteByPrimaryKey(clientId);
+        // TODO: 2022/5/15 msgDeprecated model.addAttribute("msgDeprecated", msgDeprecated);
         return "redirect:/admin/clients/get/list";
     }
 
@@ -69,8 +69,8 @@ public class AdminUserController {
     @PostMapping(value = "/admin/clients/update")
     public String update(@RequestParam(value = "client") Client client,
                          Model model) {
-        Msg msg = clientService.updateByPrimaryKeySelective(client);
-        model.addAttribute("msg", msg);
+        MsgDeprecated msgDeprecated = clientService.updateByPrimaryKeySelective(client);
+        model.addAttribute("msg", msgDeprecated);
         model.addAttribute("client", client);
         return "admin/client_detail";
     }

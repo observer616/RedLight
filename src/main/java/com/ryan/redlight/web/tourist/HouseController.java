@@ -2,7 +2,7 @@ package com.ryan.redlight.web.tourist;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.House;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.entity.ViewAppointment;
 import com.ryan.redlight.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class HouseController {
                            Model model) {
         House house = houseService.selectByPrimaryKey(houseId);
         if (house == null) {
-            model.addAttribute("msg", new Msg(Msg.STATE_FAILURE, "未找到该房屋信息"));
+            model.addAttribute("msg", new MsgDeprecated(MsgDeprecated.STATE_FAILURE, "未找到该房屋信息"));
             return "redirect:/houses";
         }
         model.addAttribute("house", house);

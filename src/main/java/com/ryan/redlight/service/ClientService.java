@@ -2,7 +2,7 @@ package com.ryan.redlight.service;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 
 /**
  * @author Ryan
@@ -16,10 +16,10 @@ public interface ClientService {
 
     PageInfo<Client> selectList(Integer pageNum, String condition);
 
-    Msg insertSelective(Client record);
+    MsgDeprecated insertSelective(Client record);
 
-    Msg updateByPrimaryKeySelective(Client record);
+    MsgDeprecated updateByPrimaryKeySelective(Client record);
 
-    Msg deleteByPrimaryKey(Integer clientId);
+    MsgDeprecated deleteByPrimaryKey(Integer clientId);
 
 }

@@ -1,7 +1,7 @@
 package com.ryan.redlight.web.tourist;
 
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.entity.User;
 import com.ryan.redlight.service.AdminService;
 import com.ryan.redlight.service.ClientService;
@@ -31,7 +31,7 @@ public class LoginRegisterController {
     public String getPage(Model model) {
         User user = new User();
         model.addAttribute("user", user);
-        model.addAttribute("msg", new Msg(null));
+        model.addAttribute("msg", new MsgDeprecated(null));
         return "tourist/login_register";
     }
 
@@ -46,10 +46,10 @@ public class LoginRegisterController {
         if (getUser == null
                 || !getUser.getPassword().equals(password)) {
             // 查找失败，附加错误信息
-            model.addAttribute("msg", new Msg(Msg.STATE_FAILURE, "用户名或密码错误"));
+            model.addAttribute("msg", new MsgDeprecated(MsgDeprecated.STATE_FAILURE, "用户名或密码错误"));
             return "tourist/login_register";
         }
-        model.addAttribute("msg", new Msg(Msg.STATE_SUCCESS, "登录成功"));
+        model.addAttribute("msg", new MsgDeprecated(MsgDeprecated.STATE_SUCCESS, "登录成功"));
         // 查找成功，创建 session:
         //      isLogin: true/false 已登陆
         //      isAdmin: true/false
@@ -78,10 +78,10 @@ public class LoginRegisterController {
         if (getUser == null
                 || !getUser.getPassword().equals(password)) {
             // 查找失败，附加错误信息
-            model.addAttribute("msg", new Msg(Msg.STATE_FAILURE, "用户名或密码错误"));
+            model.addAttribute("msg", new MsgDeprecated(MsgDeprecated.STATE_FAILURE, "用户名或密码错误"));
             return "tourist/login_register";
         }
-        model.addAttribute("msg", new Msg(Msg.STATE_SUCCESS, "登录成功"));
+        model.addAttribute("msg", new MsgDeprecated(MsgDeprecated.STATE_SUCCESS, "登录成功"));
         // 查找成功，创建 session:
         //      isLogin: true/false 已登陆
         //      isAdmin: true/false
@@ -103,9 +103,9 @@ public class LoginRegisterController {
     public Object registerClient(Model model,
                                  @ModelAttribute(value = "user") User user) {
         Client client = new Client(user);
-        Msg msg = clientService.insertSelective(client);
-        if (msg == null || msg.getState().equals(Msg.STATE_FAILURE)) {
-            model.addAttribute("msg", msg);
+        MsgDeprecated msgDeprecated = clientService.insertSelective(client);
+        if (msgDeprecated == null || msgDeprecated.getState().equals(MsgDeprecated.STATE_FAILURE)) {
+            model.addAttribute("msg", msgDeprecated);
             return "tourist/login_register";
         }
         model.addAttribute("msg", "注册成功，请登录");
