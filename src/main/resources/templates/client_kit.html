@@ -55,13 +55,13 @@
                 <!--右上角个人信息跳转、登陆注册跳转-->
                 <ul class="nav navbar-right nav_buttom">
                     <!--已登录 -->
-                    <li th:if="${session.clientInfo}">
-                        <a href="#" th:text="${session.clientInfo.username}"
+                    <li th:if="${session.clientInfo!=null}">
+                        <a href="#" th:text="${session.clientInfo.nickname}"
                            th:href="@{/client/info}">用户名
                             <i class="lnr lnr-arrow-right"></i></a>
                     </li>
                     <!--未登录-->
-                    <li th:unless="${session.clientInfo}">
+                    <li th:unless="${session.clientInfo!=null}">
                         <a href="#" th:href="@{/login}">登录/注册
                             <i class="lnr lnr-arrow-right"></i></a>
                     </li>
@@ -71,7 +71,7 @@
                 <!--todo 页面导航链接-->
                 <ul class="nav navbar-nav navbar-menu">
                     <li><a href="../tourist/home.html" th:href="@{/home}">首页</a></li>
-                    <li><a href="../tourist/" th:href="@{/houses}">房屋</a></li>
+                    <li><a href="../tourist/" th:href="@{/houses/get/list}">房屋</a></li>
                     <li><a href="property_single.html">留言</a></li>
                 </ul>
             </div><!-- End navbar-collapse -->
@@ -87,7 +87,7 @@
                 <!--todo 页面导航链接-->
                 <ul class="nav navbar-nav navbar-menu">
                     <li><a href="../tourist/home.html" th:href="@{/home}">首页</a></li>
-                    <li><a href="../tourist/" th:href="@{/houses}">房屋</a></li>
+                    <li><a href="../tourist/" th:href="@{/houses/get/list}">房屋</a></li>
                     <li><a href="property_single.html">留言</a></li>
                 </ul>
             </div><!-- End navbar-collapse -->

@@ -1,5 +1,7 @@
 package com.ryan.redlight.interceptor;
 
+import com.ryan.redlight.entity.Admin;
+import com.ryan.redlight.entity.Client;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -23,10 +25,11 @@ public class LoginInterceptor implements HandlerInterceptor {
             }
         }
         // 检查权限
-        Boolean isLogin = (Boolean) (session.getAttribute("isLogin"));
-        if (isLogin == null || !isLogin) {
-            // todo response.sendRedirect("/login");
-            response.sendError(403, "非管理员权限");
+        Client client = (Client) session.getAttribute("clientInfo");
+        Admin admin = (Admin) session.getAttribute("adminInfo");
+        if (client == null && admin == null) {
+            response.sendRedirect("/login");
+//            response.sendError(403, "非管理员权限");
             return false;
         }
         return true;

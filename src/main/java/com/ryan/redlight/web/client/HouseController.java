@@ -1,16 +1,16 @@
-package com.ryan.redlight.web.tourist;
+package com.ryan.redlight.web.client;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.House;
+import com.ryan.redlight.entity.Msg;
 import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.entity.ViewAppointment;
 import com.ryan.redlight.service.HouseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -20,10 +20,14 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/houses")
 public class HouseController {
-    @Autowired
+    final
     HouseService houseService;
 
-    @GetMapping(value = "")
+    public HouseController(HouseService houseService) {
+        this.houseService = houseService;
+    }
+
+    @RequestMapping(value = "get/list")
     public String getHouseList(@RequestParam(required = false, defaultValue = "1", value = "pageNum") Integer pageNum,
                                @RequestParam(required = false, value = "condition") String condition,
                                Model model) {
@@ -32,19 +36,20 @@ public class HouseController {
         model.addAttribute("housePageInfo", housePageInfo);
         model.addAttribute("houseList", houseList);
         model.addAttribute("condition", condition);
-        return "tourist/house_list";
+        return "client/house_list";
     }
 
     @RequestMapping(value = "/single")
     public String getHouse(@RequestParam(value = "houseId") Integer houseId,
-                           Model model) {
+                           Model model,
+                           RedirectAttributes redirectAttributes) {
         House house = houseService.selectByPrimaryKey(houseId);
         if (house == null) {
-            model.addAttribute("msg", new MsgDeprecated(MsgDeprecated.STATE_FAILURE, "未找到该房屋信息"));
-            return "redirect:/houses";
+            redirectAttributes.addAttribute("msg", new Msg("房屋不存在", "消失术！"));
+            return "redirect:/houses/get/list";
         }
         model.addAttribute("house", house);
         model.addAttribute("viewAppointment", new ViewAppointment());
-        return "tourist/house";
+        return "client/house_detail";
     }
 }

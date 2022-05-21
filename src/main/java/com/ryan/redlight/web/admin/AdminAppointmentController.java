@@ -1,6 +1,7 @@
 package com.ryan.redlight.web.admin;
 
 import com.github.pagehelper.PageInfo;
+import com.ryan.redlight.entity.Msg;
 import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.entity.User;
 import com.ryan.redlight.entity.ViewAppointment;
@@ -50,8 +51,8 @@ public class AdminAppointmentController {
         appointment.setReplyerId(userInfo.getUserId());
         // 设置回复时间为当前时间
         appointment.setReplyTime(new Date());
-        MsgDeprecated msgDeprecated = appointmentService.updateByPrimaryKeySelective(appointment);
-        model.addAttribute("msg", msgDeprecated);
+        Msg msg = appointmentService.updateByPrimaryKeySelective(appointment);
+        model.addAttribute("msg", msg);
         model.addAttribute("appointment", appointment);
         return "redirect:/admin/appointment/get/list";
     }
@@ -61,8 +62,8 @@ public class AdminAppointmentController {
     public String updateView(@ModelAttribute(value = "appointment") ViewAppointment appointment,
                              Model model) {
         appointment.setIsViewed((byte) 1);
-        MsgDeprecated msgDeprecated = appointmentService.updateByPrimaryKeySelective(appointment);
-        model.addAttribute("msg", msgDeprecated);
+        Msg msg = appointmentService.updateByPrimaryKeySelective(appointment);
+        model.addAttribute("msg", msg);
         model.addAttribute("appointment", appointment);
         return "redirect:/admin/appointment/get/list";
     }

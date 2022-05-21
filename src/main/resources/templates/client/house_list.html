@@ -16,7 +16,7 @@
                 <div class="col-md-10 col-sm-6 post-area">
                     <!--模糊搜索-->
                     <div class="right-site-bar pull-right">
-                        <form class="navbar-form navbar-right" role="search" th:action="@{/houses}">
+                        <form class="navbar-form navbar-right" role="search" th:action="@{/houses/get/list}">
                             <div class="form-group">
                                 <input type="text" class="form-control form-custom" placeholder="Search Here"
                                        th:name="condition">
@@ -28,36 +28,43 @@
                     <div class="col-md-12 column" th:object="${housePageInfo}">
                         <ul class="pagination">
                             <li>
-                                <a href="#" th:href="@{/houses(pageNum=*{pageNum}-1, condition=${condition})}">Prev</a>
+                                <a href="#" th:href="@{/houses/get/list(pageNum=*{pageNum}-1, condition=${condition})}">Prev</a>
                             </li>
                             <li>
-                                <a href="#" th:href="@{/houses(pageNum=*{pageNum}-2, condition=${condition})}"
+                                <a href="#" th:href="@{/houses/get/list(pageNum=*{pageNum}-2, condition=${condition})}"
                                    th:if="${housePageInfo.pageNum} gt 2" th:text="*{pageNum - 2}">1</a>
                             </li>
                             <li>
-                                <a href="#" th:href="@{/houses(pageNum=*{pageNum}-1, condition=${condition})}"
+                                <a href="#" th:href="@{/houses/get/list(pageNum=*{pageNum}-1, condition=${condition})}"
                                    th:if="${housePageInfo.pageNum} gt 1" th:text="*{pageNum - 1}">2</a>
                             </li>
                             <li class="active">
-                                <a href="#" th:href="@{/houses(pageNum=*{pageNum}, condition=${condition})}"
+                                <a href="#" th:href="@{/houses/get/list(pageNum=*{pageNum}, condition=${condition})}"
                                    th:text="*{pageNum}">3</a>
                             </li>
                             <li>
-                                <a href="#" th:href="@{/houses(pageNum=*{pageNum}+1, condition=${condition}) }"
+                                <a href="#" th:href="@{/houses/get/list(pageNum=*{pageNum}+1, condition=${condition}) }"
                                    th:if="${housePageInfo.pageNum}+1 lt ${housePageInfo.pages}"
                                    th:text="*{pageNum + 1}">4</a>
                             </li>
                             <li>
-                                <a href="#" th:href="@{/houses(pageNum=*{pageNum}+2, condition=${condition})}"
+                                <a href="#" th:href="@{/houses/get/list(pageNum=*{pageNum}+2, condition=${condition})}"
                                    th:if="${housePageInfo.pageNum}+2 lt ${housePageInfo.pages}"
                                    th:text="*{pageNum + 2}">5</a>
                             </li>
                             <li>
-                                <a href="#" th:href="@{/houses(pageNum=*{pageNum}+1, condition=${condition})}">Next</a>
+                                <a href="#" th:href="@{/houses/get/list(pageNum=*{pageNum}+1, condition=${condition})}">Next</a>
                             </li>
                         </ul>
                     </div>
-
+                    <!--消息提示-->
+                    <div class="alert alert-warning" role="alert" th:if="${msg}">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong th:text="${msg.head}">head</strong> <span
+                            th:text="${msg.info}">message</span>
+                    </div>
                     <!--房屋列表-->
                     <tr th:each="house:${houseList}">
                         <div class="Building-University">

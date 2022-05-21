@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="client_kit::head(title='红光社区住宅销售系统')">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<!--导航栏-->
+<div th:replace="client_kit::navbar"></div>
+<!--信息展示-->
+<div class="container">
+    <section class="heading-item-area">
+        <div class="container coustome-container">
+            <div class="row all-widgets-area m0">
+                <div class="col-md-10 col-sm-6 post-area">
+                    <!--消息提示-->
+                    <div class="alert alert-warning" role="alert" th:if="${msg}">
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <strong th:text="${msg.head}">head</strong> <span
+                            th:text="${msg.info}">message</span>
+                    </div>
+                    <!--房屋列表-->
+                    <div th:object="${house}">
+                        <div class="Building-University">
+                            <div class="Building">
+                                <img src="../img/property_listing/1.jpg"
+                                     th:src="@{*{picture}}" alt="">
+                            </div>
+                            <div class="Building-content">
+                                <div class="right-area">
+                                    <!--标题-->
+                                    <h3 th:text="*{name}">Building Rent For
+                                        University</h3>
+                                    <!--&lt;!&ndash;tags&ndash;&gt;-->
+                                    <!--<a href="" class="btn-slide activ">出售中</a>-->
+                                    <!--信息-->
+                                    <ul class="info">
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 面积: <var
+                                                th:text="*{size}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 地址: <var
+                                                th:text="*{address}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 价格: <var
+                                                th:text="*{price}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 区域: <var
+                                                th:text="*{division}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 点击数: <var
+                                                th:text="*{click}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 类型: <var
+                                                th:text="*{type}">未知</var>
+                                        </li>
+
+                                    </ul>
+                                    描述: <var th:text="*{description}">未知</var>
+                                    <!--todo 看房预约-->
+                                    <form class="navbar-form navbar-right"
+                                          th:action="@{'/client/view_appointment/create?houseId='+${house.houseId}}"
+                                          method="post">
+                                        <div class="form-group">
+                                            <label>
+                                                <input type="date"
+                                                       class="form-control form-custom"
+                                                       th:name="date">
+                                            </label>
+                                            <label>
+                                                <input type="time"
+                                                       class="form-control form-custom"
+                                                       th:name="time">
+                                            </label>
+                                        </div>
+                                        <button type="submit" class="btn btn-submit">
+                                            预约看房
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>

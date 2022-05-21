@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ryan.redlight.mapper.ClientMapper">
     <sql id="Base_Column_List">
-        client_id as clientId, nick_name, username, password, location, email, phone
+        client_id as clientId, nick_name as nickname, username, password, location, email, phone
     </sql>
     <select id="selectByPrimaryKey" resultType="com.ryan.redlight.entity.Client"
             parameterType="java.lang.Integer">

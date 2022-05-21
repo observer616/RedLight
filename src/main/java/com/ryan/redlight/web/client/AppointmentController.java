@@ -1,7 +1,10 @@
 package com.ryan.redlight.web.client;
 
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.MsgDeprecated;
+import com.ryan.redlight.entity.House;
+import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.ViewAppointment;
+import com.ryan.redlight.interceptor.LoginCheck;
 import com.ryan.redlight.service.HouseService;
 import com.ryan.redlight.service.ViewAppointmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +24,14 @@ import java.util.Date;
  */
 @Controller
 @RequestMapping(value = "/client/view_appointment")
-public class ClientViewAppointmentController {
+public class AppointmentController {
     @Autowired
     ViewAppointmentService viewAppointmentService;
 
     @Autowired
     HouseService houseService;
 
+    @LoginCheck
     @PostMapping(value = "/create")
     public String createViewAppointment(@RequestParam(value = "houseId") Integer houseId,
                                         @RequestParam(value = "date") String date,
@@ -35,13 +39,22 @@ public class ClientViewAppointmentController {
                                         HttpSession session,
                                         Model model) throws ParseException {
         // 时间转换
-        System.out.println(date + time);
         Date viewTime = new SimpleDateFormat("yyy-MM-dd HH:mm").parse(date + " " + time);
 
-        Client client = (Client) session.getAttribute("userInfo");
-        // 创建预约
-        MsgDeprecated msgDeprecated = viewAppointmentService.insertSelective(houseId,
-                client.getClientId(), viewTime);
-        return "redirect:/houses/single?houseId=" + houseId;
+        Client client = (Client) session.getAttribute("clientInfo");
+        Msg msg;
+        // 管理员身份
+        if (client == null) {
+            msg = new Msg("权限错误", "请确保用户身份");
+        } else {
+            // 创建预约
+            msg = viewAppointmentService.insertSelective(houseId,
+                    client.getClientId(), viewTime);
+        }
+        model.addAttribute("msg", msg);
+        House house = houseService.selectByPrimaryKey(houseId);
+        model.addAttribute("house", house);
+        model.addAttribute("viewAppointment", new ViewAppointment());
+        return "client/house_detail";
     }
 }

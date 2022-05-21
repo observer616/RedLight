@@ -3,7 +3,7 @@ package com.ryan.redlight.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
-import com.ryan.redlight.entity.MsgDeprecated;
+import com.ryan.redlight.entity.Msg;
 import com.ryan.redlight.entity.ViewAppointment;
 import com.ryan.redlight.mapper.ViewAppointmentMapper;
 import com.ryan.redlight.service.ViewAppointmentService;
@@ -38,19 +38,19 @@ public class ViewAppointmentServiceImpl implements ViewAppointmentService {
     }
 
     @Override
-    public MsgDeprecated insertSelective(ViewAppointment record) {
+    public Msg insertSelective(ViewAppointment record) {
         viewAppointmentMapper.insertSelective(record);
-        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
+        return new Msg("预约成功", "预约成功");
     }
 
     @Override
-    public MsgDeprecated updateByPrimaryKeySelective(ViewAppointment record) {
+    public Msg updateByPrimaryKeySelective(ViewAppointment record) {
         viewAppointmentMapper.updateByPrimaryKeySelective(record);
-        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
+        return new Msg("更新成功", "更新成功");
     }
 
     @Override
-    public MsgDeprecated insertSelective(Integer houseId, Integer clientId, Date viewTime) {
+    public Msg insertSelective(Integer houseId, Integer clientId, Date viewTime) {
         ViewAppointment viewAppointment = new ViewAppointment();
         viewAppointment.setHouseId(houseId);
         viewAppointment.setCreatorId(clientId);

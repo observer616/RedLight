@@ -1,5 +1,6 @@
 package com.ryan.redlight.interceptor;
 
+import com.ryan.redlight.entity.Admin;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -23,10 +24,10 @@ public class AdminInterceptor implements HandlerInterceptor {
             }
         }
         // 检查权限
-        Boolean isAdmin = (Boolean) (session.getAttribute("isAdmin"));
-        if (isAdmin == null || !isAdmin) {
-            // TODO: 2022/5/13 1 redirect
-            response.sendRedirect("/login");
+        Admin admin = (Admin) session.getAttribute("adminInfo");
+        if (admin == null) {
+            // TODO: 2022/5/13 redirect msg
+            response.sendRedirect("/admin/login");
 //            response.sendError(403, "非管理员权限");
             return false;
         }

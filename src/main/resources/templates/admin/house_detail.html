@@ -17,12 +17,15 @@
     <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"
           media="all"/>
     <!--Bootstrap-select CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/bootstrap-select/bootstrap-select.min.css"
+    <link rel="stylesheet" type="text/css"
+          href="../vendors/bootstrap-select/bootstrap-select.min.css"
           media="all"/>
     <!--Flexslider CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css"
+          media="all"/>
     <!--Owl_Carousel CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css" media="all"/>
+    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css"
+          media="all"/>
     <!--Linearicons Icons CSS-->
     <link rel="stylesheet" href="../vendors/linearicons/Linearicons.css">
     <!--Font-Awesome CSS-->
@@ -52,44 +55,58 @@
         <div class="container coustome-container">
             <div class="row all-widgets-area m0">
                 <div class="col-md-10 col-sm-6 post-area">
-                    <!--添加，唤出模态框-->
-                    <button class="btn btn-lg btn-block" data-toggle="modal" data-target="#updateHouse"><h4>修改房屋信息</h4>
+                    <!--添加房屋，唤出模态框-->
+                    <button class="btn btn-lg btn-block" data-toggle="modal"
+                            data-target="#updateHouse"><h4>修改房屋信息</h4>
                     </button>
                     <!--房屋列表-->
                     <div th:object="${house}">
                         <div class="Building-University">
                             <div class="Building">
-                                <img src="../img/property_listing/1.jpg" th:src="@{*{picture}}" alt="">
+                                <img src="../img/property_listing/1.jpg"
+                                     th:src="@{*{picture}}" alt="">
                             </div>
                             <div class="Building-content">
                                 <div class="right-area">
                                     <!--标题-->
-                                    <h3 th:text="*{name}">Building Rent For University</h3>
+                                    <h3 th:text="*{name}">Building Rent For
+                                        University</h3>
                                     <!--tags-->
                                     <a href="" class="btn-slide activ">出售中</a>
                                     <!--信息-->
                                     <ul class="info">
                                         <li>
-                                            <i class="lnr lnr-tag"></i> 面积: <var th:text="*{size}">未知</var>
+                                            <i class="lnr lnr-tag"></i> 面积: <var
+                                                th:text="*{size}">未知</var>
                                         </li>
                                         <li>
-                                            <i class="lnr lnr-tag"></i> 地址: <var th:text="*{address}">未知</var>
+                                            <i class="lnr lnr-tag"></i> 地址: <var
+                                                th:text="*{address}">未知</var>
                                         </li>
                                         <li>
-                                            <i class="lnr lnr-tag"></i> 价格: <var th:text="*{price}">未知</var>
+                                            <i class="lnr lnr-tag"></i> 价格: <var
+                                                th:text="*{price}">未知</var>
                                         </li>
                                         <li>
-                                            <i class="lnr lnr-tag"></i> 区域: <var th:text="*{division}">未知</var>
+                                            <i class="lnr lnr-tag"></i> 区域: <var
+                                                th:text="*{division}">未知</var>
                                         </li>
                                         <li>
-                                            <i class="lnr lnr-tag"></i> 点击数: <var th:text="*{click}">未知</var>
+                                            <i class="lnr lnr-tag"></i> 点击数: <var
+                                                th:text="*{click}">未知</var>
                                         </li>
                                         <li>
-                                            <i class="lnr lnr-tag"></i> 类型: <var th:text="*{type}">未知</var>
+                                            <i class="lnr lnr-tag"></i> 类型: <var
+                                                th:text="*{type}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 描述: <var
+                                                th:text="*{description}">未知</var>
                                         </li>
                                     </ul>
                                     <!--删除-->
-                                    <form th:action="@{'admin/houses/delete?houseId='+*{houseId}}" method="post">
+                                    <form th:action="@{'admin/houses/delete?houseId='+*{houseId}}"
+                                          method="post">
                                         <button class="Contact">删除</button>
                                     </form>
                                 </div>
@@ -105,63 +122,74 @@
 </div>
 <!--修改房屋，模态框-->
 <!--todo 格式检查-->
-<div class="modal fade" id="updateHouse" aria-labelledby="updateHouseLabel" aria-hidden="true" tabindex="-1">
+<div class="modal fade" id="updateHouse" aria-labelledby="updateHouseLabel"
+     aria-hidden="true" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-hidden="true">&times;
+                </button>
                 <h5 class="modal-title" id="updateHouseLabel">添加房屋</h5>
             </div>
 
-            <form id="updateHouseForm" class="form-horizontal" method="post" th:action="@{/admin/houses/update}"
+            <form id="updateHouseForm" class="form-horizontal" method="post"
+                  th:action="@{/admin/houses/update}"
                   th:object="${house}">
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="control-label col-lg-3">房屋名称：</label>
                         <div class="col-lg-9">
-                            <input type="text" value="" name="name" placeholder="name" class="form-control"
+                            <input type="text" value="" name="name" placeholder="name"
+                                   class="form-control"
                                    th:field="*{name}"></br>
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-3">地址：</label>
                         <div class="col-lg-9">
-                            <input type="text" placeholder="address" value="" name="address" class="form-control"
+                            <input type="text" placeholder="address" value=""
+                                   name="address" class="form-control"
                                    th:field="*{address}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-3">面积：</label>
                         <div class="col-lg-9">
-                            <input type="number" placeholder="size" value="" name="size" class="form-control"
+                            <input type="number" placeholder="size" value="" name="size"
+                                   class="form-control"
                                    th:field="*{size}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-3">分区：</label>
                         <div class="col-lg-9">
-                            <input type="text" placeholder="division" value="" name="division" class="form-control"
+                            <input type="text" placeholder="division" value=""
+                                   name="division" class="form-control"
                                    th:field="*{division}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-3">价格：</label>
                         <div class="col-lg-9">
-                            <input type="number" placeholder="price" value="" name="price" class="form-control"
+                            <input type="number" placeholder="price" value="" name="price"
+                                   class="form-control"
                                    th:field="*{price}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-3">房屋类型：</label>
                         <div class="col-lg-9">
-                            <input type="text" placeholder="type" value="" name="type" class="form-control"
+                            <input type="text" placeholder="type" value="" name="type"
+                                   class="form-control"
                                    th:field="*{type}">
                         </div>
                     </div>
                     <div class="form-group">
                         <label class="control-label col-lg-3">描述：</label>
                         <div class="col-lg-9">
-                            <input type="text" placeholder="description" value="" name="description"
+                            <input type="text" placeholder="description" value=""
+                                   name="description"
                                    class="form-control"
                                    th:field="*{description}">
                         </div>
@@ -170,15 +198,20 @@
                     <div class="form-group">
                         <label class="control-label col-lg-3">图片：</label>
                         <div class="col-lg-9">
-                            <input type="text" placeholder="picture" value="" name="picture" class="form-control"
+                            <input type="text" placeholder="picture" value=""
+                                   name="picture" class="form-control"
                                    th:field="*{picture}">
                         </div>
                     </div>
                 </div>
 
                 <div class="modal-footer">
-                    <button class="btn btn-default" type="button" data-dismiss="modal">关闭</button>
-                    <button class="btn btn-success" type="button" onclick="form.submit();">提交</button>
+                    <button class="btn btn-default" type="button" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button class="btn btn-success" type="button"
+                            onclick="form.submit();">提交
+                    </button>
                 </div>
             </form>
         </div>
