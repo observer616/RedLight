@@ -7,7 +7,6 @@ import com.ryan.redlight.entity.ViewAppointment;
 import com.ryan.redlight.interceptor.LoginCheck;
 import com.ryan.redlight.service.HouseService;
 import com.ryan.redlight.service.ViewAppointmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,11 +24,16 @@ import java.util.Date;
 @Controller
 @RequestMapping(value = "/client/view_appointment")
 public class AppointmentController {
-    @Autowired
+    final
     ViewAppointmentService viewAppointmentService;
 
-    @Autowired
+    final
     HouseService houseService;
+
+    public AppointmentController(ViewAppointmentService viewAppointmentService, HouseService houseService) {
+        this.viewAppointmentService = viewAppointmentService;
+        this.houseService = houseService;
+    }
 
     @LoginCheck
     @PostMapping(value = "/create")

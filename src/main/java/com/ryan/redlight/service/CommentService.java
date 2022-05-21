@@ -2,6 +2,7 @@ package com.ryan.redlight.service;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.Comment;
+import com.ryan.redlight.entity.Msg;
 import com.ryan.redlight.entity.MsgDeprecated;
 
 /**
@@ -12,8 +13,8 @@ public interface CommentService {
 
     PageInfo<Comment> selectAll(Integer pageNum);
 
-    MsgDeprecated insertSelective(Comment record);
+    Msg insertSelective(Comment record);
 
-    MsgDeprecated updateByPrimaryKeySelective(Comment record);
+    Msg updateByPrimaryKeySelective(Comment record);
 
 }

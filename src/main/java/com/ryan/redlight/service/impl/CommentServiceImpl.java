@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.Comment;
-import com.ryan.redlight.entity.MsgDeprecated;
+import com.ryan.redlight.entity.Msg;
 import com.ryan.redlight.mapper.CommentMapper;
 import com.ryan.redlight.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,19 +29,23 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
-    public MsgDeprecated insertSelective(Comment record) {
-        return null;
-    }
-
-    @Override
-    public MsgDeprecated updateByPrimaryKeySelective(Comment record) {
-        return null;
-    }
-
-    @Override
     public PageInfo<Comment> selectAll(Integer pageNum) {
         PageHelper.startPage(pageNum, PageConfig.PAGE_SIZE);
         List<Comment> comments = commentMapper.selectALL();
         return new PageInfo<>(comments);
     }
+
+    @Override
+    public Msg insertSelective(Comment record) {
+        int commentId = commentMapper.insertSelective(record);
+        return new Msg("留言成功","留言成功");
+    }
+
+    @Override
+    public Msg updateByPrimaryKeySelective(Comment record) {
+        int affectRow = commentMapper.updateByPrimaryKeySelective(record);
+        return new Msg("回复成功","回复成功");
+    }
+
+
 }
