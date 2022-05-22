@@ -1,8 +1,50 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
+<head th:fragment="head(title)">
     <meta charset="utf-8">
-    <title>title</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!--page name-->
+    <title th:replace="${title}">默认系统名称</title>
+    <!--base解决页面跳转后静态资源失效问题-->
+    <base th:href="@{/}">
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+    <!--Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"
+          media="all"/>
+    <!--Bootstrap-select CSS-->
+    <link rel="stylesheet" type="text/css"
+          href="../vendors/bootstrap-select/bootstrap-select.min.css"
+          media="all"/>
+    <!--Flexslider CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css"
+          media="all"/>
+    <!--Owl_Carousel CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css"
+          media="all"/>
+    <!--Linearicons Icons CSS-->
+    <link rel="stylesheet" href="../vendors/linearicons/Linearicons.css">
+    <!--Font-Awesome CSS-->
+    <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.min.css">
+    <!-- Fonts -->
+
+
+    <!--Theme Styles CSS-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css"
+          th:href="@{css/style.css}" media="all"/>
+
+
+    <script src="../js/jquery-1.12.0.min.js" th:src="@{js/jquery-1.12.0.min.js}"></script>
+    <script src="../js/bootstrap.min.js" th:src="@{js/bootstrap.min.js}"></script>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="static/js/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="static/js/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
 </head>
 <body>
 
@@ -13,8 +55,8 @@
                 <!--右上角用户名-->
                 <ul class="nav navbar-right nav_buttom">
                     <!--已登录 -->
-                    <li>
-                        <span th:text="${session.userInfo.nickName}"></span>
+                    <li th:if="${session.adminInfo}">
+                        <!--<span th:text="${session.adminInfo.nickname}"></span>-->
                     </li>
                 </ul>
 
@@ -23,7 +65,8 @@
                     <li><a href="#" th:href="@{/admin/houses/get/list}">房屋管理</a></li>
                     <li><a href="#" th:href="@{/admin/comments/get/list}">用户管理</a></li>
                     <li><a href="#" th:href="@{/admin/clients/get/list}">留言回复</a></li>
-                    <li><a href="#" th:href="@{/admin/appointments/get/single}">看房预约</a></li>
+                    <li><a href="#" th:href="@{/admin/appointments/get/single}">看房预约</a>
+                    </li>
                 </ul>
             </div>
         </div>

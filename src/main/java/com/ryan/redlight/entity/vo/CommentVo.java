@@ -52,7 +52,7 @@ public class CommentVo {
         isReplied = comment.getIsReplied();
         replyId = comment.getReplyId();
         // 管理员名
-        replyName = admin.getNickName();
+        replyName = admin.getNickname();
         replyTime = comment.getReplyTime();
         replyInfo = comment.getReplyInfo();
     }

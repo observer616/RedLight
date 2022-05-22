@@ -1,9 +1,8 @@
 package com.ryan.redlight.web.admin;
 
 import com.github.pagehelper.PageInfo;
+import com.ryan.redlight.entity.Admin;
 import com.ryan.redlight.entity.Msg;
-import com.ryan.redlight.entity.MsgDeprecated;
-import com.ryan.redlight.entity.User;
 import com.ryan.redlight.entity.ViewAppointment;
 import com.ryan.redlight.interceptor.AdminCheck;
 import com.ryan.redlight.service.ViewAppointmentService;
@@ -47,8 +46,8 @@ public class AdminAppointmentController {
                               HttpSession session,
                               Model model) {
         appointment.setIsViewed((byte) 1);
-        User userInfo = (User) session.getAttribute("userInfo");
-        appointment.setReplyerId(userInfo.getUserId());
+        Admin adminInfo = (Admin) session.getAttribute("adminInfo");
+        appointment.setReplyerId(adminInfo.getAdminId());
         // 设置回复时间为当前时间
         appointment.setReplyTime(new Date());
         Msg msg = appointmentService.updateByPrimaryKeySelective(appointment);
