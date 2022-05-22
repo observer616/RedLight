@@ -2,6 +2,7 @@ package com.ryan.redlight.web.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.Comment;
+import com.ryan.redlight.entity.vo.CommentVo;
 import com.ryan.redlight.interceptor.AdminCheck;
 import com.ryan.redlight.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,10 +27,10 @@ public class AdminCommentController {
     @RequestMapping(value = "/get/list")
     public String commentList(@RequestParam(value = "pageNum") Integer pageNum,
                               Model model) {
-        PageInfo<Comment> commentPageInfo = commentService.selectAll(pageNum);
-        List<Comment> commentList = commentPageInfo.getList();
-        model.addAttribute("commentPageInfo", commentPageInfo);
-        model.addAttribute("commentList", commentList);
+        PageInfo<CommentVo> commentVoPageInfo = commentService.selectAll(pageNum);
+        List<CommentVo> commentVoList = commentVoPageInfo.getList();
+        model.addAttribute("commentVoPageInfo", commentVoPageInfo);
+        model.addAttribute("commentVoList", commentVoList);
         model.addAttribute("comment", new Comment());
         return "admin/comment_list";
     }

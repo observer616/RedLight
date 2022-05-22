@@ -1,5 +1,7 @@
 package com.ryan.redlight.entity;
 
+import com.ryan.redlight.entity.vo.CommentVo;
+
 import java.util.Date;
 
 public class Comment {
@@ -18,6 +20,36 @@ public class Comment {
     private Date replyTime;
 
     private String replyInfo;
+
+    public Comment() {
+
+    }
+
+    public Comment(CommentVo commentVo) {
+        this();
+        commentId = commentVo.getCommentId();
+        creatorId = commentVo.getCreatorId();
+        createTime = commentVo.getCreateTime();
+        info = commentVo.getInfo();
+        isReplied = commentVo.getIsReplied();
+        replyId = commentVo.getReplyId();
+        replyTime = commentVo.getReplyTime();
+        replyInfo = commentVo.getReplyInfo();
+    }
+
+    @Override
+    public String toString() {
+        return "Comment{" +
+                "commentId=" + commentId +
+                ", creatorId=" + creatorId +
+                ", createTime=" + createTime +
+                ", info='" + info + '\'' +
+                ", isReplied=" + isReplied +
+                ", replyId=" + replyId +
+                ", replyTime=" + replyTime +
+                ", replyInfo='" + replyInfo + '\'' +
+                '}';
+    }
 
     public Integer getCommentId() {
         return commentId;

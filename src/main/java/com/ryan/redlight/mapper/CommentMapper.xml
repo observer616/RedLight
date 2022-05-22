@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ryan.redlight.mapper.CommentMapper">
+    <resultMap id="BaseResultMap" type="com.ryan.redlight.entity.Comment">
+        <id column="comment_id" property="commentId" jdbcType="INTEGER"/>
+        <result column="creator_id" property="creatorId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="info" property="info" jdbcType="VARCHAR"/>
+        <result column="is_replied" property="isReplied" jdbcType="TINYINT"/>
+        <result column="reply_id" property="replyId" jdbcType="INTEGER"/>
+        <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP"/>
+        <result column="reply_info" property="replyInfo" jdbcType="VARCHAR"/>
+    </resultMap>
     <sql id="Base_Column_List">
-        comment_id as commentId, creator_id, create_time, info, is_replied, reply_id, reply_time, reply_info
+        comment_id, creator_id, create_time, info, is_replied, reply_id, reply_time, reply_info
     </sql>
-    <select id="selectByPrimaryKey" resultType="com.ryan.redlight.entity.Comment" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from rl_comment
         where comment_id = #{commentId,jdbcType=INTEGER}
     </select>
-    <select id="selectAllByCreatorId" resultType="com.ryan.redlight.entity.Comment">
+    <select id="selectAllByCreatorId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from rl_comment where creator_id = #{creatorId}
     </select>
-    <select id="selectALL" resultType="com.ryan.redlight.entity.Comment">
+    <select id="selectALL" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from rl_comment
@@ -30,8 +42,10 @@
         insert into rl_comment (comment_id, creator_id, create_time,
                                 info, is_replied, reply_id,
                                 reply_time, reply_info)
-        values (#{commentId,jdbcType=INTEGER}, #{creatorId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP},
-                #{info,jdbcType=VARCHAR}, #{isReplied,jdbcType=TINYINT}, #{replyId,jdbcType=INTEGER},
+        values (#{commentId,jdbcType=INTEGER}, #{creatorId,jdbcType=INTEGER},
+                #{createTime,jdbcType=TIMESTAMP},
+                #{info,jdbcType=VARCHAR}, #{isReplied,jdbcType=TINYINT},
+                #{replyId,jdbcType=INTEGER},
                 #{replyTime,jdbcType=TIMESTAMP}, #{replyInfo,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.ryan.redlight.entity.Comment">
@@ -89,7 +103,8 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.ryan.redlight.entity.Comment">
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.ryan.redlight.entity.Comment">
         update rl_comment
         <set>
             <if test="creatorId != null">

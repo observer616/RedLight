@@ -1,17 +1,18 @@
 package com.ryan.redlight.service;
 
 import com.github.pagehelper.PageInfo;
+import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.Comment;
 import com.ryan.redlight.entity.Msg;
-import com.ryan.redlight.entity.MsgDeprecated;
+import com.ryan.redlight.entity.vo.CommentVo;
 
 /**
  * @author Ryan
  */
 public interface CommentService {
-    PageInfo<Comment> selectAllByCreatorId(Integer pageNum, Integer creatorId);
+    PageInfo<CommentVo> selectAllByCreator(Integer pageNum, Client creator);
 
-    PageInfo<Comment> selectAll(Integer pageNum);
+    PageInfo<CommentVo> selectAll(Integer pageNum);
 
     Msg insertSelective(Comment record);
 

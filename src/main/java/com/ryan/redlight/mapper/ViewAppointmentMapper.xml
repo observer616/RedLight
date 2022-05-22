@@ -1,23 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ryan.redlight.mapper.ViewAppointmentMapper">
+    <resultMap id="BaseResultMap" type="com.ryan.redlight.entity.ViewAppointment">
+        <id column="view_appointment_id" property="viewAppointmentId" jdbcType="INTEGER"/>
+        <result column="house_id" property="houseId" jdbcType="INTEGER"/>
+        <result column="creator_id" property="creatorId" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+        <result column="view_time" property="viewTime" jdbcType="TIMESTAMP"/>
+        <result column="is_replied" property="isReplied" jdbcType="TINYINT"/>
+        <result column="replyer_id" property="replyerId" jdbcType="INTEGER"/>
+        <result column="reply_time" property="replyTime" jdbcType="TIMESTAMP"/>
+        <result column="is_viewed" property="isViewed" jdbcType="TINYINT"/>
+    </resultMap>
     <sql id="Base_Column_List">
-        view_appointment_id as viewAppointmentId, house_id, creator_id, create_time, view_time, is_replied, replyer_id,
+        view_appointment_id, house_id, creator_id, create_time, view_time, is_replied, replyer_id,
     reply_time, is_viewed
     </sql>
-    <select id="selectByPrimaryKey" resultType="com.ryan.redlight.entity.ViewAppointment"
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
             parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from rl_view_appointment
         where view_appointment_id = #{viewAppointmentId,jdbcType=INTEGER}
     </select>
-    <select id="selectAll" resultType="com.ryan.redlight.entity.ViewAppointment">
+    <select id="selectAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from rl_view_appointment
     </select>
-    <select id="selectAllByCreatorId" resultType="com.ryan.redlight.entity.ViewAppointment">
+    <select id="selectAllByCreatorId" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from rl_view_appointment
@@ -32,9 +44,12 @@
         insert into rl_view_appointment (view_appointment_id, house_id, creator_id,
                                          create_time, view_time, is_replied,
                                          replyer_id, reply_time, is_viewed)
-        values (#{viewAppointmentId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER}, #{creatorId,jdbcType=INTEGER},
-                #{createTime,jdbcType=TIMESTAMP}, #{viewTime,jdbcType=TIMESTAMP}, #{isReplied,jdbcType=TINYINT},
-                #{replyerId,jdbcType=INTEGER}, #{replyTime,jdbcType=TIMESTAMP}, #{isViewed,jdbcType=TINYINT})
+        values (#{viewAppointmentId,jdbcType=INTEGER}, #{houseId,jdbcType=INTEGER},
+                #{creatorId,jdbcType=INTEGER},
+                #{createTime,jdbcType=TIMESTAMP}, #{viewTime,jdbcType=TIMESTAMP},
+                #{isReplied,jdbcType=TINYINT},
+                #{replyerId,jdbcType=INTEGER}, #{replyTime,jdbcType=TIMESTAMP},
+                #{isViewed,jdbcType=TINYINT})
     </insert>
     <insert id="insertSelective" parameterType="com.ryan.redlight.entity.ViewAppointment">
         insert into rl_view_appointment
@@ -97,7 +112,8 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.ryan.redlight.entity.ViewAppointment">
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.ryan.redlight.entity.ViewAppointment">
         update rl_view_appointment
         <set>
             <if test="houseId != null">
@@ -127,7 +143,8 @@
         </set>
         where view_appointment_id = #{viewAppointmentId,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.ryan.redlight.entity.ViewAppointment">
+    <update id="updateByPrimaryKey"
+            parameterType="com.ryan.redlight.entity.ViewAppointment">
         update rl_view_appointment
         set house_id    = #{houseId,jdbcType=INTEGER},
             creator_id  = #{creatorId,jdbcType=INTEGER},

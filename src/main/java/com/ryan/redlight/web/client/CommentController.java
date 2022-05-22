@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.Comment;
 import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.vo.CommentVo;
 import com.ryan.redlight.interceptor.LoginCheck;
 import com.ryan.redlight.service.CommentService;
 import org.springframework.stereotype.Controller;
@@ -33,10 +34,10 @@ public class CommentController {
     @GetMapping(value = "/get/list")
     public String getCommentList(@RequestParam(required = false, defaultValue = "1", value = "pageNum") Integer pageNum,
                                  Model model) {
-        PageInfo<Comment> commentPageInfo = commentService.selectAll(pageNum);
-        List<Comment> commentList = commentPageInfo.getList();
-        model.addAttribute("commentPageInfo", commentPageInfo);
-        model.addAttribute("commentList", commentList);
+        PageInfo<CommentVo> commentVoPageInfo = commentService.selectAll(pageNum);
+        List<CommentVo> commentVoList = commentVoPageInfo.getList();
+        model.addAttribute("commentVoPageInfo", commentVoPageInfo);
+        model.addAttribute("commentVoList", commentVoList);
         return "client/comment_list";
     }
 
@@ -50,6 +51,7 @@ public class CommentController {
         Client client = (Client) session.getAttribute("clientInfo");
         Msg msg;
         if (client == null) {
+            // 排除管理员
             msg = new Msg("权限错误", "请确保用户身份");
         } else {
             // 创建预约
@@ -58,6 +60,6 @@ public class CommentController {
             msg = commentService.insertSelective(comment);
         }
         redirectAttributes.addFlashAttribute("Msg", msg);
-        return "redirect:comments/get/list";
+        return "redirect:/comments/get/list";
     }
 }

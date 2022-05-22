@@ -1,16 +1,31 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ryan.redlight.mapper.HouseMapper">
+    <resultMap id="BaseResultMap" type="com.ryan.redlight.entity.House">
+        <id column="house_id" property="houseId" jdbcType="INTEGER"/>
+        <result column="is_sold" property="isSold" jdbcType="TINYINT"/>
+        <result column="click" property="click" jdbcType="INTEGER"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="size" property="size" jdbcType="INTEGER"/>
+        <result column="division" property="division" jdbcType="VARCHAR"/>
+        <result column="price" property="price" jdbcType="INTEGER"/>
+        <result column="type" property="type" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="picture" property="picture" jdbcType="VARCHAR"/>
+    </resultMap>
     <sql id="Base_Column_List">
         house_id as houseId, is_sold, click, name, address, size, division, price, type, description, picture
     </sql>
-    <select id="selectByPrimaryKey" resultType="com.ryan.redlight.entity.House" parameterType="java.lang.Integer">
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap"
+            parameterType="java.lang.Integer">
         select
         <include refid="Base_Column_List"/>
         from rl_house
         where house_id = #{houseId,jdbcType=INTEGER}
     </select>
-    <select id="selectLike" resultType="com.ryan.redlight.entity.House">
+    <select id="selectLike" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from rl_house
@@ -29,7 +44,7 @@
             </if>
         </where>
     </select>
-    <select id="selectAll" resultType="com.ryan.redlight.entity.House">
+    <select id="selectAll" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
         from rl_house
@@ -44,9 +59,12 @@
                               name, address, size,
                               division, price, type,
                               description, picture)
-        values (#{houseId,jdbcType=INTEGER}, #{isSold,jdbcType=TINYINT}, #{click,jdbcType=INTEGER},
-                #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{size,jdbcType=INTEGER},
-                #{division,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR},
+        values (#{houseId,jdbcType=INTEGER}, #{isSold,jdbcType=TINYINT},
+                #{click,jdbcType=INTEGER},
+                #{name,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR},
+                #{size,jdbcType=INTEGER},
+                #{division,jdbcType=VARCHAR}, #{price,jdbcType=INTEGER},
+                #{type,jdbcType=VARCHAR},
                 #{description,jdbcType=VARCHAR}, #{picture,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="com.ryan.redlight.entity.House">
@@ -122,7 +140,8 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.ryan.redlight.entity.House">
+    <update id="updateByPrimaryKeySelective"
+            parameterType="com.ryan.redlight.entity.House">
         update rl_house
         <set>
             <if test="isSold != null">
