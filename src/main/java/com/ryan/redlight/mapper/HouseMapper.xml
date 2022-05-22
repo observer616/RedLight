@@ -16,7 +16,7 @@
         <result column="picture" property="picture" jdbcType="VARCHAR"/>
     </resultMap>
     <sql id="Base_Column_List">
-        house_id as houseId, is_sold, click, name, address, size, division, price, type, description, picture
+        house_id, is_sold, click, name, address, size, division, price, type, description, picture
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap"
             parameterType="java.lang.Integer">

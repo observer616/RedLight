@@ -14,7 +14,7 @@
                 <div class="col-md-10 col-sm-6 post-area">
                     <!--添加，唤出模态框-->
                     <button class="btn btn-lg btn-block" data-toggle="modal"
-                            data-target="#insertHouse"><h4>添加房屋</h4>
+                            data-target="#createHouse">添加房屋
                     </button>
                     <!--模糊搜索-->
                     <div class="right-site-bar pull-right">
@@ -133,8 +133,7 @@
     </section>
 </div>
 <!--添加房屋模态框-->
-<!--todo 输入检查-->
-<div class="modal fade" id="insertHouse" aria-labelledby="insertHouseLabel"
+<div class="modal fade" id="createHouse" aria-labelledby="createHouseLabel"
      aria-hidden="true" tabindex="-1">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -142,102 +141,79 @@
                 <button class="close" type="button" data-dismiss="modal"
                         aria-hidden="true">&times;
                 </button>
-                <h5 class="modal-title" id="insertHouseLabel">修改房屋</h5>
+                <h5 class="modal-title" id="createHouseLabel">添加房屋</h5>
             </div>
 
-            <form id="insertHouseForm" class="form-horizontal" method="post"
+            <form id="createHouseForm" class="form-horizontal" method="post"
                   th:action="@{/admin/houses/create}"
                   th:object="${house}">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label col-lg-3">房屋名称：</label>
+                        <label class="control-label col-lg-3" for="name">房屋名称：</label>
                         <div class="col-lg-9">
-                            <label>
-                                <input type="text" value="" name="name"
-                                       th:placeholder="*{name}" class="form-control"
-                                       th:field="*{name}">
-                            </label>
+                            <input type="text" placeholder="name" value=""
+                                   id="name" class="form-control"
+                                   th:field="*{name}" required>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">地址：</label>
+                        <label class="control-label col-lg-3" for="address">地址：</label>
                         <div class="col-lg-9">
-                            <label>
-                                <input type="text" th:placeholder="*{address}" value=""
-                                       name="address" class="form-control"
-                                       th:field="*{address}">
-                            </label>
+                            <input type="text" placeholder="address" value=""
+                                   id="address" class="form-control"
+                                   th:field="*{address}">
+
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">面积：</label>
+                        <label class="control-label col-lg-3" for="size">面积：</label>
                         <div class="col-lg-9">
-                            <label>
-                                <input type="number" th:placeholder="*{size}" value=""
-                                       name="size" class="form-control"
-                                       th:field="*{size}">
-                            </label>
+                            <input type="number" placeholder="size" value=""
+                                   id="size" class="form-control"
+                                   th:field="*{size}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">分区：</label>
+                        <label class="control-label col-lg-3" for="division">分区：</label>
                         <div class="col-lg-9">
-                            <label>
-                                <input type="text" th:placeholder="*{division}" value=""
-                                       name="division"
-                                       class="form-control"
-                                       th:field="*{division}">
-                            </label>
+                            <input type="text" placeholder="division" value=""
+                                   id="division" class="form-control"
+                                   th:field="*{division}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">价格：</label>
+                        <label class="control-label col-lg-3" for="price">价格：</label>
                         <div class="col-lg-9">
-                            <label>
-                                <input type="number" th:placeholder="*{price}" value=""
-                                       name="price" class="form-control"
-                                       th:field="*{price}">
-                            </label>
+                            <input type="number" placeholder="price" value=""
+                                   id="price" class="form-control"
+                                   th:field="*{price}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">房屋类型：</label>
+                        <label class="control-label col-lg-3" for="type">房屋类型：</label>
                         <div class="col-lg-9">
-                            <label>
-                                <input type="text" th:placeholder="*{type}" value=""
-                                       name="type" class="form-control"
-                                       th:field="*{type}">
-                            </label>
+                            <input type="text" placeholder="type" value=""
+                                   id="type" class="form-control"
+                                   th:field="*{type}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">描述：</label>
+                        <label class="control-label col-lg-3"
+                               for="description">描述：</label>
                         <div class="col-lg-9">
-                            <label>
-                                <input type="text" th:placeholder="*{description}"
-                                       value=""
-                                       name="description"
-                                       class="form-control"
-                                       th:field="*{description}">
-                            </label>
+                            <input type="text" placeholder="description" value=""
+                                   id="description" class="form-control"
+                                   th:field="*{description}">
                         </div>
                     </div>
                     <!--todo 上传图片-->
-                    <div class="form-group">
-                        <label class="control-label col-lg-3">图片：</label>
-                        <div class="col-lg-9">
-                            <label>
-                                <input type="text" th:placeholder="*{picture}" value=""
-                                       name="picture" class="form-control"
-                                       th:field="*{picture}">
-                            </label>
-                        </div>
-                    </div>
+                    <!--<div class="form-group">-->
+                    <!--    <label class="control-label col-lg-3" for="picture">图片：</label>-->
+                    <!--    <input type="file" value="" id="picture" class="form-control"-->
+                    <!--           name="picture" th:name="picture" accept="image/png"/>-->
+                    <!--</div>-->
                 </div>
-                <form enctype="multipart/form-data" method="post" action="/upload">
-                    文件：<input type="file" name="fileUpload"/>
-                    <input type="submit" value="上传"/>
-                </form>
+
                 <div class="modal-footer">
                     <button class="btn btn-default" type="button" data-dismiss="modal">
                         关闭

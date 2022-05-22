@@ -35,7 +35,6 @@ public class AdminCommentController {
         List<CommentVo> commentVoList = commentVoPageInfo.getList();
         model.addAttribute("commentVoPageInfo", commentVoPageInfo);
         model.addAttribute("commentVoList", commentVoList);
-        model.addAttribute("comment", new Comment());
         return "admin/comment_list";
     }
 
@@ -43,6 +42,7 @@ public class AdminCommentController {
     @AdminCheck
     @GetMapping(value = "/update")
     public String update(@RequestParam(value = "comment") Comment comment,
+
                          Model model) {
         commentService.updateByPrimaryKeySelective(comment);
         // TODO: 2022/5/15 msg
