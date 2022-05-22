@@ -4,7 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.House;
-import com.ryan.redlight.entity.MsgDeprecated;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.mapper.HouseMapper;
 import com.ryan.redlight.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,20 +62,20 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public MsgDeprecated insertSelective(House record) {
-        houseMapper.insertSelective(record);
-        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
+    public Msg insertSelective(House record) {
+        int houseId = houseMapper.insertSelective(record);
+        return new Msg("创建成功");
     }
 
     @Override
-    public MsgDeprecated updateByPrimaryKeySelective(House record) {
-        houseMapper.updateByPrimaryKeySelective(record);
-        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
+    public Msg updateByPrimaryKeySelective(House record) {
+        int affectRow = houseMapper.updateByPrimaryKeySelective(record);
+        return new Msg("更改成功");
     }
 
     @Override
-    public MsgDeprecated deleteByPrimaryKey(Integer houseId) {
-        houseMapper.deleteByPrimaryKey(houseId);
-        return new MsgDeprecated(MsgDeprecated.STATE_SUCCESS);
+    public Msg deleteByPrimaryKey(Integer houseId) {
+        int affectRow = houseMapper.deleteByPrimaryKey(houseId);
+        return new Msg("删除成功");
     }
 }

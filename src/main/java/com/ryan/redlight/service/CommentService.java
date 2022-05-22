@@ -3,7 +3,7 @@ package com.ryan.redlight.service;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.Comment;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.entity.vo.CommentVo;
 
 /**

@@ -2,16 +2,16 @@ package com.ryan.redlight.web.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.House;
-import com.ryan.redlight.entity.MsgDeprecated;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.interceptor.AdminCheck;
 import com.ryan.redlight.service.HouseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
@@ -21,25 +21,24 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/admin/houses")
 public class AdminHouseController {
-    @Autowired
+    final
     HouseService houseService;
+
+    public AdminHouseController(HouseService houseService) {
+        this.houseService = houseService;
+    }
 
     @AdminCheck
     @PostMapping(value = "/create")
     public String create(@ModelAttribute(value = "house") House house,
-                         Model model) {
-        MsgDeprecated msgDeprecated = houseService.insertSelective(house);
-        // TODO: 2022/5/15 msgDeprecated model.addAttribute("msgDeprecated", msgDeprecated);
+                         RedirectAttributes redirectAttributes) {
+        Msg msg = houseService.insertSelective(house);
+        redirectAttributes.addFlashAttribute("msg", msg);
         return "redirect:/admin/houses/get/list";
     }
 
     /**
      * 翻页与模糊搜索
-     *
-     * @param pageNum
-     * @param condition
-     * @param model
-     * @return
      */
     @AdminCheck
     @RequestMapping(value = "/get/list")
@@ -60,9 +59,9 @@ public class AdminHouseController {
     @AdminCheck
     @PostMapping(value = "/delete")
     public String delete(@RequestParam(value = "houseId") Integer houseId,
-                         Model model) {
-        MsgDeprecated msgDeprecated = houseService.deleteByPrimaryKey(houseId);
-        // TODO: 2022/5/15 msgDeprecated model.addAttribute("msgDeprecated", msgDeprecated);
+                         RedirectAttributes redirectAttributes) {
+        Msg msg = houseService.deleteByPrimaryKey(houseId);
+        redirectAttributes.addFlashAttribute("msg", msg);
         return "redirect:/admin/houses/get/list";
     }
 
@@ -79,8 +78,8 @@ public class AdminHouseController {
     @PostMapping(value = "/update")
     public String update(@ModelAttribute(value = "house") House house,
                          Model model) {
-        MsgDeprecated msgDeprecated = houseService.updateByPrimaryKeySelective(house);
-        model.addAttribute("msg", msgDeprecated);
+        Msg msg = houseService.updateByPrimaryKeySelective(house);
+        model.addAttribute("msg", msg);
         model.addAttribute("house", house);
         return "admin/house_detail";
     }

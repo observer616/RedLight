@@ -6,7 +6,7 @@ import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.Admin;
 import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.Comment;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.entity.vo.CommentVo;
 import com.ryan.redlight.mapper.AdminMapper;
 import com.ryan.redlight.mapper.ClientMapper;

@@ -20,8 +20,12 @@ import java.util.List;
 @Controller
 @RequestMapping(value = "/admin/comments")
 public class AdminCommentController {
-    @Autowired
+    final
     CommentService commentService;
+
+    public AdminCommentController(CommentService commentService) {
+        this.commentService = commentService;
+    }
 
     @AdminCheck
     @RequestMapping(value = "/get/list")

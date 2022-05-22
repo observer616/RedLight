@@ -3,7 +3,7 @@ package com.ryan.redlight.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.entity.ViewAppointment;
 import com.ryan.redlight.mapper.ViewAppointmentMapper;
 import com.ryan.redlight.service.ViewAppointmentService;

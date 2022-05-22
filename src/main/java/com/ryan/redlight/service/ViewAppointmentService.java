@@ -1,7 +1,7 @@
 package com.ryan.redlight.service;
 
 import com.github.pagehelper.PageInfo;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.entity.ViewAppointment;
 
 import java.util.Date;

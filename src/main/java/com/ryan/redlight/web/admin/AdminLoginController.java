@@ -1,7 +1,7 @@
 package com.ryan.redlight.web.admin;
 
 import com.ryan.redlight.entity.Admin;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.service.AdminService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

@@ -1,7 +1,7 @@
 package com.ryan.redlight.web.client;
 
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.Msg;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.service.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

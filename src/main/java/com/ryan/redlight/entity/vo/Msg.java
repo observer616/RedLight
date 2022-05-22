@@ -1,4 +1,4 @@
-package com.ryan.redlight.entity;
+package com.ryan.redlight.entity.vo;
 
 /**
  * @author Ryan
@@ -9,6 +9,12 @@ public class Msg {
 
     public Msg() {
 
+    }
+
+    public Msg(String str) {
+        this();
+        this.head = str;
+        this.info = str;
     }
 
     public Msg(String head, String info) {
