@@ -1,47 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!--page name-->
-    <title>看房预约</title>
-    <!--base解决页面跳转后静态资源失效问题-->
-    <base th:href="@{/}">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-          rel='stylesheet' type='text/css'>
-    <!--Bootstrap-->
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"
-          media="all"/>
-    <!--Bootstrap-select CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/bootstrap-select/bootstrap-select.min.css"
-          media="all"/>
-    <!--Flexslider CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css" media="all"/>
-    <!--Owl_Carousel CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css" media="all"/>
-    <!--Linearicons Icons CSS-->
-    <link rel="stylesheet" href="../vendors/linearicons/Linearicons.css">
-    <!--Font-Awesome CSS-->
-    <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.min.css">
-    <!-- Fonts -->
-
-    <!--Theme Styles CSS-->
-    <link rel="stylesheet" type="text/css" href="../css/style.css" media="all"/>
-
-    <script src="../js/jquery-1.12.0.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <!--<script src="../../static/js/echarts.min.js"></script>-->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="static/js/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="static/js/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<head th:replace="admin_kit::head(~{::title})">
+    <title>预约管理</title>
 </head>
+<body>
 <!--todo 待测试-->
 
 <!--导航栏-->
@@ -53,7 +15,7 @@
             <div class="row all-widgets-area m0">
                 <div class="col-md-10 col-sm-6 post-area">
                     <!--分页导航-->
-                    <div class="col-md-12 column" th:object="${appointmentPageInfo}">
+                    <div class="col-md-12 column" th:object="${appointmentVoPageInfo}">
                         <ul class="pagination">
                             <li>
                                 <a href="#"
@@ -62,12 +24,14 @@
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}-2)}"
-                                   th:if="${appointmentPageInfo.pageNum} gt 2" th:text="*{pageNum - 2}">1</a>
+                                   th:if="${appointmentVoPageInfo.pageNum} gt 2"
+                                   th:text="*{pageNum - 2}">1</a>
                             </li>
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}-1)}"
-                                   th:if="${appointmentPageInfo.pageNum} gt 1" th:text="*{pageNum - 1}">2</a>
+                                   th:if="${appointmentVoPageInfo.pageNum} gt 1"
+                                   th:text="*{pageNum - 1}">2</a>
                             </li>
                             <li class="active">
                                 <a href="#"
@@ -77,13 +41,13 @@
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}+1) }"
-                                   th:if="${appointmentPageInfo.pageNum}+1 lt ${appointmentPageInfo.pages}"
+                                   th:if="${appointmentVoPageInfo.pageNum}+1 lt ${appointmentVoPageInfo.pages}"
                                    th:text="*{pageNum + 1}">4</a>
                             </li>
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}+2)}"
-                                   th:if="${appointmentPageInfo.pageNum}+2 lt ${appointmentPageInfo.pages}"
+                                   th:if="${appointmentVoPageInfo.pageNum}+2 lt ${appointmentVoPageInfo.pages}"
                                    th:text="*{pageNum + 2}">5</a>
                             </li>
                             <li>
@@ -93,67 +57,70 @@
                         </ul>
                     </div>
                     <!--列表-->
-                    <tr th:each="appointment:${appointmentList}">
-                        <div class="Building-University">
-                            <div class="Building-content">
-                                <div class="right-area">
-                                    <!--标题-->
-                                    <h3 th:text="${view_appointment_id}">标题</h3>
-                                    <!--tags-->
-                                    <a href="" class="btn-slide activ">tags</a>
-                                    <!--信息-->
-                                    <!--todo id 转为 name+链接  包装vo对象-->
-                                    <ul class="info">
-                                        <li>
-                                            <i class="lnr lnr-tag"></i> 房屋id: <var
-                                                th:text="${appointment.houseId}">未知</var>
-                                        </li>
-                                        <li>
-                                            <i class="lnr lnr-tag"></i> 创建者id: <var th:text="${appointment.creatorId}">未知</var>
-                                        </li>
-                                        <li>
-                                            <i class="lnr lnr-tag"></i> 创建时间: <var th:text="${appointment.create_time}">未知</var>
-                                        </li>
-                                        <li>
-                                            <i class="lnr lnr-tag"></i> 看房时间: <var
-                                                th:text="${appointment.view_time}">未知</var>
-                                        </li>
-                                        <li>
-                                            <i class="lnr lnr-tag"></i> 已回复: <var
-                                                th:text="${appointment.isReplied}">未知</var>
-                                        </li>
-                                        <li th:if="${appointment.isReplied}">
-                                            <i class="lnr lnr-tag"></i> 回复者id: <var th:text="${appointment.replyerId}">未知</var>
-                                        </li>
-                                        <li th:if="${appointment.isReplied}">
-                                            <i class="lnr lnr-tag"></i> 回复时间: <var
-                                                th:text="${appointment.replyTime}">未知</var>
-                                        </li>
-                                        <li th:if="${appointment.isReplied}">
-                                            <i class="lnr lnr-tag"></i> 已看房: <var
-                                                th:text="${appointment.isViewed}">未知</var>
-                                        </li>
-                                    </ul>
-                                    <!--结束预约-->
-                                    <form th:if="${appointment.isReplied} eq 0"
-                                          th:action="@{'admin/appointment/update/reply'}"
-                                          method="post" th:object="${appointment}" th:method="post">
-                                        <button class="Contact">审查确定</button>
-                                    </form>
-                                    <form th:if="${appointment.isViewed} eq 0"
-                                          th:action="@{'admin/appointment/update/view'}"
-                                          method="post" th:object="${appointment}" th:method="post">
-                                        <button class="Contact">已完成看房</button>
-                                    </form>
-                                </div>
+                    <div class="Building-University"
+                         th:each="appointmentVo:${appointmentVoList}">
+                        <div class="Building-content">
+                            <div class="right-area">
+                                <!--标题-->
+                                <h3 th:text="${appointmentVo.houseName}">房屋名称</h3>
+                                <!--tags-->
+                                <a href="" class="btn-slide activ" th:text="${appointmentVo.viewAppointmentId}">tags</a>
+                                <!--信息-->
+                                <ul class="info">
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 房屋名称: <var
+                                            th:text="${appointmentVo.houseName}">未知</var>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 创建者名称: <var
+                                            th:text="${appointmentVo.creatorName}">未知</var>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 创建时间: <var
+                                            th:text="${appointmentVo.createTime}">未知</var>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 看房时间: <var
+                                            th:text="${appointmentVo.viewTime}">未知</var>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 已回复: <var
+                                            th:text="${appointmentVo.isReplied}">未知</var>
+                                    </li>
+                                    <li th:if="${appointmentVo.isReplied}">
+                                        <i class="lnr lnr-tag"></i> 回复者名称: <var
+                                            th:text="${appointmentVo.replierName}">未知</var>
+                                    </li>
+                                    <li th:if="${appointmentVo.isReplied}">
+                                        <i class="lnr lnr-tag"></i> 回复时间: <var
+                                            th:text="${appointmentVo.replyTime}">未知</var>
+                                    </li>
+                                    <li th:if="${appointmentVo.isReplied}">
+                                        <i class="lnr lnr-tag"></i> 已看房: <var
+                                            th:text="${appointmentVo.isViewed}">未知</var>
+                                    </li>
+                                </ul>
+                                <!--结束预约-->
+                                <form th:if="${appointmentVo.isReplied} eq 0"
+                                      th:action="@{'admin/appointment/update/reply'}"
+                                      method="post" th:object="${appointmentVo}"
+                                      th:method="post">
+                                    <button class="Contact">审查确定</button>
+                                </form>
+                                <!--完成看房-->
+                                <form th:if="${appointmentVo.isViewed} eq 0"
+                                      th:action="@{'admin/appointment/update/view'}"
+                                      method="post" th:object="${appointmentVo}"
+                                      th:method="post">
+                                    <button class="Contact">已完成看房</button>
+                                </form>
                             </div>
                         </div>
-                    </tr>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 </div>
-
 </body>
 </html>

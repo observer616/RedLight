@@ -17,5 +17,4 @@ pagehelper:
   helperDialect: mysql
   reasonable: true
   params: count=countSql
-  # todo
   supportMethodsArguments: true

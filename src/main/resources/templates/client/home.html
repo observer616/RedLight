@@ -1,13 +1,20 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="client_kit::head(title='用户登陆')">
+<head th:replace="client_kit::head(title='红光社区住宅销售系统')">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
 <!--导航栏-->
 <div th:replace="client_kit::navbar"></div>
-
+<!--消息提示-->
+<div class="alert alert-warning" role="alert" th:if="${msg}">
+    <button type="button" class="close" data-dismiss="alert"
+            aria-label="Close"><span
+            aria-hidden="true">&times;</span></button>
+    <strong th:text="${msg.head}">head</strong> <span
+        th:text="${msg.info}">message</span>
+</div>
 
 </body>
 </html>

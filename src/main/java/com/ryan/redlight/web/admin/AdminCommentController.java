@@ -30,7 +30,7 @@ public class AdminCommentController {
 
     @AdminCheck
     @RequestMapping(value = "/get/list")
-    public String commentList(@RequestParam(value = "pageNum") Integer pageNum,
+    public String commentList(@RequestParam(value = "pageNum",required = false, defaultValue = "1") Integer pageNum,
                               Model model) {
         PageInfo<CommentVo> commentVoPageInfo = commentService.selectAll(pageNum);
         List<CommentVo> commentVoList = commentVoPageInfo.getList();

@@ -6,8 +6,8 @@ import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.Admin;
 import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.Comment;
-import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.entity.vo.CommentVo;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.mapper.AdminMapper;
 import com.ryan.redlight.mapper.ClientMapper;
 import com.ryan.redlight.mapper.CommentMapper;
@@ -59,13 +59,10 @@ public class CommentServiceImpl implements CommentService {
     public PageInfo<CommentVo> selectAll(Integer pageNum) {
         PageHelper.startPage(pageNum, PageConfig.PAGE_SIZE);
         List<Comment> comments = commentMapper.selectALL();
-        // TODO: 2022/5/22  optimize
-        System.out.println(comments);
         List<CommentVo> commentVos = new ArrayList<>();
         for (Comment comment : comments) {
             Client creator = clientMapper.selectByPrimaryKey(comment.getCreatorId());
-            // OPTIMIZE: 2022/5/22 clientMapper.selectNicknameByPrimaryKey(Integer);
-            System.out.println(creator);
+            // OPTIMIZE: 2022/5/22 只需要用户名 clientMapper.selectNicknameByPrimaryKey(Integer);
             if (comment.getIsReplied() == 0) {
                 commentVos.add(new CommentVo(comment, creator));
             } else {

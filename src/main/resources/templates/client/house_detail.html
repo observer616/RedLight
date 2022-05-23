@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="client_kit::head(title='红光社区住宅销售系统')">
+<head th:replace="client_kit::head(title='房屋详情')">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
@@ -65,7 +65,6 @@
 
                                     </ul>
                                     描述: <var th:text="*{description}">未知</var>
-                                    <!--todo 看房预约-->
                                     <form class="navbar-form navbar-right"
                                           th:action="@{'/client/view_appointment/create?houseId='+${house.houseId}}"
                                           method="post">

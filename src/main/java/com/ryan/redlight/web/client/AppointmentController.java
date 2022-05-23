@@ -2,8 +2,8 @@ package com.ryan.redlight.web.client;
 
 import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.House;
-import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.entity.ViewAppointment;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.interceptor.LoginCheck;
 import com.ryan.redlight.service.HouseService;
 import com.ryan.redlight.service.ViewAppointmentService;
