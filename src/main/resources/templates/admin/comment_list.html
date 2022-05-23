@@ -13,8 +13,9 @@
             <div class="row all-widgets-area m0">
                 <div class="col-md-10 col-sm-6 post-area">
                     <br><br>
-                    <!--分页导航-->
-                    <div class="col-md-12 column" th:object="${commentVoPageInfo}">
+                    <!--分页-->
+                    <div class="column"
+                         th:object="${commentVoPageInfo}">
                         <ul class="pagination">
                             <li>
                                 <a href="#"
@@ -60,34 +61,58 @@
                         <div class="Building-content">
                             <div class="right-area">
                                 <div class="content">
-                                    <span class="name" th:text="${commentVo.creatorName}">commentVo.creatorName</span>
-                                    <span th:text="${commentVo.info}">commentVo.info</span>
-                                    <div class="good"><span class="date"
-                                                            th:text="${#dates.format(commentVo.createTime,'yyyy-MM-dd')}">commentVo.createTime</span>
-                                    </div>
-                                    <div class="comment-list">
-                                        <!--管理员回复-->
-                                        <div class="comment"
-                                             th:if="${commentVo.isReplied} eq 1">
-                                            <div class="comment-right">
-                                                <div class="comment-text">
-                                                    <span class="user"
-                                                          th:text="${commentVo.replyName}">commentVo.replyName</span>
+                                    <div class="media">
+                                        <div class="media-body">
+                                            <h5 class="media-heading"><span class="date"
+                                                                            th:text="${#dates.format(commentVo.createTime,'yyyy-MM-dd')}">commentVo.createTime</span><a
+                                                    href="https://blog.mazey.net/"
+                                                    target="_blank"> <span class="name"
+                                                                           th:text="${commentVo.creatorName}">commentVo.creatorName</span></a>
+                                            </h5>
+                                            <p><br><span th:text="${commentVo.info}">commentVo.info</span>
+                                            </p>
+                                            <a href="https://blog.mazey.net/"
+                                               target="_blank" class="pull-left">回应</a>
+                                            <br>
+                                            <!--todo 优化格式-->
+                                            <div class="comment"
+                                                 th:if="${commentVo.isReplied} eq 1">
+                                                <div class="comment">
+                                                    <div class="comment-text">
+                                                        <span>管理员：</span>
+                                                        <span class="user"
+                                                              th:text="${commentVo.replyName}">commentVo.replyName</span>
+                                                        <span>回复时间：</span>
+                                                        <span class="comment-date"
+                                                              th:text="${#dates.format(commentVo.replyTime,'yyyy-MM-dd')}">commentVo.replyTime</span>
+                                                    </div>
                                                     <span th:text="${commentVo.replyInfo}">commentVo.replyInfo</span>
                                                 </div>
-                                                <div class="comment-date"
-                                                     th:text="${#dates.format(commentVo.replyTime,'yyyy-MM-dd')}">
-                                                    commentVo.replyTime
-                                                </div>
+
+                                            </div>
+                                            <div class="comment"
+                                                 th:if="${commentVo.isReplied} eq 0">
+                                                <form id="replyCommentForm"
+                                                      class="form-horizontal"
+                                                      method="post"
+                                                      th:action="@{'/admin/comments/update?commentId='+${commentVo.commentId}}">
+                                                    <div class="form-group column">
+                                                        <label for="info" class="pull-left">回复留言：</label>
+                                                        <textarea name="info"
+                                                                  id="info"
+                                                                  placeholder="请输入留言内容！"
+                                                                  th:name="replyInfo"
+                                                                  rows="1"
+                                                                  required></textarea>
+                                                    </div>
+                                                    <button class="btn btn-success"
+                                                            type="submit">提交
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
-                                        <div class="comment"
-                                             th:if="${commentVo.isReplied} eq 0">
-                                            <button class="btn btn-lg btn-block" data-toggle="modal"
-                                                    data-target="#replyComment">回复留言
-                                            </button>
-                                        </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -96,43 +121,6 @@
             </div>
         </div>
     </section>
-</div>
-
-<!--留言回复-->
-<div class="modal fade" id="replyComment" aria-labelledby="replyCommentLabel"
-     aria-hidden="true" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button class="close" type="button" data-dismiss="modal"
-                        aria-hidden="true">&times;
-                </button>
-                <h5 class="modal-title" id="replyCommentLabel">留言回复</h5>
-            </div>
-
-            <form id="replyCommentForm" class="form-horizontal" method="post"
-                  th:action="@{/admin/comments/update}"
-                  th:object="${comment}">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="info">回复留言：</label>
-                        <textarea name="info" id="info"
-                                  placeholder="请输入留言内容！"
-                                  th:name="replyInfo" required></textarea>
-                    </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-default" type="button" data-dismiss="modal">
-                        关闭
-                    </button>
-                    <button class="btn btn-success" type="button"
-                            onclick="form.submit();">提交
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
 </div>
 </body>
 </html>

@@ -66,7 +66,7 @@
                                       rows="5" placeholder="欢迎留言：" th:name="info"
                                       required></textarea>
                         </div>
-                        <button type="submit">提交留言</button>
+                        <button class="btn btn-success" type="submit">提交留言</button>
                         <br>
                     </form>
                     <!--分页导航-->
@@ -129,14 +129,14 @@
                                              th:if="${commentVo.isReplied} eq 1">
                                             <div class="comment-right">
                                                 <div class="comment-text">
+                                                    <span>用户名：</span>
                                                     <span class="user"
                                                           th:text="${commentVo.replyName}">commentVo.replyName</span>
-                                                    <span th:text="${commentVo.replyInfo}">commentVo.replyInfo</span>
+                                                    <span>留言时间：</span>
+                                                    <span class="comment-date"
+                                                          th:text="${#dates.format(commentVo.replyTime,'yyyy-MM-dd')}">commentVo.replyTime</span>
                                                 </div>
-                                                <div class="comment-date"
-                                                     th:text="${#dates.format(commentVo.replyTime,'yyyy-MM-dd')}">
-                                                    commentVo.replyTime
-                                                </div>
+                                                <span th:text="${commentVo.replyInfo}">commentVo.replyInfo</span>
                                             </div>
                                         </div>
                                     </div>
