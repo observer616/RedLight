@@ -36,7 +36,7 @@ public class LoginRegisterController {
                               Model model) {
         System.out.println("1");
         // 查找 client
-        Client getClient = clientService.selectByNickName(nickname);
+        Client getClient = clientService.selectByNickname(nickname);
         // 查找失败，附加错误信息
         if (getClient == null) {
             model.addAttribute("msg", new Msg("登陆失败", "用户不存在"));

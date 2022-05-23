@@ -28,8 +28,9 @@ public class AdminHouseController {
     final
     HouseService houseService;
 
-    @Value("${file.upload.path.relative}")
-    private String filePath;
+    // TODO: 2022/5/22 文件上传，文件保存路径
+//    @Value("${file.upload.path.relative}")
+//    private String filePath;
 
     public AdminHouseController(HouseService houseService) {
         this.houseService = houseService;

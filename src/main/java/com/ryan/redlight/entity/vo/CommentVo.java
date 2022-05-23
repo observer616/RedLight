@@ -4,73 +4,59 @@ import com.ryan.redlight.entity.Admin;
 import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.Comment;
 
-import java.util.Date;
-
 /**
+ * 留言VO对象，包含用户名、管理员名
+ *
  * @author Ryan
  */
-public class CommentVo {
-    private Integer commentId;
-    private Integer creatorId;
+public class CommentVo extends Comment {
     private String creatorName;
-    private Date createTime;
-    private String info;
-    private Byte isReplied;
-    private Integer replyId;
     private String replyName;
-    private Date replyTime;
-    private String replyInfo;
 
     public CommentVo() {
-
+        super();
     }
 
     public CommentVo(Comment comment, Client client) {
         this();
-        commentId = comment.getCommentId();
-        creatorId = comment.getCreatorId();
-        // 用户
+        this.setCommentId(comment.getCommentId());
+        this.setCreatorId(comment.getCreatorId());
+        this.setCreateTime(comment.getCreateTime());
+        this.setInfo(comment.getInfo());
+        this.setIsReplied(comment.getIsReplied());
+        this.setReplyId(comment.getReplyId());
+        this.setReplyTime(comment.getReplyTime());
+        this.setReplyInfo(comment.getReplyInfo());
+
+        // 客户名
         creatorName = client.getNickname();
-        createTime = comment.getCreateTime();
-        info = comment.getInfo();
-        isReplied = comment.getIsReplied();
-        replyId = comment.getReplyId();
         // 无回复
         replyName = null;
-        replyTime = comment.getReplyTime();
-        replyInfo = comment.getReplyInfo();
     }
 
     public CommentVo(Comment comment, Client client, Admin admin) {
         this();
-        commentId = comment.getCommentId();
-        creatorId = comment.getCreatorId();
-        // 客户名
+        this.setCommentId(comment.getCommentId());
+        this.setCreatorId(comment.getCreatorId());
+        this.setCreateTime(comment.getCreateTime());
+        this.setInfo(comment.getInfo());
+        this.setIsReplied(comment.getIsReplied());
+        this.setReplyId(comment.getReplyId());
+        this.setReplyTime(comment.getReplyTime());
+        this.setReplyInfo(comment.getReplyInfo());
+
+        // 创建者 客户名
         creatorName = client.getNickname();
-        createTime = comment.getCreateTime();
-        info = comment.getInfo();
-        isReplied = comment.getIsReplied();
-        replyId = comment.getReplyId();
-        // 管理员名
+        // 回复者 管理员名
         replyName = admin.getNickname();
-        replyTime = comment.getReplyTime();
-        replyInfo = comment.getReplyInfo();
     }
 
-    public Integer getCommentId() {
-        return commentId;
-    }
-
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
-    }
-
-    public Integer getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(Integer creatorId) {
-        this.creatorId = creatorId;
+    @Override
+    public String toString() {
+        return "CommentVo{" + super.toString() +
+                "creatorName='" + creatorName + '\'' +
+                ", replyName='" + replyName + '\'' +
+                '}';
     }
 
     public String getCreatorName() {
@@ -89,51 +75,4 @@ public class CommentVo {
         this.replyName = replyName;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public String getInfo() {
-        return info;
-    }
-
-    public void setInfo(String info) {
-        this.info = info;
-    }
-
-    public Byte getIsReplied() {
-        return isReplied;
-    }
-
-    public void setIsReplied(Byte isReplied) {
-        this.isReplied = isReplied;
-    }
-
-    public Integer getReplyId() {
-        return replyId;
-    }
-
-    public void setReplyId(Integer replyId) {
-        this.replyId = replyId;
-    }
-
-    public Date getReplyTime() {
-        return replyTime;
-    }
-
-    public void setReplyTime(Date replyTime) {
-        this.replyTime = replyTime;
-    }
-
-    public String getReplyInfo() {
-        return replyInfo;
-    }
-
-    public void setReplyInfo(String replyInfo) {
-        this.replyInfo = replyInfo;
-    }
 }

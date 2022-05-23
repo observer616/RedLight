@@ -23,7 +23,7 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client selectByNickName(String nickname) {
+    public Client selectByNickname(String nickname) {
         return clientMapper.selectByNickname(nickname);
     }
 

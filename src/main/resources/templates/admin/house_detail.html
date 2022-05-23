@@ -1,50 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-
-    <!--page name-->
+<head th:replace="admin_kit::head(~{::title})">
     <title>房屋详情</title>
-    <!--base解决页面跳转后静态资源失效问题-->
-    <base th:href="@{/}">
-    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
-          rel='stylesheet' type='text/css'>
-    <!--Bootstrap-->
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"
-          media="all"/>
-    <!--Bootstrap-select CSS-->
-    <link rel="stylesheet" type="text/css"
-          href="../vendors/bootstrap-select/bootstrap-select.min.css"
-          media="all"/>
-    <!--Flexslider CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css"
-          media="all"/>
-    <!--Owl_Carousel CSS-->
-    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css"
-          media="all"/>
-    <!--Linearicons Icons CSS-->
-    <link rel="stylesheet" href="../vendors/linearicons/Linearicons.css">
-    <!--Font-Awesome CSS-->
-    <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.min.css">
-    <!-- Fonts -->
-
-    <!--Theme Styles CSS-->
-    <link rel="stylesheet" type="text/css" href="../css/style.css" media="all"/>
-
-    <script src="../js/jquery-1.12.0.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <!--<script src="../../static/js/echarts.min.js"></script>-->
-
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="static/js/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="static/js/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 <body>
 <!--导航栏-->
@@ -55,11 +12,11 @@
         <div class="container coustome-container">
             <div class="row all-widgets-area m0">
                 <div class="col-md-10 col-sm-6 post-area">
-                    <!--添加房屋，唤出模态框-->
+                    <!--修改房屋，唤出模态框-->
                     <button class="btn btn-lg btn-block" data-toggle="modal"
-                            data-target="#updateHouse"><h4>修改房屋信息</h4>
+                            data-target="#updateHouse">修改房屋信息
                     </button>
-                    <!--房屋列表-->
+                    <!--房屋详情-->
                     <div th:object="${house}">
                         <div class="Building-University">
                             <div class="Building">
@@ -138,68 +95,69 @@
                   th:object="${house}">
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="control-label col-lg-3">房屋名称：</label>
+                        <label class="control-label col-lg-3" for="name">房屋名称：</label>
                         <div class="col-lg-9">
-                            <input type="text" value="" name="name" placeholder="name"
+                            <input type="text" value="" id="name" placeholder="name"
                                    class="form-control"
-                                   th:field="*{name}"></br>
+                                   th:field="*{name}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">地址：</label>
+                        <label class="control-label col-lg-3" for="address">地址：</label>
                         <div class="col-lg-9">
                             <input type="text" placeholder="address" value=""
-                                   name="address" class="form-control"
+                                   id="address" class="form-control"
                                    th:field="*{address}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">面积：</label>
+                        <label class="control-label col-lg-3" for="size">面积：</label>
                         <div class="col-lg-9">
-                            <input type="number" placeholder="size" value="" name="size"
+                            <input type="number" placeholder="size" value="" id="size"
                                    class="form-control"
                                    th:field="*{size}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">分区：</label>
+                        <label class="control-label col-lg-3" for="division">分区：</label>
                         <div class="col-lg-9">
                             <input type="text" placeholder="division" value=""
-                                   name="division" class="form-control"
+                                   id="division" class="form-control"
                                    th:field="*{division}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">价格：</label>
+                        <label class="control-label col-lg-3" for="price">价格：</label>
                         <div class="col-lg-9">
-                            <input type="number" placeholder="price" value="" name="price"
+                            <input type="number" placeholder="price" value="" id="price"
                                    class="form-control"
                                    th:field="*{price}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">房屋类型：</label>
+                        <label class="control-label col-lg-3" for="type">房屋类型：</label>
                         <div class="col-lg-9">
-                            <input type="text" placeholder="type" value="" name="type"
+                            <input type="text" placeholder="type" value="" id="type"
                                    class="form-control"
                                    th:field="*{type}">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3">描述：</label>
+                        <label class="control-label col-lg-3"
+                               for="description">描述：</label>
                         <div class="col-lg-9">
                             <input type="text" placeholder="description" value=""
-                                   name="description"
+                                   id="description"
                                    class="form-control"
                                    th:field="*{description}">
                         </div>
                     </div>
                     <!--todo 上传图片-->
                     <div class="form-group">
-                        <label class="control-label col-lg-3">图片：</label>
+                        <label class="control-label col-lg-3" for="picture">图片：</label>
                         <div class="col-lg-9">
                             <input type="text" placeholder="picture" value=""
-                                   name="picture" class="form-control"
+                                   id="picture" class="form-control"
                                    th:field="*{picture}">
                         </div>
                     </div>

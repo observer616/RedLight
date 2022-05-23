@@ -1,5 +1,7 @@
 package com.ryan.redlight.entity;
 
+import com.ryan.redlight.entity.vo.AppointmentVo;
+
 import java.util.Date;
 
 public class ViewAppointment {
@@ -8,6 +10,33 @@ public class ViewAppointment {
     private Integer houseId;
 
     private Integer creatorId;
+
+
+    private Date createTime;
+
+    private Date viewTime;
+
+    private Byte isReplied;
+
+    private Integer replyerId;
+
+    private Date replyTime;
+
+    private Byte isViewed;
+
+    public ViewAppointment(){}
+
+    public ViewAppointment(AppointmentVo appointmentVo){
+         viewAppointmentId=appointmentVo.getViewAppointmentId();
+         houseId=appointmentVo.getHouseId();
+         creatorId=appointmentVo.getCreatorId();
+         createTime=appointmentVo.getCreateTime();
+         viewTime=appointmentVo.getViewTime();
+         isReplied=appointmentVo.getIsReplied();
+         replyerId=appointmentVo.getReplyerId();
+         replyTime=appointmentVo.getReplyTime();
+         isViewed=appointmentVo.getIsViewed();
+    }
 
     @Override
     public String toString() {
@@ -23,18 +52,6 @@ public class ViewAppointment {
                 ", isViewed=" + isViewed +
                 '}';
     }
-
-    private Date createTime;
-
-    private Date viewTime;
-
-    private Byte isReplied;
-
-    private Integer replyerId;
-
-    private Date replyTime;
-
-    private Byte isViewed;
 
     public Integer getViewAppointmentId() {
         return viewAppointmentId;

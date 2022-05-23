@@ -7,7 +7,7 @@ import com.ryan.redlight.entity.Client;
  * @author Ryan
  */
 public interface ClientService {
-    Client selectByNickName(String nickname);
+    Client selectByNickname(String nickname);
 
     PageInfo<Client> selectAll(Integer pageNum);
 

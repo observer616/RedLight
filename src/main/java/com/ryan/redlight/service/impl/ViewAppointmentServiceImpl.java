@@ -3,13 +3,20 @@ package com.ryan.redlight.service.impl;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
-import com.ryan.redlight.entity.vo.Msg;
+import com.ryan.redlight.entity.Admin;
+import com.ryan.redlight.entity.Client;
+import com.ryan.redlight.entity.House;
 import com.ryan.redlight.entity.ViewAppointment;
+import com.ryan.redlight.entity.vo.AppointmentVo;
+import com.ryan.redlight.entity.vo.Msg;
+import com.ryan.redlight.mapper.AdminMapper;
+import com.ryan.redlight.mapper.ClientMapper;
+import com.ryan.redlight.mapper.HouseMapper;
 import com.ryan.redlight.mapper.ViewAppointmentMapper;
 import com.ryan.redlight.service.ViewAppointmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,21 +25,56 @@ import java.util.List;
  */
 @Service
 public class ViewAppointmentServiceImpl implements ViewAppointmentService {
-    @Autowired
+    final
+    HouseMapper houseMapper;
+    final
     ViewAppointmentMapper viewAppointmentMapper;
 
+    final
+    ClientMapper clientMapper;
+
+    final
+    AdminMapper adminMapper;
+
+    public ViewAppointmentServiceImpl(ViewAppointmentMapper viewAppointmentMapper,
+                                      HouseMapper houseMapper,
+                                      ClientMapper clientMapper,
+                                      AdminMapper adminMapper) {
+        this.viewAppointmentMapper = viewAppointmentMapper;
+        this.clientMapper = clientMapper;
+        this.adminMapper = adminMapper;
+        this.houseMapper = houseMapper;
+    }
+
+    public List<AppointmentVo> toAppointmentVoList(List<ViewAppointment> appointments) {
+        List<AppointmentVo> list = new ArrayList<>();
+        for (ViewAppointment appointment : appointments) {
+            House house = houseMapper.selectByPrimaryKey(appointment.getHouseId());
+            Client creator = clientMapper.selectByPrimaryKey(appointment.getCreatorId());
+            if (appointment.getIsReplied() == 0) {
+                list.add(new AppointmentVo(appointment, house, creator));
+            } else {
+                Admin admin = adminMapper.selectByPrimaryKey(appointment.getReplyerId());
+                list.add(new AppointmentVo(appointment, house, creator, admin));
+            }
+        }
+        return list;
+    }
+
     @Override
-    public PageInfo<ViewAppointment> selectAll(Integer pageNum) {
+    public PageInfo<AppointmentVo> selectAll(Integer pageNum) {
         PageHelper.startPage(pageNum, PageConfig.PAGE_SIZE);
-        List<ViewAppointment> list = viewAppointmentMapper.selectAll();
+        List<ViewAppointment> appointments = viewAppointmentMapper.selectAll();
+        List<AppointmentVo> list = toAppointmentVoList(appointments);
         //用PageInfo对结果进行包装
         return new PageInfo<>(list);
     }
 
     @Override
-    public PageInfo<ViewAppointment> selectAllByCreatorId(Integer pageNum, Integer creatorId) {
+    public PageInfo<AppointmentVo> selectAllByCreatorId(Integer pageNum, Integer creatorId) {
         PageHelper.startPage(pageNum, PageConfig.PAGE_SIZE);
-        List<ViewAppointment> list = viewAppointmentMapper.selectAllByCreatorId(creatorId);
+        List<ViewAppointment> appointments = viewAppointmentMapper.selectAllByCreatorId(creatorId);
+        List<AppointmentVo> list = toAppointmentVoList(appointments);
         //用PageInfo对结果进行包装
         return new PageInfo<>(list);
     }

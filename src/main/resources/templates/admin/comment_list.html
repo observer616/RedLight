@@ -1,13 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="admin_kit::head(~{::title})">
+    <title>房屋管理</title>
 </head>
 <body>
-<!--todo-->
 <!--导航栏-->
-<!--查看留言列表-->
-<!--回复留言-->
+<div th:replace="admin_kit::navbar"></div>
+<!--正文-->
+<div class="container">
+    <section class="heading-item-area">
+        <div class="container coustome-container">
+            <div class="row all-widgets-area m0">
+                <div class="col-md-10 col-sm-6 post-area">
+                    <br><br>
+                    <!--分页导航-->
+                    <div class="col-md-12 column" th:object="${commentVoPageInfo}">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/comments/get/list(pageNum=*{pageNum}-1 )}">Prev</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/comments/get/list(pageNum=*{pageNum}-2 )}"
+                                   th:if="${commentVoPageInfo.pageNum} gt 2"
+                                   th:text="*{pageNum - 2}">1</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/comments/get/list(pageNum=*{pageNum}-1 )}"
+                                   th:if="${commentVoPageInfo.pageNum} gt 1"
+                                   th:text="*{pageNum - 1}">2</a>
+                            </li>
+                            <li class="active">
+                                <a href="#"
+                                   th:href="@{/admin/comments/get/list(pageNum=*{pageNum} )}"
+                                   th:text="*{pageNum}">3</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/comments/get/list(pageNum=*{pageNum}+1 ) }"
+                                   th:if="${commentVoPageInfo.pageNum}+1 lt ${commentVoPageInfo.pages}"
+                                   th:text="*{pageNum + 1}">4</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/comments/get/list(pageNum=*{pageNum}+2 )}"
+                                   th:if="${commentVoPageInfo.pageNum}+2 lt ${commentVoPageInfo.pages}"
+                                   th:text="*{pageNum + 2}">5</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/comments/get/list(pageNum=*{pageNum}+1 )}">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--展示-->
+                    <div class="Building-University" th:each="commentVo:${commentVoList}">
+                        <div class="Building-content">
+                            <div class="right-area">
+                                <div class="content">
+                                    <span class="name" th:text="${commentVo.creatorName}">commentVo.creatorName</span>
+                                    <span th:text="${commentVo.info}">commentVo.info</span>
+                                    <!--<div class="pic"><img src="#" alt=""></div>-->
+                                    <div class="good"><span class="date"
+                                                            th:text="${#dates.format(commentVo.createTime,'yyyy-MM-dd')}">commentVo.createTime</span>
+                                    </div>
+                                    <div class="comment-list">
+                                        <!--管理员回复-->
+                                        <div class="comment"
+                                             th:if="${commentVo.isReplied} eq 1">
+                                            <div class="comment-right">
+                                                <div class="comment-text">
+                                                    <span class="user"
+                                                          th:text="${commentVo.replyName}">commentVo.replyName</span>
+                                                    <span th:text="${commentVo.replyInfo}">commentVo.replyInfo</span>
+                                                </div>
+                                                <div class="comment-date"
+                                                     th:text="${#dates.format(commentVo.replyTime,'yyyy-MM-dd')}">
+                                                    commentVo.replyTime
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="comment"
+                                             th:if="${commentVo.isReplied} eq 0">
+                                            <div class="comment-right">
+                                                <div class="comment-text">
+                                                    <span class="user"
+                                                          th:text="${commentVo.replyName}">commentVo.replyName</span>
+                                                    <span th:text="${commentVo.replyInfo}">commentVo.replyInfo</span>
+                                                </div>
+                                                <div class="comment-date"
+                                                     th:text="${#dates.format(commentVo.replyTime,'yyyy-MM-dd')}">
+                                                    commentVo.replyTime
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 </body>
 </html>

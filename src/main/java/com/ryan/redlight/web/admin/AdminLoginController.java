@@ -35,7 +35,7 @@ public class AdminLoginController {
                              HttpSession session,
                              Model model) {
         // 查找 admin
-        Admin getAdmin = adminService.selectByNickName(nickname);
+        Admin getAdmin = adminService.selectByNickname(nickname);
         // 查找失败，附加错误信息
         if (getAdmin == null) {
             model.addAttribute("msg", new Msg("登陆失败", "用户不存在"));

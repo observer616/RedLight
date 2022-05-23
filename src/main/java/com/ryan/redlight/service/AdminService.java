@@ -1,13 +1,13 @@
 package com.ryan.redlight.service;
 
 import com.ryan.redlight.entity.Admin;
-import com.ryan.redlight.entity.MsgDeprecated;
+import com.ryan.redlight.entity.vo.Msg;
 
 /**
  * @author Ryan
  */
 public interface AdminService {
-    Admin selectByNickName(String nickName);
+    Admin selectByNickname(String nickname);
 
-    MsgDeprecated insertSelective(Admin record);
+    Msg insertSelective(Admin record);
 }

@@ -2,7 +2,6 @@ package com.ryan.redlight.web.admin;
 
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.entity.Client;
-import com.ryan.redlight.entity.MsgDeprecated;
 import com.ryan.redlight.interceptor.AdminCheck;
 import com.ryan.redlight.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
