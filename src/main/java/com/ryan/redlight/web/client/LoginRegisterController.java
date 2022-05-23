@@ -34,7 +34,6 @@ public class LoginRegisterController {
                               @RequestParam(value = "password") String password,
                               HttpSession session,
                               Model model) {
-        System.out.println("1");
         // 查找 client
         Client getClient = clientService.selectByNickname(nickname);
         // 查找失败，附加错误信息
@@ -48,8 +47,6 @@ public class LoginRegisterController {
         // 查找成功，创建 session:
         //      clientInfo:   Client
         //      clientInfo:  Client
-        // TODO: 2022/5/21
-        System.out.println(getClient);
         session.setAttribute("clientInfo", getClient);
         return "redirect:/home";
     }

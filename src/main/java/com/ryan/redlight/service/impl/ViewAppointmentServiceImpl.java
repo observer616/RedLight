@@ -14,6 +14,7 @@ import com.ryan.redlight.mapper.ClientMapper;
 import com.ryan.redlight.mapper.HouseMapper;
 import com.ryan.redlight.mapper.ViewAppointmentMapper;
 import com.ryan.redlight.service.ViewAppointmentService;
+import com.ryan.redlight.util.PageUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class ViewAppointmentServiceImpl implements ViewAppointmentService {
         List<ViewAppointment> appointments = viewAppointmentMapper.selectAll();
         List<AppointmentVo> list = toAppointmentVoList(appointments);
         //用PageInfo对结果进行包装
-        return new PageInfo<>(list);
+        return PageUtil.convertPageInfo(new PageInfo<>(appointments, PageConfig.PAGE_SIZE), list);
     }
 
     @Override
@@ -76,7 +77,7 @@ public class ViewAppointmentServiceImpl implements ViewAppointmentService {
         List<ViewAppointment> appointments = viewAppointmentMapper.selectAllByCreatorId(creatorId);
         List<AppointmentVo> list = toAppointmentVoList(appointments);
         //用PageInfo对结果进行包装
-        return new PageInfo<>(list);
+        return PageUtil.convertPageInfo(new PageInfo<>(appointments, PageConfig.PAGE_SIZE), list);
     }
 
     @Override

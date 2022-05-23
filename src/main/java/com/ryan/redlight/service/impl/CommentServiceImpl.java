@@ -1,5 +1,6 @@
 package com.ryan.redlight.service.impl;
 
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
@@ -12,6 +13,7 @@ import com.ryan.redlight.mapper.AdminMapper;
 import com.ryan.redlight.mapper.ClientMapper;
 import com.ryan.redlight.mapper.CommentMapper;
 import com.ryan.redlight.service.CommentService;
+import com.ryan.redlight.util.PageUtil;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ public class CommentServiceImpl implements CommentService {
     public PageInfo<CommentVo> selectAll(Integer pageNum) {
         PageHelper.startPage(pageNum, PageConfig.PAGE_SIZE);
         List<Comment> comments = commentMapper.selectALL();
+        // 构造 commentVo list
         List<CommentVo> commentVos = new ArrayList<>();
         for (Comment comment : comments) {
             Client creator = clientMapper.selectByPrimaryKey(comment.getCreatorId());
@@ -70,7 +73,7 @@ public class CommentServiceImpl implements CommentService {
                 commentVos.add(new CommentVo(comment, creator, admin));
             }
         }
-        return new PageInfo<>(commentVos, PageConfig.PAGE_SIZE);
+        return PageUtil.convertPageInfo(new PageInfo<>(comments, PageConfig.PAGE_SIZE), commentVos);
     }
 
     @Override

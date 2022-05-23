@@ -24,13 +24,13 @@
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}-2)}"
-                                   th:if="${appointmentVoPageInfo.pageNum} gt 2"
+                                   th:if="${appointmentVoPageInfo.pageNum} -2 ge 1"
                                    th:text="*{pageNum - 2}">1</a>
                             </li>
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}-1)}"
-                                   th:if="${appointmentVoPageInfo.pageNum} gt 1"
+                                   th:if="${appointmentVoPageInfo.pageNum} -1 ge 1"
                                    th:text="*{pageNum - 1}">2</a>
                             </li>
                             <li class="active">
@@ -41,13 +41,13 @@
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}+1) }"
-                                   th:if="${appointmentVoPageInfo.pageNum}+1 lt ${appointmentVoPageInfo.pages}"
+                                   th:if="${appointmentVoPageInfo.pageNum}+1 le ${appointmentVoPageInfo.pages}"
                                    th:text="*{pageNum + 1}">4</a>
                             </li>
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}+2)}"
-                                   th:if="${appointmentVoPageInfo.pageNum}+2 lt ${appointmentVoPageInfo.pages}"
+                                   th:if="${appointmentVoPageInfo.pageNum}+2 le ${appointmentVoPageInfo.pages}"
                                    th:text="*{pageNum + 2}">5</a>
                             </li>
                             <li>

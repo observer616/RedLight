@@ -23,13 +23,13 @@
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/comments/get/list(pageNum=*{pageNum}-2 )}"
-                                   th:if="${commentVoPageInfo.pageNum} gt 2"
+                                   th:if="${commentVoPageInfo.pageNum} -2 ge 1"
                                    th:text="*{pageNum - 2}">1</a>
                             </li>
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/comments/get/list(pageNum=*{pageNum}-1 )}"
-                                   th:if="${commentVoPageInfo.pageNum} gt 1"
+                                   th:if="${commentVoPageInfo.pageNum} -1 ge 1"
                                    th:text="*{pageNum - 1}">2</a>
                             </li>
                             <li class="active">
@@ -40,13 +40,13 @@
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/comments/get/list(pageNum=*{pageNum}+1 ) }"
-                                   th:if="${commentVoPageInfo.pageNum}+1 lt ${commentVoPageInfo.pages}"
+                                   th:if="${commentVoPageInfo.pageNum}+1 le ${commentVoPageInfo.pages}"
                                    th:text="*{pageNum + 1}">4</a>
                             </li>
                             <li>
                                 <a href="#"
                                    th:href="@{/admin/comments/get/list(pageNum=*{pageNum}+2 )}"
-                                   th:if="${commentVoPageInfo.pageNum}+2 lt ${commentVoPageInfo.pages}"
+                                   th:if="${commentVoPageInfo.pageNum}+2 le ${commentVoPageInfo.pages}"
                                    th:text="*{pageNum + 2}">5</a>
                             </li>
                             <li>
@@ -62,7 +62,6 @@
                                 <div class="content">
                                     <span class="name" th:text="${commentVo.creatorName}">commentVo.creatorName</span>
                                     <span th:text="${commentVo.info}">commentVo.info</span>
-                                    <!--<div class="pic"><img src="#" alt=""></div>-->
                                     <div class="good"><span class="date"
                                                             th:text="${#dates.format(commentVo.createTime,'yyyy-MM-dd')}">commentVo.createTime</span>
                                     </div>
@@ -84,17 +83,9 @@
                                         </div>
                                         <div class="comment"
                                              th:if="${commentVo.isReplied} eq 0">
-                                            <div class="comment-right">
-                                                <div class="comment-text">
-                                                    <span class="user"
-                                                          th:text="${commentVo.replyName}">commentVo.replyName</span>
-                                                    <span th:text="${commentVo.replyInfo}">commentVo.replyInfo</span>
-                                                </div>
-                                                <div class="comment-date"
-                                                     th:text="${#dates.format(commentVo.replyTime,'yyyy-MM-dd')}">
-                                                    commentVo.replyTime
-                                                </div>
-                                            </div>
+                                            <button class="btn btn-lg btn-block" data-toggle="modal"
+                                                    data-target="#replyComment">回复留言
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -105,6 +96,43 @@
             </div>
         </div>
     </section>
+</div>
+
+<!--留言回复-->
+<div class="modal fade" id="replyComment" aria-labelledby="replyCommentLabel"
+     aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-hidden="true">&times;
+                </button>
+                <h5 class="modal-title" id="replyCommentLabel">留言回复</h5>
+            </div>
+
+            <form id="replyCommentForm" class="form-horizontal" method="post"
+                  th:action="@{/admin/comments/update}"
+                  th:object="${comment}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="info">回复留言：</label>
+                        <textarea name="info" id="info"
+                                  placeholder="请输入留言内容！"
+                                  th:name="replyInfo" required></textarea>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button class="btn btn-success" type="button"
+                            onclick="form.submit();">提交
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
 </body>
 </html>

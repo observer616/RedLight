@@ -36,6 +36,8 @@ public class CommentController {
                                  Model model) {
         PageInfo<CommentVo> commentVoPageInfo = commentService.selectAll(pageNum);
         List<CommentVo> commentVoList = commentVoPageInfo.getList();
+        // todo
+        System.out.println(commentVoPageInfo);
         model.addAttribute("commentVoPageInfo", commentVoPageInfo);
         model.addAttribute("commentVoList", commentVoList);
         return "client/comment_list";
