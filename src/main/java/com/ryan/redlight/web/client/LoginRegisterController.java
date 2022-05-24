@@ -60,8 +60,8 @@ public class LoginRegisterController {
     @PostMapping(value = "/register/create")
     public Object registerClient(@ModelAttribute(value = "client") Client client,
                                  Model model) {
-        Integer clientId = clientService.insertSelective(client);
-        if (clientId == null) {
+        Msg msg = clientService.insertSelective(client);
+        if (msg == null) {
             model.addAttribute("msg", new Msg("注册失败", "用户名已存在"));
             return "client/register";
         }

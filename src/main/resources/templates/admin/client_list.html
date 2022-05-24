@@ -1,17 +1,202 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="admin_kit::head(~{::title})">
-    <title>客户管理</title>
+    <title>用户管理</title>
 </head>
 <body>
 <!--导航栏-->
+<div th:replace="admin_kit::navbar"></div>
+<!--展示-->
+<div class="container">
+    <section class="heading-item-area">
+        <div class="container coustome-container">
+            <div class="row all-widgets-area m0">
+                <div class="col-md-10 col-sm-6 post-area">
+                    <!--添加，唤出模态框-->
+                    <button class="btn btn-lg btn-block" data-toggle="modal"
+                            data-target="#createClient">添加客户
+                    </button>
+                    <!--模糊搜索-->
+                    <div class="right-site-bar pull-right">
+                        <form class="navbar-form navbar-right" role="search"
+                              th:action="@{/admin/clients/get/list}">
+                            <div class="form-group">
+                                <label>
+                                    <input type="text" class="form-control form-custom"
+                                           placeholder="Search Here"
+                                           th:name="condition">
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-submit">Search</button>
+                        </form>
+                    </div>
+                    <!--分页导航-->
+                    <div class="col-md-12 column" th:object="${clientPageInfo}">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/clients/get/list(pageNum=*{pageNum}-1, condition=${condition})}">Prev</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/clients/get/list(pageNum=*{pageNum}-2, condition=${condition})}"
+                                   th:if="${clientPageInfo.pageNum} -2 ge 1"
+                                   th:text="*{pageNum - 2}">1</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/clients/get/list(pageNum=*{pageNum}-1, condition=${condition})}"
+                                   th:if="${clientPageInfo.pageNum} -1 ge 1"
+                                   th:text="*{pageNum - 1}">2</a>
+                            </li>
+                            <li class="active">
+                                <a href="#"
+                                   th:href="@{/admin/clients/get/list(pageNum=*{pageNum}, condition=${condition})}"
+                                   th:text="*{pageNum}">3</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/clients/get/list(pageNum=*{pageNum}+1, condition=${condition}) }"
+                                   th:if="${clientPageInfo.pageNum}+1 le ${clientPageInfo.pages}"
+                                   th:text="*{pageNum + 1}">4</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/clients/get/list(pageNum=*{pageNum}+2, condition=${condition})}"
+                                   th:if="${clientPageInfo.pageNum}+2 le ${clientPageInfo.pages}"
+                                   th:text="*{pageNum + 2}">5</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/admin/clients/get/list(pageNum=*{pageNum}+1, condition=${condition})}">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--客户列表-->
+                    <div>
+                        <div class="Building-University" th:each="client:${clientList}">
+                            <div class="Building-content">
+                                <div class="right-area">
+                                    <!--标题-->
+                                    <h3 th:text="${client.nickname}">Building Rent For
+                                        University</h3>
+                                    <!--信息-->
+                                    <ul class="info">
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 真实姓名: <var
+                                                th:text="${client.username}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 区域: <var
+                                                th:text="${client.location}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 邮箱: <var
+                                                th:text="${client.email}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 电话: <var
+                                                th:text="${client.phone}">未知</var>
+                                        </li>
+                                    </ul>
+                                    <!--单个客户信息页-->
+                                    <a href="#" class="Contact"
+                                       th:href="@{'admin/clients/get/single?clientId='+${client.clientId}}">查看详情
+                                        <i class="lnr lnr-arrow-right"></i></a>
+                                    <!--删除-->
+                                    <form th:action="@{'admin/clients/delete?clientId='+${client.clientId}}"
+                                          method="post">
+                                        <button class="Contact">删除</button>
+                                    </form>
 
-<!--增加-->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+<!--添加客户模态框-->
+<div class="modal fade" id="createClient" aria-labelledby="createClientLabel"
+     aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-hidden="true">&times;
+                </button>
+                <h5 class="modal-title" id="createClientLabel">添加客户</h5>
+            </div>
 
-<!--删除-->
+            <form id="createClientForm" class="form-horizontal" method="post"
+                  th:action="@{/admin/clients/create}"
+                  th:object="${client}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="nickname">客户昵称：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="nickname" value=""
+                                   id="nickname" class="form-control"
+                                   th:field="*{nickname}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="password">密码：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="password" value=""
+                                   id="password" class="form-control"
+                                   th:field="*{password}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="username">真实姓名：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="location" value=""
+                                   id="username" class="form-control"
+                                   th:field="*{username}">
 
-<!--展示列表-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="location">地址：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="location" value=""
+                                   id="location" class="form-control"
+                                   th:field="*{location}">
 
-<!--详情链接-->
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="email">邮箱：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="email" value=""
+                                   id="email" class="form-control"
+                                   th:field="*{email}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="phone">电话：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="division" value=""
+                                   id="phone" class="form-control"
+                                   th:field="*{phone}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button class="btn btn-success" type="button"
+                            onclick="form.submit();">提交
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

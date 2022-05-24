@@ -87,11 +87,11 @@
                 <button class="close" type="button" data-dismiss="modal"
                         aria-hidden="true">&times;
                 </button>
-                <h5 class="modal-title" id="updateHouseLabel">添加房屋</h5>
+                <h5 class="modal-title" id="updateHouseLabel">修改房屋</h5>
             </div>
 
             <form id="updateHouseForm" class="form-horizontal" method="post"
-                  th:action="@{/admin/houses/update}"
+                  th:action="@{'/admin/houses/update?houseId='+${house.houseId}}"
                   th:object="${house}">
                 <div class="modal-body">
                     <div class="form-group">

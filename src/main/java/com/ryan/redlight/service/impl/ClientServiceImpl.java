@@ -4,6 +4,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.Client;
+import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.mapper.ClientMapper;
 import com.ryan.redlight.mapper.CommentMapper;
 import com.ryan.redlight.mapper.ViewAppointmentMapper;
@@ -66,27 +67,33 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Integer insertSelective(Client record) {
+    public Msg insertSelective(Client record) {
         Client duplicate = clientMapper.selectByNickname(record.getNickname());
         if (duplicate != null) {
             return null;
         }
-        return clientMapper.insertSelective(record);
+        int clientId = clientMapper.insertSelective(record);
+        return new Msg("创建成功");
     }
 
     @Override
-    public Boolean updateByPrimaryKeySelective(Client record) {
+    public Msg updateByPrimaryKeySelective(Client record) {
         int affectRow = clientMapper.updateByPrimaryKeySelective(record);
-        return affectRow != 0;
+        return new Msg("更新成功");
     }
 
     @Override
-    public Boolean deleteByPrimaryKey(Integer clientId) {
+    public Msg deleteByPrimaryKey(Integer clientId) {
         int clientAffectRow = clientMapper.deleteByPrimaryKey(clientId);
         // 级联删除
         int commentAffectRow = commentMapper.deleteByCreatorId(clientId);
         int appointmentAffectRow = appointmentMapper.deleteByCreatorId(clientId);
-        return clientAffectRow != 0;
+        return new Msg("删除成功");
+    }
+
+    @Override
+    public Client selectByPrimaryKey(Integer clientId) {
+        return clientMapper.selectByPrimaryKey(clientId);
     }
 
 }

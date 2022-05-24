@@ -5,10 +5,139 @@
 </head>
 <body>
 <!--导航栏-->
+<div th:replace="admin_kit::navbar"></div>
+<!--展示客户数据-->
+<div class="container">
+    <section class="heading-item-area">
+        <div class="container coustome-container">
+            <div class="row all-widgets-area m0">
+                <div class="col-md-10 col-sm-6 post-area">
+                    <!--修改客户，唤出模态框-->
+                    <button class="btn btn-lg btn-block" data-toggle="modal"
+                            data-target="#updateClient">修改客户信息
+                    </button>
+                    <!--客户详情-->
+                    <div th:object="${client}">
+                        <div class="Building-University">
+                            <div class="Building-content">
+                                <div class="right-area">
+                                    <!--标题-->
+                                    <h3 th:text="*{nickname}">Building Rent For
+                                        University</h3>
+                                    <!--信息-->
+                                    <ul class="info">
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 真实姓名: <var
+                                                th:text="${client.username}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 区域: <var
+                                                th:text="${client.location}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 邮箱: <var
+                                                th:text="${client.email}">未知</var>
+                                        </li>
+                                        <li>
+                                            <i class="lnr lnr-tag"></i> 电话: <var
+                                                th:text="${client.phone}">未知</var>
+                                        </li>
+                                    </ul>
+                                    <!--删除-->
+                                    <form th:action="@{'admin/clients/delete?clientId='+*{clientId}}"
+                                          method="post">
+                                        <button class="Contact">删除</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 
-<!--修改，模态框-->
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!--展示详情-->
+</div>
+<!--修改客户，模态框-->
+<div class="modal fade" id="updateClient" aria-labelledby="updateClientLabel"
+     aria-hidden="true" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" type="button" data-dismiss="modal"
+                        aria-hidden="true">&times;
+                </button>
+                <h5 class="modal-title" id="updateClientLabel">修改客户</h5>
+            </div>
 
+            <form id="updateClientForm" class="form-horizontal" method="post"
+                  th:action="@{'/admin/clients/update?clientId='+${client.clientId}}"
+                  th:object="${client}">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="nickname">客户昵称：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="nickname" value=""
+                                   id="nickname" class="form-control"
+                                   th:field="*{nickname}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="password">密码：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="password" value=""
+                                   id="password" class="form-control"
+                                   th:field="*{password}" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="username">真实姓名：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="location" value=""
+                                   id="username" class="form-control"
+                                   th:field="*{username}">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="location">地址：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="location" value=""
+                                   id="location" class="form-control"
+                                   th:field="*{location}">
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="email">邮箱：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="email" value=""
+                                   id="email" class="form-control"
+                                   th:field="*{email}">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-lg-3" for="phone">电话：</label>
+                        <div class="col-lg-9">
+                            <input type="text" placeholder="division" value=""
+                                   id="phone" class="form-control"
+                                   th:field="*{phone}">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-default" type="button" data-dismiss="modal">
+                        关闭
+                    </button>
+                    <button class="btn btn-success" type="button"
+                            onclick="form.submit();">提交
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>
