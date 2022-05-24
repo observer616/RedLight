@@ -7,7 +7,6 @@ import com.ryan.redlight.entity.vo.AppointmentVo;
 import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.interceptor.AdminCheck;
 import com.ryan.redlight.service.ViewAppointmentService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -41,34 +40,37 @@ public class AdminAppointmentController {
         List<AppointmentVo> appointmentVoList = appointmentVoPageInfo.getList();
         model.addAttribute("appointmentVoPageInfo", appointmentVoPageInfo);
         model.addAttribute("appointmentVoList", appointmentVoList);
-        // TODO: 2022/5/15 condition?
-        model.addAttribute("appointmentVo", new AppointmentVo());
         return "admin/appointment_list";
     }
 
     @AdminCheck
     @PostMapping(value = "/update/reply")
-    public String updateReply(@ModelAttribute(value = "appointmentVo") AppointmentVo appointmentVo,
+    public String updateReply(@RequestParam(value = "appointmentId")Integer appointmentId,
                               HttpSession session,
                               RedirectAttributes redirectAttributes) {
         Admin adminInfo = (Admin) session.getAttribute("adminInfo");
         // 构造appointment对象
-        appointmentVo.setIsReplied((byte) 1);
-        appointmentVo.setReplyerId(adminInfo.getAdminId());
+        ViewAppointment appointment = new ViewAppointment();
+        appointment.setViewAppointmentId(appointmentId);
+        appointment.setIsReplied((byte) 1);
+        appointment.setReplyerId(adminInfo.getAdminId());
         // 设置回复时间为当前时间
-        appointmentVo.setReplyTime(new Date());
-        Msg msg = appointmentService.updateByPrimaryKeySelective(appointmentVo);
+        appointment.setReplyTime(new Date());
+        Msg msg = appointmentService.updateByPrimaryKeySelective(appointment);
         redirectAttributes.addAttribute("msg", msg);
-        return "redirect:/admin/appointmentVo/get/list";
+        return "redirect:/admin/appointments/get/list";
     }
 
     @AdminCheck
     @PostMapping(value = "/update/view")
-    public String updateView(@ModelAttribute(value = "appointmentVo") AppointmentVo appointmentVo,
+    public String updateView(@RequestParam(value = "appointmentId")Integer appointmentId,
                              RedirectAttributes redirectAttributes) {
-        appointmentVo.setIsViewed((byte) 1);
-        Msg msg = appointmentService.updateByPrimaryKeySelective(appointmentVo);
+        // 构造回复预约对象
+        ViewAppointment appointment = new ViewAppointment();
+        appointment.setViewAppointmentId(appointmentId);
+        appointment.setIsViewed((byte) 1);
+        Msg msg = appointmentService.updateByPrimaryKeySelective(appointment);
         redirectAttributes.addAttribute("msg", msg);
-        return "redirect:/admin/appointment/get/list";
+        return "redirect:/admin/appointments/get/list";
     }
 }

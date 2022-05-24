@@ -19,40 +19,40 @@
                         <ul class="pagination">
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}-1)}">Prev</a>
+                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}-1)}">Prev</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}-2)}"
+                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}-2)}"
                                    th:if="${appointmentVoPageInfo.pageNum} -2 ge 1"
                                    th:text="*{pageNum - 2}">1</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}-1)}"
+                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}-1)}"
                                    th:if="${appointmentVoPageInfo.pageNum} -1 ge 1"
                                    th:text="*{pageNum - 1}">2</a>
                             </li>
                             <li class="active">
                                 <a href="#"
-                                   th:href="@{/admin/appointment/get/list(pageNum=*{pageNum})}"
+                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum})}"
                                    th:text="*{pageNum}">3</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}+1) }"
+                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}+1) }"
                                    th:if="${appointmentVoPageInfo.pageNum}+1 le ${appointmentVoPageInfo.pages}"
                                    th:text="*{pageNum + 1}">4</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}+2)}"
+                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}+2)}"
                                    th:if="${appointmentVoPageInfo.pageNum}+2 le ${appointmentVoPageInfo.pages}"
                                    th:text="*{pageNum + 2}">5</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointment/get/list(pageNum=*{pageNum}+1)}">Next</a>
+                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}+1)}">Next</a>
                             </li>
                         </ul>
                     </div>
@@ -102,15 +102,15 @@
                                 </ul>
                                 <!--结束预约-->
                                 <form th:if="${appointmentVo.isReplied} eq 0"
-                                      th:action="@{'admin/appointment/update/reply'}"
-                                      method="post" th:object="${appointmentVo}"
+                                      th:action="@{'admin/appointments/update/reply?appointmentId='+${appointmentVo.viewAppointmentId}}"
+                                      method="post"
                                       th:method="post">
                                     <button class="Contact">审查确定</button>
                                 </form>
                                 <!--完成看房-->
-                                <form th:if="${appointmentVo.isViewed} eq 0"
-                                      th:action="@{'admin/appointment/update/view'}"
-                                      method="post" th:object="${appointmentVo}"
+                                <form th:if="${appointmentVo.isReplied} eq 1 and ${appointmentVo.isViewed} eq 0"
+                                      th:action="@{'admin/appointments/update/view?appointmentId='+${appointmentVo.viewAppointmentId}}"
+                                      method="post"
                                       th:method="post">
                                     <button class="Contact">已完成看房</button>
                                 </form>
