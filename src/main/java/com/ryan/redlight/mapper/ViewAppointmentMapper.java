@@ -9,6 +9,12 @@ import java.util.List;
 public interface ViewAppointmentMapper {
     int deleteByPrimaryKey(Integer viewAppointmentId);
 
+    int deleteByHouseId(Integer houseId);
+
+    int deleteByCreatorId(Integer creatorId);
+
+    int deleteByReplierId(Integer replierId);
+
     int insert(ViewAppointment record);
 
     int insertSelective(ViewAppointment record);

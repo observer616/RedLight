@@ -50,8 +50,12 @@ public class ViewAppointmentServiceImpl implements ViewAppointmentService {
     public List<AppointmentVo> toAppointmentVoList(List<ViewAppointment> appointments) {
         List<AppointmentVo> list = new ArrayList<>();
         for (ViewAppointment appointment : appointments) {
+            // todo
+            System.out.println(appointment);
             House house = houseMapper.selectByPrimaryKey(appointment.getHouseId());
             Client creator = clientMapper.selectByPrimaryKey(appointment.getCreatorId());
+            // todo
+            System.out.println(house);
             if (appointment.getIsReplied() == 0) {
                 list.add(new AppointmentVo(appointment, house, creator));
             } else {
@@ -66,6 +70,8 @@ public class ViewAppointmentServiceImpl implements ViewAppointmentService {
     public PageInfo<AppointmentVo> selectAll(Integer pageNum) {
         PageHelper.startPage(pageNum, PageConfig.PAGE_SIZE);
         List<ViewAppointment> appointments = viewAppointmentMapper.selectAll();
+        // todo
+        System.out.println(appointments);
         List<AppointmentVo> list = toAppointmentVoList(appointments);
         //用PageInfo对结果进行包装
         return PageUtil.convertPageInfo(new PageInfo<>(appointments, PageConfig.PAGE_SIZE), list);

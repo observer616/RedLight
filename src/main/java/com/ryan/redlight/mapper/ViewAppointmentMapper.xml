@@ -40,6 +40,21 @@
         from rl_view_appointment
         where view_appointment_id = #{viewAppointmentId,jdbcType=INTEGER}
     </delete>
+    <delete id="deleteByHouseId" parameterType="java.lang.Integer">
+        delete
+        from rl_view_appointment
+        where house_id = #{houseId,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByCreatorId" parameterType="java.lang.Integer">
+        delete
+        from rl_view_appointment
+        where creator_id = #{creatorId,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByReplierId" parameterType="java.lang.Integer">
+        delete
+        from rl_view_appointment
+        where replyer_id = #{replierId,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="com.ryan.redlight.entity.ViewAppointment">
         insert into rl_view_appointment (view_appointment_id, house_id, creator_id,
                                          create_time, view_time, is_replied,

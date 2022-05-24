@@ -38,6 +38,16 @@
         from rl_comment
         where comment_id = #{commentId,jdbcType=INTEGER}
     </delete>
+    <delete id="deleteByCreatorId" parameterType="java.lang.Integer">
+        delete
+        from rl_comment
+        where creator_id = #{creatorId,jdbcType=INTEGER}
+    </delete>
+    <delete id="deleteByReplierId" parameterType="java.lang.Integer">
+        delete
+        from rl_comment
+        where reply_id = #{replierId,jdbcType=INTEGER}
+    </delete>
     <insert id="insert" parameterType="com.ryan.redlight.entity.Comment">
         insert into rl_comment (comment_id, creator_id, create_time,
                                 info, is_replied, reply_id,

@@ -5,6 +5,8 @@ import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.mapper.ClientMapper;
+import com.ryan.redlight.mapper.CommentMapper;
+import com.ryan.redlight.mapper.ViewAppointmentMapper;
 import com.ryan.redlight.service.ClientService;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +20,16 @@ public class ClientServiceImpl implements ClientService {
     final
     ClientMapper clientMapper;
 
-    public ClientServiceImpl(ClientMapper clientMapper) {
+    final
+    CommentMapper commentMapper;
+
+    final
+    ViewAppointmentMapper appointmentMapper;
+
+    public ClientServiceImpl(ClientMapper clientMapper, CommentMapper commentMapper, ViewAppointmentMapper appointmentMapper) {
         this.clientMapper = clientMapper;
+        this.commentMapper = commentMapper;
+        this.appointmentMapper = appointmentMapper;
     }
 
     @Override
@@ -72,8 +82,11 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Boolean deleteByPrimaryKey(Integer clientId) {
-        int affectRow = clientMapper.deleteByPrimaryKey(clientId);
-        return affectRow != 0;
+        int clientAffectRow = clientMapper.deleteByPrimaryKey(clientId);
+        // 级联删除
+        int commentAffectRow = commentMapper.deleteByCreatorId(clientId);
+        int appointmentAffectRow = appointmentMapper.deleteByCreatorId(clientId);
+        return clientAffectRow != 0;
     }
 
 }

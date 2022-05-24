@@ -6,6 +6,7 @@ import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.House;
 import com.ryan.redlight.entity.vo.Msg;
 import com.ryan.redlight.mapper.HouseMapper;
+import com.ryan.redlight.mapper.ViewAppointmentMapper;
 import com.ryan.redlight.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,8 +18,15 @@ import java.util.List;
  */
 @Service
 public class HouseServiceImpl implements HouseService {
-    @Autowired
+    final
     HouseMapper houseMapper;
+
+    final
+    ViewAppointmentMapper appointmentMapper;
+    public HouseServiceImpl(HouseMapper houseMapper, ViewAppointmentMapper appointmentMapper) {
+        this.houseMapper = houseMapper;
+        this.appointmentMapper = appointmentMapper;
+    }
 
     @Override
     public PageInfo<House> selectAll(Integer pageNum) {
@@ -75,7 +83,9 @@ public class HouseServiceImpl implements HouseService {
 
     @Override
     public Msg deleteByPrimaryKey(Integer houseId) {
-        int affectRow = houseMapper.deleteByPrimaryKey(houseId);
+        int houseAffectRow = houseMapper.deleteByPrimaryKey(houseId);
+        // 级联删除
+        int appointmentAffectRow = appointmentMapper.deleteByHouseId(houseId);
         return new Msg("删除成功");
     }
 }
