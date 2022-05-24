@@ -45,21 +45,21 @@
                enableSelectByExample="false" enableDeleteByExample="false"
                enableCountByExample="false" enableUpdateByExample="false"
         />
-        <!--<table tableName="rl_client" domainObjectName="Client"-->
-        <!--       enableSelectByExample="false" enableDeleteByExample="false"-->
-        <!--       enableCountByExample="false" enableUpdateByExample="false"-->
-        <!--/>-->
-        <!--<table tableName="rl_admin" domainObjectName="Admin"-->
-        <!--       enableSelectByExample="false" enableDeleteByExample="false"-->
-        <!--       enableCountByExample="false" enableUpdateByExample="false"-->
-        <!--/>-->
-        <!--<table tableName="rl_house" domainObjectName="House"-->
-        <!--       enableSelectByExample="false" enableDeleteByExample="false"-->
-        <!--       enableCountByExample="false" enableUpdateByExample="false"-->
-        <!--/>-->
-        <!--<table tableName="rl_view_appointment" domainObjectName="ViewAppointment"-->
-        <!--       enableSelectByExample="false" enableDeleteByExample="false"-->
-        <!--       enableCountByExample="false" enableUpdateByExample="false"-->
-        <!--/>-->
+        <table tableName="rl_client" domainObjectName="Client"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false"
+        />
+        <table tableName="rl_admin" domainObjectName="Admin"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false"
+        />
+        <table tableName="rl_house" domainObjectName="House"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false"
+        />
+        <table tableName="rl_view_appointment" domainObjectName="ViewAppointment"
+               enableSelectByExample="false" enableDeleteByExample="false"
+               enableCountByExample="false" enableUpdateByExample="false"
+        />
     </context>
 </generatorConfiguration>

@@ -1,11 +1,19 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="admin_kit::head(~{::title})">
-    <title>预约管理</title>
+<head th:replace="client_kit::head(~{::title})">
+    <title>个人预约列表</title>
 </head>
 <body>
 <!--导航栏-->
-<div th:replace="admin_kit::navbar"></div>
+<div th:replace="client_kit::navbar"></div>
+
+<!--个人信息-->
+<a th:href="@{/comments/get/single}">个人信息</a>
+<!--个人预约记录-->
+<a th:href="@{/comments/get/creatorId}">个人预约记录</a>
+<!--个人留言-->
+<a th:href="@{/appointments/get/creatorId}">个人留言</a>
+
 <!--展示列表-->
 <div class="container">
     <section class="heading-item-area">
@@ -17,40 +25,40 @@
                         <ul class="pagination">
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}-1)}">Prev</a>
+                                   th:href="@{/appointments/get/list(pageNum=*{pageNum}-1)}">Prev</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}-2)}"
+                                   th:href="@{/appointments/get/list(pageNum=*{pageNum}-2)}"
                                    th:if="${appointmentVoPageInfo.pageNum} -2 ge 1"
                                    th:text="*{pageNum - 2}">1</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}-1)}"
+                                   th:href="@{/appointments/get/list(pageNum=*{pageNum}-1)}"
                                    th:if="${appointmentVoPageInfo.pageNum} -1 ge 1"
                                    th:text="*{pageNum - 1}">2</a>
                             </li>
                             <li class="active">
                                 <a href="#"
-                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum})}"
+                                   th:href="@{/appointments/get/list(pageNum=*{pageNum})}"
                                    th:text="*{pageNum}">3</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}+1) }"
+                                   th:href="@{/appointments/get/list(pageNum=*{pageNum}+1) }"
                                    th:if="${appointmentVoPageInfo.pageNum}+1 le ${appointmentVoPageInfo.pages}"
                                    th:text="*{pageNum + 1}">4</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}+2)}"
+                                   th:href="@{/appointments/get/list(pageNum=*{pageNum}+2)}"
                                    th:if="${appointmentVoPageInfo.pageNum}+2 le ${appointmentVoPageInfo.pages}"
                                    th:text="*{pageNum + 2}">5</a>
                             </li>
                             <li>
                                 <a href="#"
-                                   th:href="@{/admin/appointments/get/list(pageNum=*{pageNum}+1)}">Next</a>
+                                   th:href="@{/appointments/get/list(pageNum=*{pageNum}+1)}">Next</a>
                             </li>
                         </ul>
                     </div>
@@ -103,20 +111,6 @@
                                         <var th:unless="${appointmentVo.isReplied} eq 0">否</var>
                                     </li>
                                 </ul>
-                                <!--结束预约-->
-                                <form th:if="${appointmentVo.isReplied} eq 0"
-                                      th:action="@{'admin/appointments/update/reply?appointmentId='+${appointmentVo.viewAppointmentId}}"
-                                      method="post"
-                                      th:method="post">
-                                    <button class="Contact">审查确定</button>
-                                </form>
-                                <!--完成看房-->
-                                <form th:if="${appointmentVo.isReplied} eq 1 and ${appointmentVo.isViewed} eq 0"
-                                      th:action="@{'admin/appointments/update/view?appointmentId='+${appointmentVo.viewAppointmentId}}"
-                                      method="post"
-                                      th:method="post">
-                                    <button class="Contact">已完成看房</button>
-                                </form>
                             </div>
                         </div>
                     </div>

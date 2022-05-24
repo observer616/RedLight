@@ -58,7 +58,7 @@
                     <!--todo 个人中心-->
                     <li th:if="${session.clientInfo!=null}">
                         <a href="#" th:text="${session.clientInfo.nickname}"
-                           th:href="@{/client/info}">用户名
+                           th:href="@{/clients/get/single}">用户名
                             <i class="lnr lnr-arrow-right"></i></a>
                     </li>
                     <!--未登录-->

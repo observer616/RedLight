@@ -2,6 +2,8 @@ package com.ryan.redlight.web.client;
 
 import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.vo.Msg;
+import com.ryan.redlight.interceptor.AdminCheck;
+import com.ryan.redlight.interceptor.ClientCheck;
 import com.ryan.redlight.service.ClientService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -16,11 +19,11 @@ import javax.servlet.http.HttpSession;
  * @author Ryan
  */
 @Controller
-public class LoginRegisterController {
+public class ClientController {
     final
     ClientService clientService;
 
-    public LoginRegisterController(ClientService clientService) {
+    public ClientController(ClientService clientService) {
         this.clientService = clientService;
     }
 
@@ -66,5 +69,30 @@ public class LoginRegisterController {
             return "client/register";
         }
         return "redirect:/login";
+    }
+
+    @ClientCheck
+    @GetMapping(value = "/clients/get/single")
+    public String getSingle(HttpSession session,
+                            Model model) {
+        Client client = (Client) session.getAttribute("clientInfo");
+        // 页面中更新功能需要model
+        model.addAttribute("client", client);
+        return "client/personal_info";
+    }
+
+    @AdminCheck
+    @PostMapping(value = "/clients/update")
+    public String update(@RequestParam(value="clientId") Integer clientId,
+                         @ModelAttribute(value = "client") Client client,
+                         HttpSession session,
+                         RedirectAttributes redirectAttributes) {
+        client.setClientId(clientId);
+        Msg msg = clientService.updateByPrimaryKeySelective(client);
+        redirectAttributes.addAttribute("msg", msg);
+        // 更新session
+        client = clientService.selectByPrimaryKey(clientId);
+        session.setAttribute("clientInfo", client);
+        return "redirect:/clients/get/single?clientId="+clientId;
     }
 }

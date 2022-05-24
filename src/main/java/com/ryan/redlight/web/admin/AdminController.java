@@ -15,11 +15,11 @@ import javax.servlet.http.HttpSession;
  * @author Ryan
  */
 @Controller
-public class AdminLoginController {
+public class AdminController {
     final
     AdminService adminService;
 
-    public AdminLoginController(AdminService adminService) {
+    public AdminController(AdminService adminService) {
         this.adminService = adminService;
     }
 

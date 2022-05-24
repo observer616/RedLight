@@ -13,14 +13,14 @@ import java.io.IOException;
 /**
  * @author Ryan
  */
-public class LoginInterceptor implements HandlerInterceptor {
+public class ClientInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws IOException {
         HttpSession session = request.getSession();
         // 检查注解
         if (handler.getClass().isAssignableFrom(HandlerMethod.class)) {
-            LoginCheck loginCheck = ((HandlerMethod) handler).getMethodAnnotation(LoginCheck.class);
-            if (loginCheck == null) {
+            ClientCheck clientCheck = ((HandlerMethod) handler).getMethodAnnotation(ClientCheck.class);
+            if (clientCheck == null) {
                 return true;
             }
         }

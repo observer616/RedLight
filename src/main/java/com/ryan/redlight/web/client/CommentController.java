@@ -5,7 +5,7 @@ import com.ryan.redlight.entity.Client;
 import com.ryan.redlight.entity.Comment;
 import com.ryan.redlight.entity.vo.CommentVo;
 import com.ryan.redlight.entity.vo.Msg;
-import com.ryan.redlight.interceptor.LoginCheck;
+import com.ryan.redlight.interceptor.ClientCheck;
 import com.ryan.redlight.service.CommentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,14 +36,12 @@ public class CommentController {
                                  Model model) {
         PageInfo<CommentVo> commentVoPageInfo = commentService.selectAll(pageNum);
         List<CommentVo> commentVoList = commentVoPageInfo.getList();
-        // todo
-        System.out.println(commentVoPageInfo);
         model.addAttribute("commentVoPageInfo", commentVoPageInfo);
         model.addAttribute("commentVoList", commentVoList);
         return "client/comment_list";
     }
 
-    @LoginCheck
+    @ClientCheck
     @PostMapping(value = "/create")
     public String createComment(@RequestParam(value = "info") String info,
                                 HttpSession session,
@@ -63,5 +61,17 @@ public class CommentController {
         }
         redirectAttributes.addFlashAttribute("Msg", msg);
         return "redirect:/comments/get/list";
+    }
+
+    @GetMapping(value = "/get/creatorId")
+    public String getCommentListByCreatorId(@RequestParam(required = false, defaultValue = "1", value = "pageNum") Integer pageNum,
+                                            HttpSession session,
+                                            Model model) {
+        Client client = (Client) session.getAttribute("clientInfo");
+        PageInfo<CommentVo> commentVoPageInfo = commentService.selectAllByCreator(pageNum, client);
+        List<CommentVo> commentVoList = commentVoPageInfo.getList();
+        model.addAttribute("commentVoPageInfo", commentVoPageInfo);
+        model.addAttribute("commentVoList", commentVoList);
+        return "client/personal_comments";
     }
 }

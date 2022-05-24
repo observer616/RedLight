@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="client_kit::head(title='个人留言')">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<style>
+    .contact-box input {
+        height: 50px;
+        border: 1px solid #f7f6f5;
+        font-size: 15px;
+        background-color: #f7f6f5;
+        font-weight: 500
+    }
+
+    .contact-box textarea {
+        border: 1px solid #f7f6f5;
+        padding-top: 10px;
+        background-color: #f7f6f5;
+        font-size: 15px;
+        font-weight: 500
+    }
+
+    .contact-box button {
+        background-color: #325eff;
+        border: 0;
+        color: #fff;
+        padding: 10px 30px;
+        border-radius: 4px;
+        cursor: pointer;
+        outline: 0;
+        font-weight: 500;
+        font-size: 15px
+    }
+
+    .contact-box button:hover {
+        background-color: #0f39cf;
+    }
+</style>
+
+<!--导航栏-->
+<div th:replace="client_kit::navbar"></div>
+<!--正文-->
+<!--留言-->
+<div class="container">
+    <section class="heading-item-area">
+        <div class="container coustome-container">
+            <div class="row all-widgets-area m0">
+                <div class="col-md-10 col-sm-6 post-area">
+                    <!--分页导航-->
+                    <div class="column"
+                         th:object="${commentVoPageInfo}">
+                        <ul class="pagination">
+                            <li>
+                                <a href="#"
+                                   th:href="@{/comments/get/creatorId(pageNum=*{pageNum}-1 )}">Prev</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/comments/get/creatorId(pageNum=*{pageNum}-2 )}"
+                                   th:if="${commentVoPageInfo.pageNum} -2 ge 1"
+                                   th:text="*{pageNum - 2}">1</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/comments/get/creatorId(pageNum=*{pageNum}-1 )}"
+                                   th:if="${commentVoPageInfo.pageNum} -1 ge 1"
+                                   th:text="*{pageNum - 1}">2</a>
+                            </li>
+                            <li class="active">
+                                <a href="#"
+                                   th:href="@{/comments/get/creatorId(pageNum=*{pageNum} )}"
+                                   th:text="*{pageNum}">3</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/comments/get/creatorId(pageNum=*{pageNum}+1 ) }"
+                                   th:if="${commentVoPageInfo.pageNum}+1 le ${commentVoPageInfo.pages}"
+                                   th:text="*{pageNum + 1}">4</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/comments/get/creatorId(pageNum=*{pageNum}+2 )}"
+                                   th:if="${commentVoPageInfo.pageNum}+2 le ${commentVoPageInfo.pages}"
+                                   th:text="*{pageNum + 2}">5</a>
+                            </li>
+                            <li>
+                                <a href="#"
+                                   th:href="@{/comments/get/creatorId(pageNum=*{pageNum}+1 )}">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!--展示-->
+                    <div class="Building-University" th:each="commentVo:${commentVoList}">
+                        <div class="Building-content">
+                            <div class="right-area">
+                                <div class="content">
+                                    <span class="name" th:text="${commentVo.creatorName}">commentVo.creatorName</span>
+                                    <span th:text="${commentVo.info}">commentVo.info</span>
+                                    <!--<div class="pic"><img src="#" alt=""></div>-->
+                                    <div class="good"><span class="date"
+                                                            th:text="${#dates.format(commentVo.createTime,'yyyy-MM-dd')}">commentVo.createTime</span>
+                                    </div>
+                                    <div class="comment-list">
+                                        <!--管理员回复-->
+                                        <div class="comment"
+                                             th:if="${commentVo.isReplied} eq 1">
+                                            <div class="comment-right">
+                                                <div class="comment-text">
+                                                    <span>用户名：</span>
+                                                    <span class="user"
+                                                          th:text="${commentVo.replyName}">commentVo.replyName</span>
+                                                    <span>留言时间：</span>
+                                                    <span class="comment-date"
+                                                          th:text="${#dates.format(commentVo.replyTime,'yyyy-MM-dd')}">commentVo.replyTime</span>
+                                                </div>
+                                                <span th:text="${commentVo.replyInfo}">commentVo.replyInfo</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+</body>
+</html>
