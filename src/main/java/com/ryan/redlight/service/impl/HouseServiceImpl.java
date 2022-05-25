@@ -5,12 +5,14 @@ import com.github.pagehelper.PageInfo;
 import com.ryan.redlight.config.PageConfig;
 import com.ryan.redlight.entity.House;
 import com.ryan.redlight.entity.vo.Msg;
+import com.ryan.redlight.entity.vo.VisualHouseTypeVo;
 import com.ryan.redlight.mapper.HouseMapper;
 import com.ryan.redlight.mapper.ViewAppointmentMapper;
 import com.ryan.redlight.service.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -87,5 +89,29 @@ public class HouseServiceImpl implements HouseService {
         // 级联删除
         int appointmentAffectRow = appointmentMapper.deleteByHouseId(houseId);
         return new Msg("删除成功");
+    }
+
+    /**
+     *
+     * @param visualInfoCount 显示的信息条数，其余以 ‘other’代替
+     * @return ret
+     */
+    @Override
+    public List<VisualHouseTypeVo> selectVisualHouseTypeVo(int visualInfoCount) {
+        List<VisualHouseTypeVo> voList = houseMapper.groupByType();
+        List<VisualHouseTypeVo> ret = new ArrayList<>();
+        for(int i = 0;i<voList.size()&&i<visualInfoCount;++i){
+            ret.add(voList.get(i));
+        }
+        int count = 0;
+        for(int i = visualInfoCount;i<voList.size();++i){
+            count+=voList.get(i).getCount();
+        }
+        if(count!=0){
+            ret.add(new VisualHouseTypeVo("其他", count));
+        }
+        // todo
+        System.out.println(ret);
+        return ret;
     }
 }

@@ -4,32 +4,45 @@
     <title>房屋数据可视化</title>
 </head>
 <body>
-<!--todo 无内容？-->
+<script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
+
 <!--导航栏-->
+<div th:replace="admin_kit::navbar"></div>
 
 <!--可视化-->
 <div id="sales_count" style="width: 600px;height:400px;"></div>
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('sales_count'));
+    var myChart = echarts.init(document.getElementById('main'));
+
+    var visualTypeList = [[${visualTypeList}]];
+    var xData = [];
+    var sData = [];
+    for(var i = 0;i<visualTypeList.length;i++){
+        xData.push(visualTypeList[i].houseType);
+        sData.push(visualTypeList[i].count);
+    }
+    // 指定图表的配置项和数据
     var option = {
+        title: {
+            text: '房屋类型分布数据可视化'
+        },
+        tooltip: {},
+        legend: {
+            data:['房屋类型']
+        },
         xAxis: {
-            type: 'category',
-            name: '房屋类型',
-            data: ['一居', '二居', '三居', '四居', '五居']
+            data: xData
         },
-        yAxis: {
-            type: 'value',
-            name: '销量'
-        },
-        series: [
-            {
-                data: [120, 200, 150, 80, 70],
-                type: 'bar'
-            }
-        ]
+        yAxis: {},
+        series: [{
+            name: '数量',
+            type: 'bar',
+            data: sData
+        }]
     };
 
-    option && myChart.setOption(option);
+    // 使用刚指定的配置项和数据显示图表。
+    myChart.setOption(option);
 </script>
 
 </body>

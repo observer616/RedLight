@@ -9,6 +9,11 @@ spring:
     mode: HTML5
     encoding: UTF-8
     prefix: classpath:/templates/
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
 server:
   port: 12345
 
@@ -18,3 +23,6 @@ pagehelper:
   reasonable: true
   params: count=countSql
   supportMethodsArguments: true
+
+
+
