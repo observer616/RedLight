@@ -1,20 +1,140 @@
-<!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head th:replace="client_kit::head(title='红光社区住宅销售系统')">
-    <meta charset="UTF-8">
-    <title>Title</title>
+<!DOCTYPE HTML >
+<html lang="en-US" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+    <!--todo replace ".." ".."-->
+
+    <!--page name-->
+    <title>Homify</title>
+
+    <link href='http://fonts.googleapis.com/css?family=Roboto:400,300,300italic,400italic,500,500italic,700,700italic,900,900italic'
+          rel='stylesheet' type='text/css'>
+    <!--Bootstrap-->
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" media="all"/>
+    <!--Bootstrap-select CSS-->
+    <link rel="stylesheet" type="text/css"
+          href="../vendors/bootstrap-select/bootstrap-select.min.css"
+          media="all"/>
+    <!--Flexslider CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/flexslider/css/flexslider.css"
+          media="all"/>
+    <!--Owl_Carousel CSS-->
+    <link rel="stylesheet" type="text/css" href="../vendors/owl-carousel/owl.carousel.css"
+          media="all"/>
+    <!--Linearicons Icons CSS-->
+    <link rel="stylesheet" href="../vendors/linearicons/Linearicons.css">
+    <!--Font-Awesome CSS-->
+    <link rel="stylesheet" href="../vendors/font-awesome/css/font-awesome.min.css">
+    <!-- Fonts -->
+
+
+    <!--Theme Styles CSS-->
+    <link rel="stylesheet" type="text/css" href="../css/style.css" media="all"/>
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="static/js/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="static/js/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
 </head>
 <body>
 <!--导航栏-->
 <div th:replace="client_kit::navbar"></div>
-<!--消息提示-->
-<div class="alert alert-warning" role="alert" th:if="${msg}">
-    <button type="button" class="close" data-dismiss="alert"
-            aria-label="Close"><span
-            aria-hidden="true">&times;</span></button>
-    <strong th:text="${msg.head}">head</strong> <span
-        th:text="${msg.info}">message</span>
-</div>
 
+<!--广告轮播-->
+<section class="slider row">
+    <div class="container coustome-container">
+        <div class="row flexslider-hed">
+            <h2>Featured Listings</h2>
+            <div id="slider" class="flexslider main_slider">
+                <ul class="slides slide-bottom">
+                    <li th:each="house:${houseList}">
+                        <div class="col-md-5 p0">
+                            <div class="right-area">
+                                <h3 th:text="${house.name}"></h3>
+                                <a href="" class="btn-slide left"
+                                   th:if="${house.isSold} eq 0">待售</a>
+                                <a href="" class="btn-slide"
+                                   th:text="${house.address}"></a>
+                                <a href="" class="btn-slide activ"
+                                   th:text="${house.division}">Available</a>
+                                <ul class="info">
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 面积: <var
+                                            th:text="${house.size}">未知</var>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 地址: <var
+                                            th:text="${house.address}">未知</var>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 价格: <var
+                                            th:text="${house.price}">未知</var>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 区域: <var
+                                            th:text="${house.division}">未知</var>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 点击数: <var
+                                            th:text="${house.click}">未知</var>
+                                    </li>
+                                    <li>
+                                        <i class="lnr lnr-tag"></i> 类型: <var
+                                            th:text="${house.type}">未知</var>
+                                    </li>
+                                </ul>
+                                <a href="#" class="info-book"
+                                   th:href="@{'/houses/get/single?houseId='+${house.houseId}}">详情页
+                                    <i class="lnr lnr-arrow-right"></i></a>
+                                <h1>$<var th:text="${house.price}">12,050</var></h1>
+                            </div>
+                        </div>
+                        <div class="col-md-7 team p0">
+                            <img src="../img/slider_top_img.png" th:src="${house.picture}"
+                                 alt=""/>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="carousel" class="flexslider thumnil">
+        <ul class="slides">
+            <li th:each="house:${houseList}">
+                <img src="../img/slider_slides_1.png" th:src="${house.picture}"
+                     alt=""/>
+            </li>
+        </ul>
+    </div>
+</section>
+
+
+<!--jQuery JS-->
+<script src="../js/jquery-1.12.0.min.js"></script>
+<!--Bootstrap JS-->
+<script src="../js/bootstrap.min.js"></script>
+<!--Bootstrap-select JS-->
+<script src="../vendors/bootstrap-select/bootstrap-select.min.js"></script>
+<!--Flexslider JS-->
+<script src="../vendors/flexslider/js/jquery.flexslider.js"></script>
+<!--Owl Carousel JS-->
+<!--<script src="vendors/owl-carousel/owl.carousel.min.js"></script>-->
+<script src="../js/owl.carousel.min.js"></script>
+<!-- Counterup JS -->
+<script src="../js/waypoints.min.js"></script>
+<script src="../vendors/counter/jquery.counterup.min.js"></script>
+<!--jQuery ui JS-->
+<script src="../js/jquery-ui.min.js"></script>
+
+<!--Theme-->
+<script src="../js/theme.js"></script>
 </body>
 </html>
