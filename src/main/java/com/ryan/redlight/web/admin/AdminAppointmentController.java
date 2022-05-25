@@ -9,7 +9,6 @@ import com.ryan.redlight.interceptor.AdminCheck;
 import com.ryan.redlight.service.ViewAppointmentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,6 +19,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * 管理员预约模块
+ *
  * @author Ryan
  */
 @Controller
@@ -45,7 +46,7 @@ public class AdminAppointmentController {
 
     @AdminCheck
     @PostMapping(value = "/update/reply")
-    public String updateReply(@RequestParam(value = "appointmentId")Integer appointmentId,
+    public String updateReply(@RequestParam(value = "appointmentId") Integer appointmentId,
                               HttpSession session,
                               RedirectAttributes redirectAttributes) {
         Admin adminInfo = (Admin) session.getAttribute("adminInfo");
@@ -63,7 +64,7 @@ public class AdminAppointmentController {
 
     @AdminCheck
     @PostMapping(value = "/update/view")
-    public String updateView(@RequestParam(value = "appointmentId")Integer appointmentId,
+    public String updateView(@RequestParam(value = "appointmentId") Integer appointmentId,
                              RedirectAttributes redirectAttributes) {
         // 构造回复预约对象
         ViewAppointment appointment = new ViewAppointment();

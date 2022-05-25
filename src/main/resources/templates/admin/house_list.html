@@ -6,6 +6,8 @@
 <body>
 <!--导航栏-->
 <div th:replace="admin_kit::navbar"></div>
+<!--房屋销售数据可视化-->
+<a href="#" th:href="@{admin/houses/visual/type}"></a>
 <!--展示-->
 <div class="container">
     <section class="heading-item-area">
@@ -146,7 +148,7 @@
 
             <form id="createHouseForm" class="form-horizontal" method="post"
                   th:action="@{/admin/houses/create}"
-                  th:object="${house}">
+                  th:object="${house}" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="control-label col-lg-3" for="name">房屋名称：</label>
@@ -207,9 +209,14 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="control-label col-lg-3" for="picture">图片：</label>
-                        <input type="file" value="" id="picture" class="form-control"
-                               name="picture" th:name="picture" accept="image/png"/>
+                        <label class="control-label col-lg-3"
+                               for="pictureFile">图片：</label>
+                        <div class="col-lg-9">
+                            <input type="file" value="" id="pictureFile"
+                                   class="form-control"
+                                   name="pictureFile" th:name="pictureFile"
+                                   accept="image/png,image/gif"/>
+                        </div>
                     </div>
                 </div>
 

@@ -5,9 +5,12 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
+/**
+ * 提供分页所需部分工具，本项目分页主要使用PageHelper
+ */
 public class PageUtil {
     /**
-     * VO对象的 PageInfo 转换
+     * 负责VO对象的PageInfo转换
      * @author Ryan
      */
     public static <T, R> PageInfo<R> convertPageInfo(PageInfo<T> sourcePageInfo, List<R> targetList) {

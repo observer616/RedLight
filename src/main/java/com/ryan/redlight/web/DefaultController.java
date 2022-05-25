@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
+ * 设置默认控制器，收集未定义的url请求
  * @author Ryan
  */
 @Controller
@@ -26,12 +27,8 @@ public class DefaultController {
 
 
     @GetMapping(value = {"/*"})
-    public String redirectHome(@RequestParam(value = "visualInfoCount", required = false, defaultValue = "5") Integer visualInfoCount,
-                               Model model) {
-        // todo
-        List<VisualHouseTypeVo> visualTypeList = houseService.selectVisualHouseTypeVo(visualInfoCount);
-        model.addAttribute("visualTypeList", visualTypeList);
-        return "demo/demo";
+    public String redirectHome() {
+        return "redirect:/home";
     }
 
     @GetMapping(value = {"/admin/*", "/admin"})

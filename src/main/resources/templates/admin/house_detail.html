@@ -92,7 +92,7 @@
 
             <form id="updateHouseForm" class="form-horizontal" method="post"
                   th:action="@{'/admin/houses/update?houseId='+${house.houseId}}"
-                  th:object="${house}">
+                  th:object="${house}" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="control-label col-lg-3" for="name">房屋名称：</label>
@@ -152,13 +152,14 @@
                                    th:field="*{description}">
                         </div>
                     </div>
-                    <!--todo 上传图片-->
                     <div class="form-group">
-                        <label class="control-label col-lg-3" for="picture">图片：</label>
+                        <label class="control-label col-lg-3"
+                               for="pictureFile">图片：</label>
                         <div class="col-lg-9">
-                            <input type="text" placeholder="picture" value=""
-                                   id="picture" class="form-control"
-                                   th:field="*{picture}">
+                            <input type="file" value="" id="pictureFile"
+                                   class="form-control"
+                                   name="pictureFile" th:name="pictureFile"
+                                   accept="image/png,image/gif"/>
                         </div>
                     </div>
                 </div>

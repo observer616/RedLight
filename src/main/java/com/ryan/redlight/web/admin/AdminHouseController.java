@@ -8,10 +8,7 @@ import com.ryan.redlight.interceptor.AdminCheck;
 import com.ryan.redlight.service.HouseService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -27,10 +24,6 @@ import java.util.UUID;
 public class AdminHouseController {
     final
     HouseService houseService;
-
-    // TODO: 2022/5/22 文件上传，文件保存路径
-//    @Value("${file.upload.path.relative}")
-//    private String filePath;
 
     public AdminHouseController(HouseService houseService) {
         this.houseService = houseService;
@@ -65,28 +58,9 @@ public class AdminHouseController {
     @AdminCheck
     @PostMapping(value = "/create")
     public String create(@ModelAttribute(value = "house") House house,
-                         @RequestParam(value = "picture", required = false) MultipartFile picture,
+                         @RequestParam(value = "pictureFile", required = false) MultipartFile pictureFile,
                          RedirectAttributes redirectAttributes) {
-        if (picture != null) {
-            //获取文件名
-            String fileName = picture.getOriginalFilename();
-            //获取文件后缀名
-            assert fileName != null;
-            String suffixName = fileName.substring(fileName.lastIndexOf("."));
-            //重新生成文件名
-            fileName = UUID.randomUUID() + suffixName;
-            //指定本地文件夹存储图片，写到需要保存的目录下
-            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\house_img\\";
-            try {
-                //将图片保存到static文件夹里
-                picture.transferTo(new File(filePath + fileName));
-                //返回提示信息
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            // 添加house
-            house.setPicture("..\\img\\house_img\\" + fileName);
-        }
+        operatePictureFile(house, pictureFile);
         Msg msg = houseService.insertSelective(house);
         redirectAttributes.addFlashAttribute("msg", msg);
         return "redirect:/admin/houses/get/list";
@@ -114,15 +88,45 @@ public class AdminHouseController {
     @PostMapping(value = "/update")
     public String update(@RequestParam(value = "houseId") Integer houseId,
                          @ModelAttribute(value = "house") House house,
+                         @RequestParam(value = "pictureFile", required = false) MultipartFile pictureFile,
                          RedirectAttributes redirectAttributes) {
+        operatePictureFile(house, pictureFile);
         house.setHouseId(houseId);
         Msg msg = houseService.updateByPrimaryKeySelective(house);
         redirectAttributes.addAttribute("msg", msg);
         return "redirect:/admin/clients/get/single?houseId=" + houseId;
     }
 
+    /**
+     * 提取图片、将图片名存入house
+     * @param house house
+     * @param pictureFile 文件
+     */
+    private void operatePictureFile(@ModelAttribute("house") House house, @RequestParam(value = "pictureFile", required = false) MultipartFile pictureFile) {
+        if (pictureFile != null) {
+            //获取文件名
+            String fileName = pictureFile.getOriginalFilename();
+            //获取文件后缀名
+            assert fileName != null;
+            String suffixName = fileName.substring(fileName.lastIndexOf("."));
+            //重新生成文件名
+            fileName = UUID.randomUUID() + suffixName;
+            //指定本地文件夹存储图片，写到需要保存的目录下
+            String filePath = System.getProperty("user.dir") + "\\src\\main\\resources\\static\\img\\house_img\\";
+            try {
+                //将图片保存到static文件夹里
+                pictureFile.transferTo(new File(filePath + fileName));
+                //返回提示信息
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            // 添加house
+            house.setPicture("../img/house_img/" + fileName);
+        }
+    }
+
     @AdminCheck
-    @PostMapping(value = "/visual/type")
+    @RequestMapping(value = "/visual/type")
     public String visualType(@RequestParam(value = "visualInfoCount", required = false, defaultValue = "5") Integer visualInfoCount,
                              Model model) {
         List<VisualHouseTypeVo> visualTypeList = houseService.selectVisualHouseTypeVo(visualInfoCount);
