@@ -14,6 +14,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.util.List;
 
 /**
+ * 客户商品模块
  * @author Ryan
  */
 @Controller
