@@ -48,6 +48,12 @@
         <div class="container coustome-container">
             <div class="row all-widgets-area m0">
                 <div class="col-md-10 col-sm-6 post-area">
+
+                    <!--个人信息-->
+                    <a th:href="@{/comments/get/single}">个人信息</a>
+                    <!--个人预约记录-->
+                    <a th:href="@{/comments/get/creatorId}">个人预约记录</a>
+                    <!--个人留言-->
                     <!--分页导航-->
                     <div class="column"
                          th:object="${commentVoPageInfo}">

@@ -13,7 +13,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class InterceptorConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new ClientInterceptor());
-        registry.addInterceptor(new AdminInterceptor());
+        registry.addInterceptor(new ClientInterceptor()).excludePathPatterns("/static/**", "/admin/login",
+                "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
+                "/**/*.jpeg", "/**/*.gif", "/**/fonts/*", "/**/*.svg");
+        registry.addInterceptor(new AdminInterceptor()).excludePathPatterns("/static/**", "/admin/login",
+                "/**/*.css", "/**/*.js", "/**/*.png", "/**/*.jpg",
+                "/**/*.jpeg", "/**/*.gif", "/**/fonts/*", "/**/*.svg");
     }
 }
