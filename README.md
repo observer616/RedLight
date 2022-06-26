@@ -12,7 +12,7 @@ Graduation Project
 其他：权限管理（HandlerIntercepterAdapter）、分页（PageHelper）
 
 数据库设计：
-![数据库UML](https://user-images.githubusercontent.com/50370295/175805532-8ef83240-b73c-495e-b714-5f1218d9b7b8.png)
+![数据库UML](https://user-images.githubusercontent.com/50370295/175805711-cfdfc2fe-8fee-4ef1-b5f1-75ff798a7a1a.png)
 
 页面逻辑设计：
-![页面逻辑](https://user-images.githubusercontent.com/50370295/175805539-87f44dec-1137-4d62-8409-08fb9b777fad.png)
+![页面逻辑](https://user-images.githubusercontent.com/50370295/175805717-860a43d7-10ff-4fa6-a2b1-a127be5f9fe4.png)
